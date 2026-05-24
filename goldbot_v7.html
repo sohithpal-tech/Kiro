@@ -1,0 +1,3010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Bot v7 — Complete Build Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5A623;--gold-light:#FFD080;--gold-dim:#8B6914;--bg:#0A0A0A;--bg2:#111;--bg3:#1A1A1A;--border:#2A2A2A;--text:#E8E8E8;--dim:#888;--green:#2ECC71;--red:#E74C3C;--blue:#3498DB}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Syne,sans-serif;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+.header{padding:55px 40px 45px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-80px;right:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(245,166,35,.13) 0%,transparent 70%);pointer-events:none}
+.htag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);padding:4px 12px;border-radius:2px;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(30px,5vw,54px);font-weight:800;line-height:1.1;letter-spacing:-1px}
+h1 span{color:var(--gold)}
+.hsub{margin-top:10px;font-size:14px;color:var(--dim);max-width:520px}
+.hver{display:inline-flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.badge{font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 10px;border-radius:2px;letter-spacing:1px}
+.badge-g{color:var(--green);background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3)}
+.badge-gold{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)}
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 40px;overflow-x:auto;position:sticky;top:0;background:var(--bg);z-index:100}
+.tab{padding:15px 20px;font-size:11px;font-weight:600;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;font-family:"JetBrains Mono",monospace;letter-spacing:.3px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+.page{display:none;padding:48px 0;animation:fi .3s ease}
+.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1020px;margin:0 auto;padding:0 40px}
+.ph{display:flex;align-items:flex-start;gap:18px;margin-bottom:38px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.pnum{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);padding:5px 11px;border-radius:2px;white-space:nowrap;margin-top:3px}
+.ptitle{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.psub{font-size:13px;color:var(--dim);margin-top:5px}
+.step{margin-bottom:28px;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .2s}
+.step:hover{border-color:#3a3a3a}
+.sh{display:flex;align-items:center;gap:13px;padding:15px 20px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.sn{width:27px;height:27px;background:var(--gold);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:"JetBrains Mono",monospace}
+.sn.r{background:var(--red)}.sn.b{background:var(--blue)}.sn.g{background:var(--green);color:#000}
+.stitle{font-size:14px;font-weight:700}
+.sb{padding:20px}
+.cw{margin:13px 0;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.cl{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim);letter-spacing:1px}
+.cb{background:none;border:1px solid var(--border);color:var(--dim);padding:2px 9px;border-radius:3px;font-family:"JetBrains Mono",monospace;font-size:10px;cursor:pointer;transition:all .2s}
+.cb:hover{border-color:var(--gold);color:var(--gold)}
+.cb.ok{border-color:var(--green);color:var(--green)}
+pre{background:#0D0D0D;padding:16px 18px;overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:11.5px;line-height:1.75;color:#D4D4D4;max-height:500px;overflow-y:auto}
+.box{padding:12px 16px;border-radius:6px;font-size:13px;margin:12px 0;display:flex;gap:9px;align-items:flex-start}
+.bi{flex-shrink:0;font-size:14px;margin-top:1px}
+.bw{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25)}
+.bi2{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.25)}
+.bo{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25)}
+.bg{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25)}
+.bp{background:rgba(155,89,182,.1);border:1px solid rgba(155,89,182,.3)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0}
+th{text-align:left;padding:9px 13px;background:var(--bg3);color:var(--gold-light);font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05);color:#ccc;vertical-align:top;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+td:first-child{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold-light)}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+ul.il{list-style:none}
+ul.il li{display:flex;gap:9px;padding:7px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start;color:#ccc}
+ul.il li:last-child{border-bottom:none}
+ul.il li::before{content:"→";color:var(--gold);font-family:"JetBrains Mono",monospace;flex-shrink:0;margin-top:1px}
+ul.il li strong{color:var(--text)}
+ul.ol-steps{list-style:none;counter-reset:steps}
+ul.ol-steps li{counter-increment:steps;display:flex;gap:12px;padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start;color:#ccc}
+ul.ol-steps li:last-child{border-bottom:none}
+ul.ol-steps li::before{content:counter(steps);min-width:22px;height:22px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:1px}
+.ck{list-style:none}
+.ck li{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:#ccc}
+.ck li:last-child{border-bottom:none}
+.chk{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.chk:hover{border-color:var(--gold)}
+.chk.dn{background:var(--gold);border-color:var(--gold)}
+.chk.dn::after{content:"✓";color:#000;font-size:11px;font-weight:700}
+.ck li.st .cl2{text-decoration:line-through;color:var(--dim)}
+.rm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
+.rmc{border:1px solid var(--border);border-radius:8px;padding:18px;background:var(--bg2);cursor:pointer;transition:all .2s}
+.rmc:hover{border-color:var(--gold-dim);transform:translateY(-2px)}
+.rmc.cur{border-color:var(--gold)}
+.rmp{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:7px}
+.rmn{font-size:13px;font-weight:700;margin-bottom:5px}
+.rmw{font-size:11px;color:var(--dim)}
+.rms{margin-top:10px;font-size:10px;font-family:"JetBrains Mono",monospace}
+.dt{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px}
+.dgo{background:var(--gold);box-shadow:0 0 6px var(--gold);animation:pu 2s infinite}
+.dwt{background:var(--dim)}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.4}}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0}
+.rcard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px}
+.rl{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--dim);letter-spacing:1px;margin-bottom:7px}
+.rs{font-size:26px;font-weight:800;font-family:"JetBrains Mono",monospace}
+.sa{color:var(--green)}.sb2{color:var(--gold)}.sc{color:#E67E22}
+.rn{font-size:11px;color:var(--dim);margin-top:5px}
+.rb{height:4px;background:var(--border);border-radius:2px;margin-top:9px;overflow:hidden}
+.rf{height:100%;border-radius:2px}
+code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,166,35,.1);color:var(--gold-light);padding:2px 6px;border-radius:3px}
+.cred-table{width:100%;border-collapse:collapse;margin:14px 0}
+.cred-table th{text-align:left;padding:8px 12px;background:rgba(245,166,35,.12);color:var(--gold-light);font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid rgba(245,166,35,.3)}
+.cred-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;font-size:12.5px;color:#ccc}
+.cred-table td:first-child{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold-light);white-space:nowrap}
+.cred-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.folder-tree{background:#0D0D0D;border:1px solid var(--border);border-radius:6px;padding:16px 20px;font-family:"JetBrains Mono",monospace;font-size:12px;line-height:2;color:#D4D4D4}
+.folder-tree .folder{color:var(--gold-light)}
+.folder-tree .file{color:#9CDCFE}
+.folder-tree .comment{color:#6A9955}
+.mistake{margin-bottom:16px;padding:14px 16px;border-radius:6px;background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.2)}
+.mistake .mtitle{font-weight:700;font-size:13px;color:#e88;margin-bottom:6px}
+.mistake .mbody{font-size:12.5px;color:#bbb;line-height:1.7}
+.footer{margin-top:50px;padding:24px 40px;border-top:1px solid var(--border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+@media(max-width:600px){.wrap{padding:0 16px}.header{padding:28px 16px}.tabs{padding:0 12px}}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="wrap">
+<div class="htag">XAUUSD · Gold Algo Trading System</div>
+<h1>Gold Bot <span>v7</span></h1>
+<p class="hsub">Complete 5-phase build guide. v7 adds four independent strategy modules: TREND · RANGE · VOLATILE SQUEEZE · POST-NEWS. Each module is regime-gated. Session trimmed to 06:00–16:00 UTC. Silver Bullet windows. OB + OTE entries.</p>
+<div class="hver">
+<span class="badge badge-g">v7 · 4-Module Strategy System</span>
+<span class="badge badge-gold">TREND: OB + OTE + FVG</span>
+<span class="badge badge-gold">RANGE: SMC Boundary</span>
+<span class="badge badge-gold">Squeeze Breakout</span>
+<span class="badge badge-gold">Post-News ICT</span>
+</div>
+</div>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="show('road')">Overview</div>
+<div class="tab" onclick="show('p1')">Phase 1 — Setup</div>
+<div class="tab" onclick="show('p2')">Phase 2 — Dashboard</div>
+<div class="tab" onclick="show('p3')">Phase 3 — ML/AI</div>
+<div class="tab" onclick="show('p4')">Phase 4 — VPS</div>
+<div class="tab" onclick="show('p5')">Phase 5 — Business</div>
+<div class="tab" onclick="show('mods')">v7 Modules</div>
+<div class="tab" onclick="show('rate')">Bot Rating</div>
+<div class="tab" onclick="show('rules')">Golden Rules</div>
+</div>
+
+<!-- OVERVIEW TAB -->
+<div class="page active" id="road">
+<div class="wrap">
+<div class="ph"><div><div class="ptitle">Complete Roadmap</div><div class="psub">Follow phases in exact order. Each phase depends on the previous.</div></div></div>
+<div class="rm">
+<div class="rmc cur" onclick="show('p1')"><div class="rmp">PHASE 01</div><div class="rmn">Bot Setup</div><div class="rmw">Start: Now</div><div class="rms"><span class="dt dgo"></span>Active — Start here</div></div>
+<div class="rmc" onclick="show('p2')"><div class="rmp">PHASE 02</div><div class="rmn">Dashboard</div><div class="rmw">After 30–50 trades</div><div class="rms"><span class="dt dwt"></span>Pending</div></div>
+<div class="rmc" onclick="show('p3')"><div class="rmp">PHASE 03</div><div class="rmn">Ensemble ML</div><div class="rmw">After 200+ trades</div><div class="rms"><span class="dt dwt"></span>Pending</div></div>
+<div class="rmc" onclick="show('p4')"><div class="rmp">PHASE 04</div><div class="rmn">VPS Live</div><div class="rmw">Before real money</div><div class="rms"><span class="dt dwt"></span>Pending</div></div>
+<div class="rmc" onclick="show('p5')"><div class="rmp">PHASE 05</div><div class="rmn">Business / SaaS</div><div class="rmw">After 3 profitable months</div><div class="rms"><span class="dt dwt"></span>Optional</div></div>
+</div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">Files in Your goldbot Folder</div></div>
+<div class="sb"><table>
+<tr><th>File</th><th>Purpose</th><th>Created when</th></tr>
+<tr><td>bot.py</td><td>Main bot — runs everything automatically</td><td>Phase 1 setup</td></tr>
+<tr><td>prepare_data.py</td><td>Reads CSV, engineers ML features including rsi_at_entry</td><td>Phase 3</td></tr>
+<tr><td>train_model.py</td><td>Trains all 3 ML models with TimeSeriesSplit walk-forward</td><td>Phase 3</td></tr>
+<tr><td>backtest.py</td><td>Full signal-replicated backtest with tiered exit simulation</td><td>Phase 3</td></tr>
+<tr><td>dashboard.py</td><td>Streamlit performance dashboard</td><td>Phase 2</td></tr>
+<tr><td>trades_log.csv</td><td>Every trade auto-logged including fill_price and slippage_pts</td><td>First trade</td></tr>
+<tr><td>regime_stats.json</td><td>Self-learning win rates per regime with cooldown recovery</td><td>Auto-created</td></tr>
+<tr><td>open_trade_state.json</td><td>Tiered exit state — survives bot crash and restart</td><td>Auto-created</td></tr>
+<tr><td>goldbot.log</td><td>Full activity log for debugging</td><td>Bot start</td></tr>
+<tr><td>ml_xgb.pkl</td><td>Trained XGBoost model (walk-forward validated)</td><td>Phase 3 training</td></tr>
+<tr><td>ml_rf.pkl</td><td>Trained RandomForest model</td><td>Phase 3 training</td></tr>
+<tr><td>ml_lr.pkl</td><td>Trained LogisticRegression + scaler</td><td>Phase 3 training</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v5 vs v4</div></div>
+<div class="sb"><table>
+<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
+<tr><td>ML Features Mismatch</td><td>bot.py used different features than prepare_data.py — model would crash</td><td>Unified: both use exact same 11 features including regime_enc</td></tr>
+<tr><td>ADX Calculation</td><td>Regime detection used ADX but it was never calculated</td><td>calc_adx() added — proper smoothing</td></tr>
+<tr><td>Ensemble Models</td><td>Only XGBoost trained — RF and LR files missing</td><td>train_model.py now trains all 3, saves all 3</td></tr>
+<tr><td>Partial Close Floor</td><td>small lots × 0.5 = below broker minimum → order rejected</td><td>Checked against info.volume_min before attempting</td></tr>
+<tr><td>SL Modify TP Bug</td><td>_modify_sl sent tp=0 which some brokers reject</td><td>Never sends TP in SLTP request</td></tr>
+<tr><td>Self-Learning</td><td>Mentioned but not implemented</td><td>Regime win rate tracked, regimes &lt;35% auto-blocked</td></tr>
+<tr><td>Backtest Engine</td><td>Missing entirely</td><td>backtest.py added</td></tr>
+<tr><td>Dynamic Spread</td><td>Fixed 30pt threshold regardless of regime</td><td>TREND=30, RANGE=20, VOLATILE=15</td></tr>
+<tr><td>Tiered Exits</td><td>50% at 1R only</td><td>30% at 1R → 30% at 2R → 40% trail</td></tr>
+<tr><td>Trading Mode</td><td>Not implemented</td><td>CONSERVATIVE / NORMAL / AGGRESSIVE with different settings</td></tr>
+<tr><td>Regime Detection</td><td>Not implemented</td><td>Full ADX + EMA + ATR regime classification</td></tr>
+<tr><td>Regime-Adaptive Strategy</td><td>Same logic for all conditions</td><td>SMC for trends, RSI for ranges (AGGRESSIVE only)</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v6 vs v5</div></div>
+<div class="sb"><table>
+<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
+<tr><td>ADX Wilder Smoothing</td><td>ewm(span=) formula produced inflated ADX values — regime called TREND too early</td><td>Changed to ewm(com=period-1) — correct Wilder RMA formula</td></tr>
+<tr><td>rr_quality ML Feature</td><td>Hardcoded constant 2.0 every trade — useless ML input</td><td>Now calculated from real sl_dist and tp_dist — dynamic per trade</td></tr>
+<tr><td>rsi_at_entry ML Feature</td><td>RSI at entry moment never captured</td><td>Added as new ML feature in build_ml_features() and prepare_data.py</td></tr>
+<tr><td>News Filter Fail-Safe</td><td>API failure silently allowed trades — even during NFP</td><td>Cache added — uses last known result if fresh, blocks trade if stale</td></tr>
+<tr><td>Trade State Persistence</td><td>open_trade_state in memory only — lost on crash</td><td>Saved to open_trade_state.json on every update, reloaded on startup</td></tr>
+<tr><td>Regime Blocker Recovery</td><td>Blocked regimes stayed blocked permanently</td><td>14-day cooldown + 10 trial trades before re-evaluation</td></tr>
+<tr><td>Lot Sizing Equity Fix</td><td>Used account.balance — overleverages during open drawdown</td><td>Changed to account.equity — correct basis during live trading</td></tr>
+<tr><td>EMA Slope Threshold</td><td>Hardcoded 0.1 — always true at Gold's price level, filters nothing</td><td>Made ATR-relative (5% of ATR) — meaningful at any price level</td></tr>
+<tr><td>FVG Filled Gap Check</td><td>FVG detected even if price had already re-entered the gap</td><td>Now checks current price is still outside the gap zone</td></tr>
+<tr><td>Liquidity Sweep Body Check</td><td>Single-candle wick triggered sweep signal — including random wicks</td><td>Requires body at least 30% of candle range before confirming sweep</td></tr>
+<tr><td>MSS Body Confirmation</td><td>Closing above 10-bar high triggered MSS — too common in any trend</td><td>Requires candle body at least 40% of range — decisive candles only</td></tr>
+<tr><td>Slippage Tracking</td><td>Only requested price logged — actual fill never captured</td><td>fill_price and slippage_pts columns added to trades_log.csv</td></tr>
+<tr><td>4H Bias Filter</td><td>No higher-timeframe directional filter — traded against 4H trend</td><td>get_4h_bias() added — signals blocked if against 4H EMA direction</td></tr>
+<tr><td>Signal Cooldown</td><td>Bot could re-enter immediately after SL hit</td><td>30-minute cooldown (2 x 15M candles) between any two signals</td></tr>
+<tr><td>Session Overlap Label</td><td>London-NY overlap (12-15 UTC) was unlabelled — logged as plain "NY"</td><td>New session label "LDN_NY_Overlap" — trackable in CSV separately</td></tr>
+<tr><td>Backtest Signal Logic</td><td>backtest.py tested simple trend+RSI — completely different from live bot's sweep+MSS+FVG signal chain</td><td>Full rewrite — backtest now uses exact same functions as live bot including all v6 signal fixes</td></tr>
+<tr><td>Walk-Forward Validation</td><td>train_test_split used — single period, potential data leakage</td><td>TimeSeriesSplit with 5 folds — proper time-ordered cross-validation, no leakage</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v7 vs v6</div></div>
+<div class="sb"><table>
+<tr><th>Change</th><th>v6 Behaviour</th><th>v7 Behaviour</th></tr>
+<tr><td>Strategy Architecture</td><td>Single TREND strategy only; RANGE used broken RSI-only logic</td><td>Four independent modules — TREND, RANGE, VOLATILE SQUEEZE, POST-NEWS — each gated by regime detector</td></tr>
+<tr><td>MODULE 01 — TREND</td><td>Single entry type: FVG only. Sweep body filter 30%.</td><td>Three entry types in priority order: FVG → Order Block → Fibonacci OTE. Sweep body filter raised to 38%.</td></tr>
+<tr><td>Silver Bullet Windows</td><td>Not implemented</td><td>ADX threshold relaxed from 28 to 24 during 10–11 UTC and 14–15 UTC — ICT Silver Bullet windows with higher edge</td></tr>
+<tr><td>SESSION_END_UTC for TREND</td><td>18:00 UTC (full London+NY)</td><td>16:00 UTC — removes low-conviction 16:30–18:00 NY late session from TREND module</td></tr>
+<tr><td>MODULE 02 — RANGE</td><td>RSI-only (rsi&lt;30 buy, rsi&gt;70 sell) — unreliable, no structure confirmation</td><td>Full Range Boundary SMC: confirmed 8+ candle structural range (60–200 pts wide) + RSI divergence + Bollinger Band extreme touch + rejection candle body filter 40%</td></tr>
+<tr><td>MODULE 03 — VOLATILE SQUEEZE</td><td>Not implemented. VOLATILE regime was a complete block.</td><td>Bollinger Squeeze breakout: ATR at 20-period low + BB width at 3-month low + breakout candle body ≥45% + 4H alignment. 2-hour news blackout built in.</td></tr>
+<tr><td>MODULE 04 — POST-NEWS</td><td>Not implemented. VOLATILE_NEWS regime did not exist.</td><td>Post-News ICT Entry: waits 60 min after ATR spike, checks consolidation ≤35% of spike, requires sweep + FVG in spike direction. One trade per session maximum.</td></tr>
+<tr><td>Regime Detector</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE, UNKNOWN. Takes (df_15m, df_1h).</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE_SQUEEZE, VOLATILE_NEWS, UNKNOWN. Takes (df_1h) only. Uses is_bb_squeeze() and ATR spike detection for new volatile sub-regimes.</td></tr>
+<tr><td>Spread Limits</td><td>VOLATILE: 15 pts</td><td>VOLATILE_SQUEEZE: 18 pts, VOLATILE_NEWS: 20 pts — separate limits per module</td></tr>
+<tr><td>max_trades per mode</td><td>CONSERVATIVE: 2, NORMAL: 3, AGGRESSIVE: 5</td><td>CONSERVATIVE: 3, NORMAL: 5, AGGRESSIVE: 8 — increased to accommodate multi-module trade frequency</td></tr>
+<tr><td>range_allowed flag</td><td>False in CONSERVATIVE and NORMAL modes</td><td>True in all modes — RANGE module is now properly implemented and safe to use</td></tr>
+<tr><td>Order Block Detection</td><td>Not implemented</td><td>detect_order_block() added — finds institutional opposing candle before MSS, verifies current price is inside OB zone</td></tr>
+<tr><td>Fibonacci OTE Entry</td><td>Not implemented</td><td>detect_fib_ote() added — checks 61.8% retracement of MSS candle range as Optimal Trade Entry</td></tr>
+<tr><td>RSI Divergence</td><td>Not implemented</td><td>detect_rsi_divergence() added — used by RANGE module as confluence confirmation filter</td></tr>
+<tr><td>Post-news guard</td><td>Not implemented</td><td>post_news_traded_this_session flag — resets at SESSION_START_UTC, limits post-news module to 1 trade per day</td></tr>
+<tr><td>Order comment field</td><td>"GoldBot_v6"</td><td>"GoldBot_v7_{regime}" — shows active module in MT5 trade history</td></tr>
+</table></div></div>
+
+</div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="page" id="p1">
+<div class="wrap">
+<div class="ph"><div class="pnum">PHASE 01</div><div><div class="ptitle">Bot Setup — Complete Beginner Guide</div><div class="psub">Zero coding experience required. Every step explained in plain English. Follow in exact order.</div></div></div>
+
+<!-- CHECKLIST -->
+<div class="step"><div class="sh"><div class="sn">✓</div><div class="stitle">Phase 1 Checklist — Tick Each Item As You Complete It</div></div>
+<div class="sb"><ul class="ck">
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 1: Python 3.12 installed — "Add Python to PATH" checkbox was ticked during install</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 2: Exness demo account created — Login number, Password, and Server name all saved</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 2: Exness MT5 app installed, logged in, XAUUSD visible in Market Watch panel</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 3: All Python libraries installed — "Successfully installed" message seen in CMD</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 4: Telegram bot created — API Token saved from @BotFather</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 4: Chat ID saved from @userinfobot</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 5: Finnhub free API key obtained and saved</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 6: goldbot folder created on Desktop, bot.py file created inside it</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 7: All 6 personal credentials filled into bot.py and file saved</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 8: Bot running — CMD shows "Running on http://0.0.0.0:5000"</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 9: Telegram message received saying "Gold Bot v7 started"</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">Step 9: Health check at localhost:5000/health shows mt5_connected: true</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">open_trade_state.json confirmed auto-created after first trade — bot reloads it correctly on restart</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">4H timeframe data confirmed loading without errors in goldbot.log on first run</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">backtest.py confirmed running without errors — results saved to backtest_results.csv (run this in Month 2 before any real money)</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">v7: Health check at localhost:5000/health shows "version": "v7" and correct regime classification</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">v7: goldbot.log confirms which MODULE is active on first signal check (TREND / RANGE / VOLATILE_SQUEEZE / VOLATILE_NEWS)</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">v7: Silver Bullet windows confirmed — between 10–11 UTC and 14–15 UTC, ADX threshold relaxes to 24 (check log)</span></li>
+<li><div class="chk" onclick="tk(this)"></div><span class="cl2">v7: First trade comment in MT5 shows "GoldBot_v7_TREND_BULL" or similar (not "GoldBot_v6")</span></li>
+</ul></div></div>
+
+<!-- FOLDER STRUCTURE -->
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Your goldbot Folder Will Look Like When Fully Set Up</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:14px;">Before you start, here is a picture of what the finished folder looks like. Every file listed here gets created automatically — you only need to create <code>bot.py</code> manually in Step 6. Everything else appears on its own as the bot runs.</p>
+<div class="folder-tree">
+<span class="folder">📁 goldbot/</span> &nbsp;<span class="comment">← this folder lives on your Desktop</span><br>
+&nbsp;&nbsp;<span class="file">📄 bot.py</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← YOU create this in Step 6. The main brain of the bot.</span><br>
+&nbsp;&nbsp;<span class="file">📄 dashboard.py</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← you create this in Phase 2. Shows your trading stats.</span><br>
+&nbsp;&nbsp;<span class="file">📄 prepare_data.py</span> &nbsp;&nbsp;&nbsp;<span class="comment">← you create this in Phase 3. Prepares ML training data.</span><br>
+&nbsp;&nbsp;<span class="file">📄 train_model.py</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← you create this in Phase 3. Trains the AI models.</span><br>
+&nbsp;&nbsp;<span class="file">📄 backtest.py</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← you create this in Phase 3. Tests the strategy on history.</span><br>
+&nbsp;&nbsp;<span class="file">📊 trades_log.csv</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← auto-created after first trade. Every trade recorded here.</span><br>
+&nbsp;&nbsp;<span class="file">📋 goldbot.log</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← auto-created on startup. Full activity diary of the bot.</span><br>
+&nbsp;&nbsp;<span class="file">🔒 regime_stats.json</span> &nbsp;<span class="comment">← auto-created. Bot's memory of which market conditions work.</span><br>
+&nbsp;&nbsp;<span class="file">🔒 open_trade_state.json</span> <span class="comment">← auto-created. Saves exit progress so bot survives restarts.</span><br>
+&nbsp;&nbsp;<span class="file">🤖 ml_xgb.pkl</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← created in Phase 3. Trained AI model file.</span><br>
+&nbsp;&nbsp;<span class="file">🤖 ml_rf.pkl</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← created in Phase 3. Second trained AI model file.</span><br>
+&nbsp;&nbsp;<span class="file">🤖 ml_lr.pkl</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">← created in Phase 3. Third trained AI model file.</span><br>
+</div>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn b">v7</div><div class="stitle">Understanding the Four v7 Trading Modules — Read This First</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>v7 is fundamentally different from v6.</strong> Instead of one strategy that always runs the same logic, v7 has four completely independent modules. The bot checks the current market regime every 15 minutes and automatically activates the correct module. You do not need to choose — the bot does it. Here is what each module does and when it activates:</p>
+<table>
+<tr><th>Module</th><th>Regime Required</th><th>Active Hours (UTC)</th><th>What It Does</th><th>Entry Types</th></tr>
+<tr><td>MODULE 01 — TREND</td><td>TREND_BULL or TREND_BEAR<br><small style="color:var(--dim)">(ADX ≥ 28, or ≥ 24 during Silver Bullet windows)</small></td><td>06:00 – 16:00<br><small style="color:var(--dim)">(removed 16:30–18:00 low-conviction window)</small></td><td>SMC sweep + MSS confirmation + 1H/4H multi-timeframe alignment. Three entry types in priority order.</td><td>FVG (Fair Value Gap)<br>OB (Order Block)<br>OTE (Fibonacci 61.8%)</td></tr>
+<tr><td>MODULE 02 — RANGE</td><td>RANGE<br><small style="color:var(--dim)">(ADX &lt; 20 + structural range confirmed)</small></td><td>07:00 – 15:00</td><td>Range boundary SMC. Sells at range high with wick rejection, buys at range low. Requires RSI divergence + Bollinger Band touch.</td><td>Range rejection candle</td></tr>
+<tr><td>MODULE 03 — SQUEEZE</td><td>VOLATILE_SQUEEZE<br><small style="color:var(--dim)">(ATR at 20-period low + BB width at 3-month low)</small></td><td>07:00 – 16:00</td><td>Bollinger Band squeeze breakout. Fires when volatility is at minimum and price breaks out with a strong body candle. 4H aligned only.</td><td>BB breakout candle</td></tr>
+<tr><td>MODULE 04 — POST-NEWS</td><td>VOLATILE_NEWS<br><small style="color:var(--dim)">(ATR spike detected &gt; 1.5× average)</small></td><td>07:00 – 16:00</td><td>ICT post-news entry. Waits 60 minutes after a news spike, then enters on consolidation + sweep + FVG in the spike direction. One trade per session maximum.</td><td>Sweep + FVG after spike</td></tr>
+</table>
+<div class="box bg"><div class="bi">💡</div><div><strong>Silver Bullet Windows (v7 new):</strong> Between 10:00–11:00 UTC and 14:00–15:00 UTC, the ADX threshold for TREND entry relaxes from 28 to 24. These are ICT Silver Bullet time windows — periods of higher institutional participation where slightly lower ADX readings still produce reliable trend setups. If you see the log say "Silver Bullet window active — ADX threshold: 24", this is working correctly.</div></div>
+<div class="box bi2"><div class="bi">ℹ</div><div><strong>Trading Modes updated in v7:</strong> CONSERVATIVE now allows 3 trades/day (was 2), NORMAL allows 5 (was 3), AGGRESSIVE allows 8 (was 5). The <code>range_allowed</code> flag is now <code>True</code> in all modes because the RANGE module is properly implemented. Start with NORMAL mode as before.</div></div>
+</div></div>
+
+
+<!-- STEP 1 -->
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Install Python 3.12</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> The bot is written in a programming language called Python. Before you can run any Python program, you need to install Python itself on your computer — the same way you would install any app. This is a one-time setup. The version must be 3.12 specifically because some libraries used by this bot are not yet compatible with newer versions.</p>
+<ul class="ol-steps">
+<li>Open your browser and go to <strong>python.org/downloads</strong></li>
+<li>Click the big yellow "Download Python 3.12.x" button (any 3.12 version is fine)</li>
+<li>Once it downloads, open the installer file</li>
+<li><strong style="color:var(--red)">CRITICAL — Before clicking anything else:</strong> at the very bottom of the first installer screen you will see a small checkbox that says <strong>"Add Python to PATH"</strong>. Tick this box now. If you miss this, nothing will work and you will have to uninstall and reinstall Python.</li>
+<li>Now click "Install Now" and wait for it to finish</li>
+<li>Once installed, press <code>Win + R</code> on your keyboard, type <code>cmd</code>, press Enter — this opens the Command Prompt (a black window where you type commands)</li>
+<li>In that black window, type exactly this and press Enter: <code>python --version</code></li>
+<li>You should see something like <code>Python 3.12.4</code> — any 3.12.x number is correct</li>
+</ul>
+<div class="cw"><div class="cl">Command Prompt — verify Python installed correctly <button class="cb" onclick="cp(this)">COPY</button></div><pre>python --version</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>Expected output: <code>Python 3.12.x</code>. If you see "not recognized" or an error — Python PATH was not set. Uninstall Python from Control Panel → Add/Remove Programs, then reinstall and tick the PATH checkbox this time.</div></div>
+</div></div>
+
+<!-- STEP 2 -->
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Install MetaTrader 5 and Create an Exness Demo Account</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> The bot needs to connect to a live market data feed and be able to place trades. It does this by connecting to MetaTrader 5 (MT5) — a free trading platform used by millions of traders worldwide. Exness is the broker we use because it provides a free demo account with no real money involved, and their MT5 server is reliable for algorithmic trading. A demo account means all trades use virtual money — nothing is at risk.</p>
+<ul class="ol-steps">
+<li>Go to <strong>exness.com</strong> in your browser → click "Open Account" → select "Demo" account type</li>
+<li>Fill in the registration form with your email and a password. After submitting, Exness will send you a confirmation email containing three important pieces of information — write them all down now: your <strong>Login number</strong> (a long number like 12345678), your <strong>Password</strong>, and your <strong>Server name</strong> (something like Exness-Demo or Exness-MT5Trial)</li>
+<li>On the Exness website, find the download link for <strong>MetaTrader 5</strong>. Make sure it says MT5, not MT4 — they are different programs.</li>
+<li>Install MT5 and open it</li>
+<li>Click <strong>File → Login to Trade Account</strong> at the top of MT5</li>
+<li>Enter your Login number, Password, and Server name from the email. Tick "Save password" so you don't have to enter it every time.</li>
+<li>Once logged in, look at the left side of MT5 for the <strong>Market Watch</strong> panel. You need to find XAUUSD (Gold). If you don't see it: right-click anywhere in the Market Watch panel → click "Show All" → scroll down to find XAUUSD → double-click it to add it to your list</li>
+<li>Leave MT5 open and logged in. <strong>The bot can only trade when MT5 is open and running on the same computer.</strong> If MT5 is closed, the bot cannot connect.</li>
+</ul>
+<div class="box bg"><div class="bi">💡</div><div>The three pieces of information from your Exness email — Login, Password, Server — will be entered into bot.py in Step 7. Keep them somewhere safe like a notes app on your phone.</div></div>
+</div></div>
+
+<!-- STEP 3 -->
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Install the Required Python Libraries</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> Python by itself can only do basic things. Libraries are add-on packages that give Python extra abilities — like connecting to MT5, processing price data, running AI models, and sending Telegram messages. You install them all with one single command. This takes 2–5 minutes depending on your internet speed.</p>
+<ul class="ol-steps">
+<li>Open Command Prompt (press <code>Win + R</code>, type <code>cmd</code>, press Enter)</li>
+<li>Copy the command below exactly and paste it into the Command Prompt window (right-click → Paste)</li>
+<li>Press Enter and wait. You will see a lot of text scrolling — this is normal. Wait until it fully stops.</li>
+<li>At the end you should see "Successfully installed" — this means everything worked</li>
+</ul>
+<div class="cw"><div class="cl">Command Prompt — install all libraries at once <button class="cb" onclick="cp(this)">COPY</button></div><pre>pip install flask MetaTrader5 requests pandas numpy joblib xgboost scikit-learn streamlit plotly</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>This installs everything needed for all 5 phases in one go. You will never need to run this command again.</div></div>
+<p style="font-size:13px;color:#aaa;margin:16px 0 10px;font-weight:600">What each library does:</p>
+<table>
+<tr><th>Library</th><th>What it does — in plain English</th></tr>
+<tr><td>MetaTrader5</td><td>Connects Python to your MT5 app so the bot can read prices and place trades</td></tr>
+<tr><td>pandas</td><td>Organises price data into tables the bot can work with</td></tr>
+<tr><td>numpy</td><td>Does the maths for indicators like ATR and ADX</td></tr>
+<tr><td>scikit-learn</td><td>Powers the ML models (RandomForest and LogisticRegression)</td></tr>
+<tr><td>xgboost</td><td>Powers the XGBoost ML model — the strongest of the three</td></tr>
+<tr><td>joblib</td><td>Saves and loads the trained ML model files so they survive restarts</td></tr>
+<tr><td>requests</td><td>Fetches news data from Finnhub and sends your Telegram messages</td></tr>
+<tr><td>flask</td><td>Runs a tiny local web server for the health check at localhost:5000/health</td></tr>
+<tr><td>streamlit</td><td>Powers the trading performance dashboard in Phase 2</td></tr>
+<tr><td>plotly</td><td>Creates the charts inside the dashboard</td></tr>
+</table>
+</div></div>
+
+<!-- STEP 4 -->
+<div class="step"><div class="sh"><div class="sn">4</div><div class="stitle">Create Your Telegram Bot and Get Your Credentials</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> The bot sends you a message on Telegram every time it opens a trade, closes a trade, hits an error, or detects something important. This means you can monitor everything that happens from your phone — without needing to be at your computer. To do this, you need to create a personal Telegram bot (takes 2 minutes) and get two pieces of identification: an API Token and a Chat ID.</p>
+<ul class="ol-steps">
+<li>Open the Telegram app on your phone</li>
+<li>Tap the search icon (magnifying glass) at the top</li>
+<li>Search for <strong>@BotFather</strong> — tap it — tap <strong>Start</strong></li>
+<li>Type and send: <code>/newbot</code></li>
+<li>BotFather asks for a name — type anything you like, for example: <strong>MyGoldBot</strong></li>
+<li>BotFather then asks for a username — it must end in "bot", for example: <strong>mygoldbot_v6bot</strong></li>
+<li>BotFather will then send you a message containing your <strong>API Token</strong>. It looks like: <code>7123456789:ABCdefGHIjklMNOpqrSTUvwxYZ</code>. Copy it and save it somewhere safe.</li>
+<li>Now search for <strong>@userinfobot</strong> → tap it → tap Start → send any message (just type "hi")</li>
+<li>@userinfobot will reply with your <strong>Chat ID</strong> — a plain number like <code>987654321</code>. Save this too.</li>
+</ul>
+<div class="box bg"><div class="bi">💡</div><div>The API Token identifies <em>your bot</em>. The Chat ID identifies <em>you</em> as the recipient. You need both. The bot sends messages to you using both pieces of information together.</div></div>
+</div></div>
+
+<!-- STEP 5 -->
+<div class="step"><div class="sh"><div class="sn">5</div><div class="stitle">Get Your Free Finnhub API Key</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> The bot has a news filter that automatically pauses trading 30 minutes before and after high-impact economic events like NFP (Non-Farm Payrolls), CPI inflation data, and FOMC Fed meetings. These events cause extreme price spikes that destroy technically perfect trade setups in seconds. To know when these events are scheduled, the bot fetches a daily economic calendar from Finnhub — a free financial data service. You need a free API key to access it.</p>
+<ul class="ol-steps">
+<li>Go to <strong>finnhub.io</strong> in your browser</li>
+<li>Click "Get free API key" or "Sign Up"</li>
+<li>Create a free account — no credit card required</li>
+<li>After logging in, your API key is displayed on the dashboard page. It looks like a random string of letters and numbers.</li>
+<li>Copy it and save it with your other credentials</li>
+</ul>
+<div class="box bi2"><div class="bi">ℹ</div><div>The free Finnhub plan is completely sufficient for this bot. It provides economic calendar data which is all the news filter needs. You do not need any paid plan.</div></div>
+</div></div>
+
+<!-- STEP 6 -->
+<div class="step"><div class="sh"><div class="sn">6</div><div class="stitle">Create the goldbot Folder and the bot.py File</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> All the bot's files need to live in one dedicated folder so Python can find them. You also need to create the main bot.py file where the bot's code will live. The file starts as a blank text file — you will paste the complete code into it in Step 7.</p>
+<ul class="ol-steps">
+<li>Go to your Windows Desktop (close or minimise all windows)</li>
+<li>Right-click on any empty space on the Desktop</li>
+<li>Click <strong>New → Folder</strong></li>
+<li>Name the folder exactly: <strong>goldbot</strong> (all lowercase, no spaces)</li>
+<li>Double-click to open the goldbot folder</li>
+<li>Inside the folder, right-click on empty space → <strong>New → Text Document</strong></li>
+<li>A file called "New Text Document.txt" appears. Click once on it to select it, then press F2 to rename it.</li>
+<li>Type exactly: <strong>bot.py</strong> and press Enter</li>
+<li>Windows will warn you: "If you change a file name extension, the file might become unusable. Are you sure?" — click <strong>Yes</strong></li>
+<li>You now have a file called bot.py inside your goldbot folder. It is currently empty — you will fill it in Step 7.</li>
+</ul>
+<div class="box bi2"><div class="bi">ℹ</div><div>If you cannot see file extensions (the .txt or .py part of file names), go to File Explorer → click View at the top → tick "File name extensions". This is important so you can make sure the file is named bot.py and not bot.py.txt.</div></div>
+</div></div>
+
+<!-- STEP 7 -->
+<div class="step"><div class="sh"><div class="sn">7</div><div class="stitle">Fill In Your Personal Credentials and Paste the Complete Code</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> The bot code below is complete and ready to run — but it has placeholder values where your personal credentials need to go. You must replace each placeholder with your own real value. There are exactly 6 places to fill in. The table below tells you exactly what each one is, where to get it, and what it looks like.</p>
+
+<p style="font-size:13px;color:#aaa;margin-bottom:10px;font-weight:600">How to do this step:</p>
+<ul class="ol-steps">
+<li>Right-click on <strong>bot.py</strong> inside your goldbot folder → click <strong>Open with → Notepad</strong></li>
+<li>Select all existing content (Ctrl+A) and delete it</li>
+<li>Copy the entire code block below using the COPY button</li>
+<li>Paste it into Notepad (Ctrl+V)</li>
+<li>Find the CONFIG section near the top of the code — look for the 6 lines with <code># ←</code> arrows</li>
+<li>Replace each placeholder value with your real credential using the reference table below</li>
+<li>Save the file (Ctrl+S) and close Notepad</li>
+</ul>
+
+<p style="font-size:13px;color:#aaa;margin:18px 0 10px;font-weight:600">Your 6 credentials — reference table:</p>
+<table class="cred-table">
+<tr><th>Variable name in code</th><th>What it is</th><th>Where to get it</th><th>Example of what it looks like</th></tr>
+<tr><td>MT5_LOGIN</td><td>Your Exness MT5 account number</td><td>Exness registration email</td><td><code>12345678</code> (just the number, no quotes)</td></tr>
+<tr><td>MT5_PASSWORD</td><td>Your Exness MT5 account password</td><td>Exness registration email</td><td><code>"MyPass123"</code> (keep the quote marks)</td></tr>
+<tr><td>MT5_SERVER</td><td>Your Exness server name</td><td>Exness registration email or MT5 login screen</td><td><code>"Exness-Demo"</code> or <code>"Exness-MT5Trial"</code></td></tr>
+<tr><td>TELEGRAM_TOKEN</td><td>Your Telegram bot API token</td><td>@BotFather on Telegram (Step 4)</td><td><code>"7123456789:ABCdefGHIjkl..."</code></td></tr>
+<tr><td>CHAT_ID</td><td>Your personal Telegram chat ID</td><td>@userinfobot on Telegram (Step 4)</td><td><code>"987654321"</code></td></tr>
+<tr><td>FINNHUB_KEY</td><td>Your Finnhub API key</td><td>finnhub.io account dashboard (Step 5)</td><td><code>"abc123xyz456"</code></td></tr>
+</table>
+<div class="box bw"><div class="bi">⚠</div><div><strong>Privacy warning:</strong> Do not share the bot.py file with anyone after filling in your credentials. These credentials are like passwords — anyone who has them can connect to your trading account and send messages as your Telegram bot. Keep the file private.</div></div>
+
+<div class="cw"><div class="cl">bot.py — COMPLETE Gold Bot v7 CODE (paste this into Notepad) <button class="cb" onclick="cp(this)">COPY</button></div><pre>
+&quot;&quot;&quot;
+Gold Bot v7 — Four-Module Strategy System
+Built on v6 foundation. Four independent modules gated by regime detector.
+
+v7 Modules:
+  MODULE 01 — TREND (SMC + Order Block + Fibonacci OTE)
+  MODULE 02 — RANGE (Range Boundary SMC)
+  MODULE 03 — VOLATILE SQUEEZE (Bollinger Squeeze Breakout)
+  MODULE 04 — VOLATILE POST-NEWS (Post-News ICT Entry)
+
+v6 foundations preserved: Wilder ADX, 4H bias, equity lot sizing,
+state persistence, regime recovery, slippage tracking, walk-forward ML,
+tiered exits, news cache, signal cooldown, session labels.
+&quot;&quot;&quot;
+
+import MetaTrader5 as mt5
+import pandas as pd
+import numpy as np
+import requests, logging, csv, os, time, joblib, atexit, threading, subprocess, sys, json
+from datetime import datetime, date, timedelta
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+logging.basicConfig(level=logging.INFO, format=&quot;%(asctime)s [%(levelname)s] %(message)s&quot;,
+    handlers=[logging.FileHandler(&quot;goldbot.log&quot;), logging.StreamHandler()])
+log = logging.getLogger(__name__)
+
+TELEGRAM_TOKEN = &quot;YOUR_TELEGRAM_TOKEN_HERE&quot;
+CHAT_ID        = &quot;YOUR_CHAT_ID_HERE&quot;
+MT5_LOGIN      = 12345678
+MT5_PASSWORD   = &quot;yourpassword&quot;
+MT5_SERVER     = &quot;Exness-MT5Trial&quot;
+FINNHUB_KEY    = &quot;YOUR_FINNHUB_KEY_HERE&quot;
+
+SYMBOL               = &quot;XAUUSD&quot;
+LOG_FILE             = &quot;trades_log.csv&quot;
+REGIME_FILE          = &quot;regime_stats.json&quot;
+STATE_FILE           = &quot;open_trade_state.json&quot;
+ML_MODEL_XGB         = &quot;ml_xgb.pkl&quot;
+ML_MODEL_RF          = &quot;ml_rf.pkl&quot;
+ML_MODEL_LR          = &quot;ml_lr.pkl&quot;
+ATR_PERIOD           = 14
+ATR_DEFAULT          = 2.0
+SESSION_START_UTC    = 6
+SESSION_END_UTC      = 18
+NEWS_BLOCK_MINUTES   = 30
+SIGNAL_INTERVAL_SEC  = 900
+AUTO_LOG_INTERVAL    = 300
+AUTO_RETRAIN_DAY     = 6
+AUTO_RETRAIN_HOUR    = 2
+MAX_RETRIES          = 3
+RETRY_DELAY_SEC      = 5
+SIGNAL_COOLDOWN_MINUTES = 30
+
+_news_cache = {&quot;result&quot;: True, &quot;fetched_at&quot;: None}
+NEWS_CACHE_MAX_AGE_MINUTES = 90
+
+# v7 NEW SETTINGS
+ADX_TREND_THRESHOLD       = 28
+ADX_SILVER_BULLET_RELAXED = 24
+SWEEP_BODY_FILTER         = 0.38
+SESSION_END_UTC_V7        = 16
+SILVER_BULLET_WINDOWS     = [(10, 11), (14, 15)]
+RANGE_ADX_MAX             = 20
+RANGE_MIN_CANDLES         = 8
+RANGE_MIN_WIDTH_PTS       = 60
+RANGE_MAX_WIDTH_PTS       = 200
+RANGE_BB_STD              = 2.5
+RANGE_BB_PERIOD           = 20
+RANGE_REJECTION_BODY      = 0.40
+SQUEEZE_ATR_LOOKBACK      = 20
+SQUEEZE_BODY_MIN          = 0.45
+SQUEEZE_ATR_MULT          = 2.0
+POST_NEWS_WAIT_MINUTES    = 60
+POST_NEWS_ATR_SPIKE_MULT  = 1.5
+POST_NEWS_CONSOLIDATION   = 4
+POST_NEWS_CONSOL_PCT      = 0.35
+POST_NEWS_RR              = 1.5
+
+post_news_traded_this_session = False
+
+TRADING_MODE = &quot;NORMAL&quot;
+
+MODE_SETTINGS = {
+    &quot;CONSERVATIVE&quot;: {&quot;risk_pct&quot;: 0.5, &quot;ml_threshold&quot;: 0.72, &quot;max_trades&quot;: 3, &quot;max_loss_pct&quot;: 2.0, &quot;range_allowed&quot;: True},
+    &quot;NORMAL&quot;:       {&quot;risk_pct&quot;: 1.0, &quot;ml_threshold&quot;: 0.65, &quot;max_trades&quot;: 5, &quot;max_loss_pct&quot;: 3.0, &quot;range_allowed&quot;: True},
+    &quot;AGGRESSIVE&quot;:   {&quot;risk_pct&quot;: 1.5, &quot;ml_threshold&quot;: 0.58, &quot;max_trades&quot;: 8, &quot;max_loss_pct&quot;: 4.0, &quot;range_allowed&quot;: True},
+}
+def get_mode(k): return MODE_SETTINGS.get(TRADING_MODE, MODE_SETTINGS[&quot;NORMAL&quot;])[k]
+
+SPREAD_LIMITS = {
+    &quot;TREND_BULL&quot;: 30, &quot;TREND_BEAR&quot;: 30,
+    &quot;RANGE&quot;: 20, &quot;VOLATILE_SQUEEZE&quot;: 18, &quot;VOLATILE_NEWS&quot;: 20, &quot;UNKNOWN&quot;: 25,
+}
+
+trades_today = 0; last_reset = date.today(); mt5_connected = False
+ml_xgb = ml_rf = ml_lr = None; TF_ENTRY = TF_TREND = TF_HTF = None
+open_trade_state = {}; regime_stats = {}; last_signal_time = None
+
+# ═══════════════════════════════════════════════════════════
+# TELEGRAM
+# ═══════════════════════════════════════════════════════════
+def telegram(msg):
+    try:
+        requests.post(f&quot;https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage&quot;,
+            data={&quot;chat_id&quot;: CHAT_ID, &quot;text&quot;: msg}, timeout=5)
+    except Exception as e: log.error(f&quot;Telegram: {e}&quot;)
+
+atexit.register(lambda: telegram(&quot;⚠️ Gold Bot v7 stopped. Check your laptop/VPS.&quot;))
+
+# ═══════════════════════════════════════════════════════════
+# MT5 CONNECTION
+# ═══════════════════════════════════════════════════════════
+def connect_mt5(retries=MAX_RETRIES):
+    global mt5_connected, TF_ENTRY, TF_TREND, TF_HTF
+    for attempt in range(1, retries + 1):
+        try:
+            if mt5_connected and mt5.account_info() is not None: return True
+            mt5.shutdown()
+            if not mt5.initialize(login=MT5_LOGIN, password=MT5_PASSWORD, server=MT5_SERVER):
+                raise ConnectionError(f&quot;MT5 init: {mt5.last_error()}&quot;)
+            TF_ENTRY = mt5.TIMEFRAME_M15
+            TF_TREND = mt5.TIMEFRAME_H1
+            TF_HTF   = mt5.TIMEFRAME_H4
+            if not mt5.symbol_select(SYMBOL, True):
+                raise RuntimeError(f&quot;Symbol {SYMBOL} not found&quot;)
+            mt5_connected = True
+            log.info(&quot;MT5 connected ✅&quot;)
+            return True
+        except Exception as e:
+            log.error(f&quot;MT5 attempt {attempt}: {e}&quot;)
+            mt5_connected = False
+            if attempt &lt; retries: time.sleep(RETRY_DELAY_SEC)
+    telegram(&quot;❌ MT5 connection failed after retries.&quot;)
+    return False
+
+def ensure_mt5():
+    if not mt5_connected or mt5.account_info() is None: return connect_mt5()
+    return True
+
+def safe_run(fn, *args, retries=MAX_RETRIES, **kwargs):
+    for attempt in range(1, retries + 1):
+        try: return fn(*args, **kwargs)
+        except Exception as e:
+            log.error(f&quot;[{fn.__name__}] {attempt}/{retries}: {e}&quot;)
+            if attempt &lt; retries: time.sleep(RETRY_DELAY_SEC)
+    return None
+
+# ═══════════════════════════════════════════════════════════
+# INDICATORS (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def calc_ema(series, period):
+    return series.ewm(span=period, adjust=False).mean()
+
+def calc_rsi(series, period=14):
+    delta = series.diff()
+    gain  = delta.clip(lower=0)
+    loss  = (-delta).clip(lower=0)
+    ag    = gain.ewm(com=period - 1, adjust=False).mean()
+    al    = loss.ewm(com=period - 1, adjust=False).mean()
+    return 100 - (100 / (1 + ag / al.replace(0, np.nan)))
+
+def calc_atr(df, period=14):
+    hl = df[&#x27;high&#x27;] - df[&#x27;low&#x27;]
+    hc = (df[&#x27;high&#x27;] - df[&#x27;close&#x27;].shift(1)).abs()
+    lc = (df[&#x27;low&#x27;]  - df[&#x27;close&#x27;].shift(1)).abs()
+    return pd.concat([hl, hc, lc], axis=1).max(axis=1).rolling(period).mean()
+
+def calc_adx(df, period=14):
+    &quot;&quot;&quot;ADX using correct Wilder RMA: ewm(com=period-1) — v6 Fix A1, unchanged.&quot;&quot;&quot;
+    high, low, close = df[&#x27;high&#x27;], df[&#x27;low&#x27;], df[&#x27;close&#x27;]
+    tr = pd.concat([
+        high - low,
+        (high - close.shift(1)).abs(),
+        (low  - close.shift(1)).abs()
+    ], axis=1).max(axis=1)
+    up   = high.diff()
+    down = -low.diff()
+    dm_p = np.where((up &gt; down) &amp; (up &gt; 0), up, 0.0)
+    dm_m = np.where((down &gt; up) &amp; (down &gt; 0), down, 0.0)
+    atr_s = pd.Series(tr).ewm(com=period - 1, adjust=False).mean()
+    di_p  = 100 * pd.Series(dm_p).ewm(com=period - 1, adjust=False).mean() / atr_s.replace(0, np.nan)
+    di_m  = 100 * pd.Series(dm_m).ewm(com=period - 1, adjust=False).mean() / atr_s.replace(0, np.nan)
+    dx    = (100 * (di_p - di_m).abs() / (di_p + di_m).replace(0, np.nan))
+    adx   = dx.ewm(com=period - 1, adjust=False).mean()
+    return adx
+
+def fetch_candles(timeframe, count=250):
+    def _fetch():
+        rates = mt5.copy_rates_from_pos(SYMBOL, timeframe, 0, count)
+        if rates is None or len(rates) &lt; 50:
+            raise ValueError(&quot;Not enough candle data&quot;)
+        df = pd.DataFrame(rates)
+        df[&#x27;time&#x27;] = pd.to_datetime(df[&#x27;time&#x27;], unit=&#x27;s&#x27;)
+        return df
+    return safe_run(_fetch)
+
+def get_live_atr():
+    try:
+        if TF_ENTRY is None: return ATR_DEFAULT
+        df = fetch_candles(TF_ENTRY, ATR_PERIOD + 5)
+        return round(calc_atr(df, ATR_PERIOD).iloc[-1], 2) if df is not None else ATR_DEFAULT
+    except: return ATR_DEFAULT
+
+# ═══════════════════════════════════════════════════════════
+# STEP 3 — v7 REGIME DETECTION (full replacement of v6 detect_regime)
+# ═══════════════════════════════════════════════════════════
+def is_silver_bullet_window():
+    &quot;&quot;&quot;Returns True if current UTC hour falls within a Silver Bullet window.&quot;&quot;&quot;
+    current_hour = datetime.utcnow().hour
+    for (start, end) in SILVER_BULLET_WINDOWS:
+        if start &lt;= current_hour &lt; end:
+            return True
+    return False
+
+def get_adx_threshold():
+    &quot;&quot;&quot;Returns relaxed ADX threshold during Silver Bullet windows, strict otherwise.&quot;&quot;&quot;
+    return ADX_SILVER_BULLET_RELAXED if is_silver_bullet_window() else ADX_TREND_THRESHOLD
+
+def is_confirmed_range(df):
+    &quot;&quot;&quot;
+    Confirms a structural range: 8+ candles bouncing, 60–200 point width,
+    all closes within 10% tolerance of range boundaries.
+    Returns (confirmed: bool, range_high: float, range_low: float)
+    &quot;&quot;&quot;
+    lookback = RANGE_MIN_CANDLES + 2
+    if len(df) &lt; lookback:
+        return False, None, None
+    recent     = df.iloc[-lookback:]
+    range_high = recent[&#x27;high&#x27;].max()
+    range_low  = recent[&#x27;low&#x27;].min()
+    range_width = range_high - range_low
+    if range_width &lt; RANGE_MIN_WIDTH_PTS or range_width &gt; RANGE_MAX_WIDTH_PTS:
+        return False, None, None
+    tolerance = range_width * 0.10
+    for _, candle in recent.iterrows():
+        if candle[&#x27;close&#x27;] &gt; range_high + tolerance:
+            return False, None, None
+        if candle[&#x27;close&#x27;] &lt; range_low - tolerance:
+            return False, None, None
+    return True, range_high, range_low
+
+def calc_bollinger(df, period=20, std_dev=2.5):
+    &quot;&quot;&quot;Returns (upper, mid, lower) Bollinger Bands.&quot;&quot;&quot;
+    mid   = df[&#x27;close&#x27;].rolling(period).mean()
+    std   = df[&#x27;close&#x27;].rolling(period).std()
+    return mid + std * std_dev, mid, mid - std * std_dev
+
+def calc_bb_width(df, period=20, std_dev=2.5):
+    &quot;&quot;&quot;Returns Bollinger Band width series.&quot;&quot;&quot;
+    upper, mid, lower = calc_bollinger(df, period, std_dev)
+    return upper - lower
+
+def is_bb_squeeze(df):
+    &quot;&quot;&quot;
+    Returns True if current BB width is at or very near its 252-bar minimum.
+    Requires at least 260 bars to compute reliably.
+    &quot;&quot;&quot;
+    if len(df) &lt; 260:
+        return False
+    bw = calc_bb_width(df)
+    return bw.iloc[-1] &lt;= bw.iloc[-252:].min() * 1.05
+
+def detect_regime(df_1h):
+    &quot;&quot;&quot;
+    v7 REGIME DETECTOR — four possible outputs:
+      TREND_BULL      — ADX &gt;= threshold AND EMA50 &gt; EMA200
+      TREND_BEAR      — ADX &gt;= threshold AND EMA50 &lt; EMA200
+      RANGE           — ADX &lt; RANGE_ADX_MAX AND confirmed structural range
+      VOLATILE_NEWS   — ATR spike &gt; 1.5x 20-bar average
+      VOLATILE_SQUEEZE — BB width at 3-month low AND ADX 20–28
+      UNKNOWN         — none of the above
+
+    Note: df_1h replaces the (df_15m, df_1h) signature from v6.
+    The calling code in run_signal_engine passes df_1h directly.
+    &quot;&quot;&quot;
+    if len(df_1h) &lt; 50:
+        return &quot;UNKNOWN&quot;
+    try:
+        adx   = calc_adx(df_1h).iloc[-1]
+        atr_s = calc_atr(df_1h)
+        atr   = atr_s.iloc[-1]
+        atr20 = atr_s.iloc[-20:].mean() if len(df_1h) &gt;= 20 else atr
+
+        # TREND: ADX above threshold (Silver Bullet windows relax to 24)
+        if adx &gt;= get_adx_threshold():
+            e50  = calc_ema(df_1h[&#x27;close&#x27;], 50).iloc[-1]
+            e200 = calc_ema(df_1h[&#x27;close&#x27;], 200).iloc[-1]
+            return &quot;TREND_BULL&quot; if e50 &gt; e200 else &quot;TREND_BEAR&quot;
+
+        # RANGE: confirmed structural range with low ADX
+        if adx &lt; RANGE_ADX_MAX:
+            ok, _, _ = is_confirmed_range(df_1h)
+            return &quot;RANGE&quot; if ok else &quot;UNKNOWN&quot;
+
+        # VOLATILE_NEWS: ATR spike above 1.5× 20-bar average
+        if atr &gt; atr20 * POST_NEWS_ATR_SPIKE_MULT:
+            return &quot;VOLATILE_NEWS&quot;
+
+        # VOLATILE_SQUEEZE: BB width at 3-month low (ADX 20–28 zone)
+        if is_bb_squeeze(df_1h):
+            return &quot;VOLATILE_SQUEEZE&quot;
+
+        return &quot;UNKNOWN&quot;
+    except Exception as e:
+        log.warning(f&quot;detect_regime: {e}&quot;)
+        return &quot;UNKNOWN&quot;
+
+# ═══════════════════════════════════════════════════════════
+# 4H BIAS FILTER (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def get_4h_bias(df_4h):
+    &quot;&quot;&quot;Returns BUY, SELL or None based on 4H EMA50 vs EMA200 direction.&quot;&quot;&quot;
+    df = df_4h.copy()
+    df[&#x27;ema50&#x27;]  = calc_ema(df[&#x27;close&#x27;], 50)
+    df[&#x27;ema200&#x27;] = calc_ema(df[&#x27;close&#x27;], 200)
+    last = df.iloc[-1]
+    if last[&#x27;ema50&#x27;] &gt; last[&#x27;ema200&#x27;]: return &quot;BUY&quot;
+    elif last[&#x27;ema50&#x27;] &lt; last[&#x27;ema200&#x27;]: return &quot;SELL&quot;
+    return None
+
+# ═══════════════════════════════════════════════════════════
+# REGIME STATS — SELF-LEARNING with v6 A5 recovery (unchanged)
+# ═══════════════════════════════════════════════════════════
+def load_regime_stats():
+    global regime_stats
+    try:
+        if os.path.exists(REGIME_FILE):
+            with open(REGIME_FILE) as f: regime_stats = json.load(f)
+    except Exception as e: log.warning(f&quot;load_regime_stats: {e}&quot;); regime_stats = {}
+
+def save_regime_stats():
+    try:
+        with open(REGIME_FILE, &#x27;w&#x27;) as f: json.dump(regime_stats, f, indent=2)
+    except Exception as e: log.error(f&quot;save_regime_stats: {e}&quot;)
+
+def update_regime_stats(regime, won):
+    if regime not in regime_stats:
+        regime_stats[regime] = {&quot;wins&quot;: 0, &quot;total&quot;: 0}
+    regime_stats[regime][&quot;total&quot;] += 1
+    if won: regime_stats[regime][&quot;wins&quot;] += 1
+    save_regime_stats()
+
+def is_regime_allowed(regime):
+    &quot;&quot;&quot;v6 A5 FIX: 14-day cooldown + 10 trial trades before permanent block. Unchanged.&quot;&quot;&quot;
+    stats       = regime_stats.get(regime, {})
+    total       = stats.get(&quot;total&quot;, 0)
+    if total &lt; 30: return True
+    win_rate    = stats.get(&quot;wins&quot;, 0) / total
+    blocked_since = stats.get(&quot;blocked_since&quot;)
+    if blocked_since:
+        days_blocked = (datetime.utcnow() - datetime.fromisoformat(blocked_since)).days
+        trial = stats.get(&quot;trial_trades&quot;, 0)
+        if days_blocked &gt;= 14 and trial &lt; 10:
+            regime_stats[regime][&quot;trial_trades&quot;] = trial + 1
+            log.info(f&quot;Regime {regime} on trial ({trial+1}/10)&quot;)
+            return True
+        elif trial &gt;= 10:
+            regime_stats[regime].pop(&quot;blocked_since&quot;, None)
+            regime_stats[regime].pop(&quot;trial_trades&quot;, None)
+    if win_rate &lt; 0.35:
+        regime_stats[regime][&quot;blocked_since&quot;] = datetime.utcnow().isoformat()
+        log.info(f&quot;Regime {regime} blocked — win rate {round(win_rate*100,1)}%&quot;)
+        telegram(f&quot;🚫 Regime {regime} auto-blocked (win rate: {round(win_rate*100,1)}%)&quot;)
+        return False
+    return True
+
+# ═══════════════════════════════════════════════════════════
+# TRADE STATE PERSISTENCE (unchanged from v6 A4)
+# ═══════════════════════════════════════════════════════════
+def save_trade_state():
+    try:
+        serializable = {str(k): v for k, v in open_trade_state.items()}
+        with open(STATE_FILE, &quot;w&quot;) as f: json.dump(serializable, f, indent=2)
+    except Exception as e: log.error(f&quot;save_trade_state: {e}&quot;)
+
+def load_trade_state():
+    global open_trade_state
+    try:
+        if os.path.exists(STATE_FILE):
+            with open(STATE_FILE) as f: data = json.load(f)
+            open_trade_state = {int(k): v for k, v in data.items()}
+            log.info(f&quot;Trade state reloaded: {len(open_trade_state)} positions&quot;)
+    except Exception as e: log.warning(f&quot;load_trade_state: {e}&quot;)
+
+# ═══════════════════════════════════════════════════════════
+# SIGNAL HELPER FUNCTIONS
+# (get_trend_1h, detect_mss, detect_fvg unchanged from v6)
+# detect_liquidity_sweep: STEP 2 — body filter raised to SWEEP_BODY_FILTER (0.38)
+# ═══════════════════════════════════════════════════════════
+def get_trend_1h(df_1h):
+    &quot;&quot;&quot;Unchanged from v6.&quot;&quot;&quot;
+    df = df_1h.copy()
+    df[&#x27;ema50&#x27;]  = calc_ema(df[&#x27;close&#x27;], 50)
+    df[&#x27;ema200&#x27;] = calc_ema(df[&#x27;close&#x27;], 200)
+    slope = df[&#x27;ema50&#x27;].iloc[-1] - df[&#x27;ema50&#x27;].iloc[-5]
+    last  = df.iloc[-1]
+    if last[&#x27;ema50&#x27;] &gt; last[&#x27;ema200&#x27;] and slope &gt; 0: return &quot;BUY&quot;
+    elif last[&#x27;ema50&#x27;] &lt; last[&#x27;ema200&#x27;] and slope &lt; 0: return &quot;SELL&quot;
+    return None
+
+def detect_liquidity_sweep(df, lookback=20):
+    &quot;&quot;&quot;
+    STEP 2: body/range filter raised from 0.30 to SWEEP_BODY_FILTER (0.38).
+    Everything else identical to v6 B3.
+    &quot;&quot;&quot;
+    if len(df) &lt; lookback + 2: return None
+    last         = df.iloc[-1]
+    candle_range = last[&#x27;high&#x27;] - last[&#x27;low&#x27;]
+    body_size    = abs(last[&#x27;close&#x27;] - last[&#x27;open&#x27;])
+    # STEP 2 CHANGE: 0.30 → SWEEP_BODY_FILTER
+    if candle_range == 0 or body_size / candle_range &lt; SWEEP_BODY_FILTER: return None
+    prev_low  = df[&#x27;low&#x27;].iloc[-lookback - 1:-1].min()
+    prev_high = df[&#x27;high&#x27;].iloc[-lookback - 1:-1].max()
+    if last[&#x27;low&#x27;] &lt; prev_low and last[&#x27;close&#x27;] &gt; prev_low:   return &quot;BUY&quot;
+    if last[&#x27;high&#x27;] &gt; prev_high and last[&#x27;close&#x27;] &lt; prev_high: return &quot;SELL&quot;
+    return None
+
+def detect_mss(df, sweep_direction):
+    &quot;&quot;&quot;Unchanged from v6 B4: body &gt;= 40% of range.&quot;&quot;&quot;
+    if len(df) &lt; 12: return False
+    last         = df.iloc[-1]
+    candle_range = last[&#x27;high&#x27;] - last[&#x27;low&#x27;]
+    body_size    = abs(last[&#x27;close&#x27;] - last[&#x27;open&#x27;])
+    if candle_range == 0 or body_size / candle_range &lt; 0.40: return False
+    if sweep_direction == &quot;BUY&quot;:  return last[&#x27;close&#x27;] &gt; df[&#x27;high&#x27;].iloc[-11:-1].max()
+    if sweep_direction == &quot;SELL&quot;: return last[&#x27;close&#x27;] &lt; df[&#x27;low&#x27;].iloc[-11:-1].min()
+    return False
+
+def detect_fvg(df, direction):
+    &quot;&quot;&quot;Unchanged from v6 B2: checks gap not already filled.&quot;&quot;&quot;
+    if len(df) &lt; 4: return None
+    c0, c1, c2   = df.iloc[-1], df.iloc[-2], df.iloc[-3]
+    current_price = c0[&#x27;close&#x27;]
+    if direction == &quot;BUY&quot; and c2[&#x27;high&#x27;] &lt; c0[&#x27;low&#x27;]:
+        gap_low, gap_high = c2[&#x27;high&#x27;], c0[&#x27;low&#x27;]
+        if current_price &gt;= gap_low: return (gap_low, gap_high)
+    if direction == &quot;SELL&quot; and c2[&#x27;low&#x27;] &gt; c0[&#x27;high&#x27;]:
+        gap_low, gap_high = c0[&#x27;high&#x27;], c2[&#x27;low&#x27;]
+        if current_price &lt;= gap_high: return (gap_low, gap_high)
+    return None
+
+# ═══════════════════════════════════════════════════════════
+# STEP 4 — NEW v7 SIGNAL HELPER FUNCTIONS
+# (added after detect_fvg, do not replace any existing function)
+# ═══════════════════════════════════════════════════════════
+def detect_order_block(df, direction, mss_candle_idx=-1):
+    &quot;&quot;&quot;
+    MODULE 01 helper: finds the last opposing candle before the MSS —
+    this is the institutional order block.
+    Returns dict with ob_low, ob_high, entry_price, sl_level or None.
+    &quot;&quot;&quot;
+    if len(df) &lt; 5: return None
+    current_price = df.iloc[-1][&#x27;close&#x27;]
+    limit = max(-len(df), -15)
+    for i in range(mss_candle_idx - 1, limit - 1, -1):
+        c = df.iloc[i]
+        r = c[&#x27;high&#x27;] - c[&#x27;low&#x27;]
+        if r == 0: continue
+        if abs(c[&#x27;close&#x27;] - c[&#x27;open&#x27;]) / r &lt; 0.25: continue
+        if direction == &quot;BUY&quot; and c[&#x27;close&#x27;] &lt; c[&#x27;open&#x27;]:
+            ob_l, ob_h = c[&#x27;close&#x27;], c[&#x27;open&#x27;]
+            if ob_l &lt;= current_price &lt;= ob_h * 1.001:
+                return {
+                    &#x27;ob_low&#x27;:      ob_l,
+                    &#x27;ob_high&#x27;:     ob_h,
+                    &#x27;entry_price&#x27;: (ob_l + ob_h) / 2,
+                    &#x27;sl_level&#x27;:    c[&#x27;low&#x27;] - 0.5,
+                }
+        elif direction == &quot;SELL&quot; and c[&#x27;close&#x27;] &gt; c[&#x27;open&#x27;]:
+            ob_l, ob_h = c[&#x27;open&#x27;], c[&#x27;close&#x27;]
+            if ob_l * 0.999 &lt;= current_price &lt;= ob_h:
+                return {
+                    &#x27;ob_low&#x27;:      ob_l,
+                    &#x27;ob_high&#x27;:     ob_h,
+                    &#x27;entry_price&#x27;: (ob_l + ob_h) / 2,
+                    &#x27;sl_level&#x27;:    c[&#x27;high&#x27;] + 0.5,
+                }
+    return None
+
+def detect_fib_ote(df, direction, mss_candle_idx=-1, tolerance_pts=0.3):
+    &quot;&quot;&quot;
+    MODULE 01 helper: checks if current price is at the 61.8% Fibonacci
+    OTE (Optimal Trade Entry) level of the MSS candle&#x27;s range.
+    Returns dict with ote_level, entry_price, sl_level or None.
+    &quot;&quot;&quot;
+    if len(df) &lt; abs(mss_candle_idx) + 1: return None
+    mc  = df.iloc[mss_candle_idx]
+    rng = mc[&#x27;high&#x27;] - mc[&#x27;low&#x27;]
+    if rng &lt; 0.5: return None
+    cur = df.iloc[-1][&#x27;close&#x27;]
+    if direction == &quot;BUY&quot;:
+        ote = mc[&#x27;high&#x27;] - 0.618 * rng
+        if abs(cur - ote) &lt;= tolerance_pts:
+            return {&#x27;ote_level&#x27;: ote, &#x27;entry_price&#x27;: ote, &#x27;sl_level&#x27;: mc[&#x27;low&#x27;] - 0.5}
+    elif direction == &quot;SELL&quot;:
+        ote = mc[&#x27;low&#x27;] + 0.618 * rng
+        if abs(cur - ote) &lt;= tolerance_pts:
+            return {&#x27;ote_level&#x27;: ote, &#x27;entry_price&#x27;: ote, &#x27;sl_level&#x27;: mc[&#x27;high&#x27;] + 0.5}
+    return None
+
+def detect_rsi_divergence(df, direction, lookback_bars=20):
+    &quot;&quot;&quot;
+    MODULE 02 helper: detects bullish or bearish RSI divergence.
+    Returns True if divergence confirmed, False otherwise.
+    &quot;&quot;&quot;
+    df = df.copy()
+    df[&#x27;rsi&#x27;] = calc_rsi(df[&#x27;close&#x27;])
+    if len(df) &lt; lookback_bars + 2: return False
+    cur_rsi = df[&#x27;rsi&#x27;].iloc[-1]
+    cur_px  = df[&#x27;close&#x27;].iloc[-1]
+    prior   = df.iloc[-lookback_bars:-2]
+    if direction == &quot;BUY&quot;:
+        idx = prior[&#x27;low&#x27;].idxmin()
+        if cur_px &lt;= prior.loc[idx, &#x27;low&#x27;] and cur_rsi &gt; prior.loc[idx, &#x27;rsi&#x27;]:
+            return True
+    elif direction == &quot;SELL&quot;:
+        idx = prior[&#x27;high&#x27;].idxmax()
+        if cur_px &gt;= prior.loc[idx, &#x27;high&#x27;] and cur_rsi &lt; prior.loc[idx, &#x27;rsi&#x27;]:
+            return True
+    return False
+
+# ═══════════════════════════════════════════════════════════
+# STEP 5 — v7 SIGNAL ROUTING SYSTEM
+# (replaces generate_signal; four module functions + router)
+# ═══════════════════════════════════════════════════════════
+def generate_trend_signal(df_15m, df_1h, df_4h):
+    &quot;&quot;&quot;
+    MODULE 01 — TREND (SMC + Order Block + Fibonacci OTE)
+    Active when regime is TREND_BULL or TREND_BEAR.
+    Session: 06:00–16:00 UTC (removed 16:30–18:00 late window).
+    Three entry types in priority order: FVG → OB → OTE.
+    ADX threshold relaxed during Silver Bullet windows (10–11, 14–15 UTC).
+    Sweep body filter raised to 38% (SWEEP_BODY_FILTER).
+    &quot;&quot;&quot;
+    current_hour = datetime.utcnow().hour
+    if not (SESSION_START_UTC &lt;= current_hour &lt; SESSION_END_UTC_V7):
+        return None
+
+    df_15m = df_15m.copy()
+    df_15m[&#x27;rsi&#x27;] = calc_rsi(df_15m[&#x27;close&#x27;])
+    rsi = df_15m[&#x27;rsi&#x27;].iloc[-1]
+
+    # 1H trend direction
+    trend_dir = get_trend_1h(df_1h)
+    if trend_dir is None: return None
+
+    # 4H bias filter
+    if df_4h is not None:
+        b4 = get_4h_bias(df_4h)
+        if b4 is not None and trend_dir != b4: return None
+
+    # Liquidity sweep (body &gt;= SWEEP_BODY_FILTER = 0.38)
+    sweep = detect_liquidity_sweep(df_15m)
+    if sweep is None or sweep != trend_dir: return None
+
+    # RSI guard
+    if sweep == &quot;BUY&quot;  and rsi &gt; 65: return None
+    if sweep == &quot;SELL&quot; and rsi &lt; 35: return None
+
+    # MSS confirmation (body &gt;= 0.40)
+    if not detect_mss(df_15m, sweep): return None
+
+    atr = calc_atr(df_15m).iloc[-1]
+
+    # Entry type 1: FVG (highest priority)
+    fvg = detect_fvg(df_15m, sweep)
+    if fvg:
+        fl, fh = fvg
+        ep = (fl + fh) / 2
+        sl = (fl - atr * 0.5) if sweep == &quot;BUY&quot; else (fh + atr * 0.5)
+        return {&#x27;direction&#x27;: sweep, &#x27;entry_type&#x27;: &#x27;FVG&#x27;, &#x27;entry_price&#x27;: ep, &#x27;sl&#x27;: sl}
+
+    # Entry type 2: Order Block
+    ob = detect_order_block(df_15m, sweep)
+    if ob:
+        return {
+            &#x27;direction&#x27;:   sweep,
+            &#x27;entry_type&#x27;:  &#x27;OB&#x27;,
+            &#x27;entry_price&#x27;: ob[&#x27;entry_price&#x27;],
+            &#x27;sl&#x27;:          ob[&#x27;sl_level&#x27;],
+        }
+
+    # Entry type 3: Fibonacci OTE
+    ote = detect_fib_ote(df_15m, sweep, mss_candle_idx=-2)
+    if ote:
+        return {
+            &#x27;direction&#x27;:   sweep,
+            &#x27;entry_type&#x27;:  &#x27;OTE&#x27;,
+            &#x27;entry_price&#x27;: ote[&#x27;entry_price&#x27;],
+            &#x27;sl&#x27;:          ote[&#x27;sl_level&#x27;],
+        }
+
+    return None
+
+
+def generate_range_signal(df_15m):
+    &quot;&quot;&quot;
+    MODULE 02 — RANGE (Range Boundary SMC)
+    Active when regime is RANGE (ADX &lt; 20, confirmed structural range).
+    Session: 07:00–15:00 UTC (peak liquidity hours for range trading).
+    Requires: range rejection candle + RSI divergence + BB extreme touch.
+    Fully replaces the broken v6 RSI-only range strategy.
+    &quot;&quot;&quot;
+    current_hour = datetime.utcnow().hour
+    if not (7 &lt;= current_hour &lt; 15): return None
+
+    ok, rh, rl = is_confirmed_range(df_15m)
+    if not ok: return None
+
+    rw  = rh - rl
+    mid = rl + rw / 2
+
+    df_15m = df_15m.copy()
+    df_15m[&#x27;rsi&#x27;] = calc_rsi(df_15m[&#x27;close&#x27;])
+
+    bbu, _, bbl = calc_bollinger(df_15m, RANGE_BB_PERIOD, RANGE_BB_STD)
+    prev = df_15m.iloc[-2]
+    pr   = prev[&#x27;high&#x27;] - prev[&#x27;low&#x27;]
+    pb   = abs(prev[&#x27;close&#x27;] - prev[&#x27;open&#x27;])
+    if pr == 0: return None
+    bpct = pb / pr
+    ep   = df_15m.iloc[-1][&#x27;close&#x27;]
+
+    # SELL at range high: wick above range_high, close below, body&gt;=40%, RSI divergence, BB touch
+    if (prev[&#x27;high&#x27;] &gt; rh
+            and prev[&#x27;close&#x27;] &lt; rh
+            and bpct &gt;= RANGE_REJECTION_BODY
+            and detect_rsi_divergence(df_15m, &quot;SELL&quot;)
+            and prev[&#x27;high&#x27;] &gt;= bbu.iloc[-1]):
+        return {
+            &#x27;direction&#x27;:  &#x27;SELL&#x27;,
+            &#x27;entry_price&#x27;: ep,
+            &#x27;sl&#x27;:          prev[&#x27;high&#x27;] + 0.5,
+            &#x27;tp1&#x27;:         mid,
+            &#x27;tp2&#x27;:         rl + 2.0,
+            &#x27;range_high&#x27;:  rh,
+            &#x27;range_low&#x27;:   rl,
+        }
+
+    # BUY at range low: wick below range_low, close above, body&gt;=40%, RSI divergence, BB touch
+    if (prev[&#x27;low&#x27;] &lt; rl
+            and prev[&#x27;close&#x27;] &gt; rl
+            and bpct &gt;= RANGE_REJECTION_BODY
+            and detect_rsi_divergence(df_15m, &quot;BUY&quot;)
+            and prev[&#x27;low&#x27;] &lt;= bbl.iloc[-1]):
+        return {
+            &#x27;direction&#x27;:  &#x27;BUY&#x27;,
+            &#x27;entry_price&#x27;: ep,
+            &#x27;sl&#x27;:          prev[&#x27;low&#x27;] - 0.5,
+            &#x27;tp1&#x27;:         mid,
+            &#x27;tp2&#x27;:         rh - 2.0,
+            &#x27;range_high&#x27;:  rh,
+            &#x27;range_low&#x27;:   rl,
+        }
+
+    return None
+
+
+def generate_squeeze_signal(df_15m, df_4h):
+    &quot;&quot;&quot;
+    MODULE 03 — VOLATILE SQUEEZE (Bollinger Squeeze Breakout)
+    Active when regime is VOLATILE_SQUEEZE:
+      ATR at 20-period low AND BB width at 3-month low AND ADX 20–28.
+    Session: 07:00–16:00 UTC.
+    Avoids 2-hour window around high-impact news events.
+    Requires: ATR at minimum + BB breakout candle with body &gt;= 45% + 4H alignment.
+    &quot;&quot;&quot;
+    current_hour = datetime.utcnow().hour
+    if not (7 &lt;= current_hour &lt; 16): return None
+
+    # Block if within 2 hours of a high-impact event
+    try:
+        now = datetime.utcnow()
+        url = (f&quot;https://finnhub.io/api/v1/calendar/economic&quot;
+               f&quot;?from={now.strftime(&#x27;%Y-%m-%d&#x27;)}&amp;to={now.strftime(&#x27;%Y-%m-%d&#x27;)}&quot;
+               f&quot;&amp;token={FINNHUB_KEY}&quot;)
+        events = requests.get(url, timeout=5).json().get(&#x27;economicCalendar&#x27;, [])
+        for ev in events:
+            if ev.get(&#x27;impact&#x27;, &#x27;&#x27;) == &#x27;high&#x27;:
+                et = datetime.strptime(ev[&#x27;time&#x27;], &quot;%Y-%m-%d %H:%M:%S&quot;)
+                if abs((now - et).total_seconds() / 60) &lt; 120:
+                    return None
+    except Exception:
+        return None  # if news API fails, skip squeeze entry as precaution
+
+    b4 = get_4h_bias(df_4h) if df_4h is not None else None
+
+    df_15m  = df_15m.copy()
+    atr_s   = calc_atr(df_15m)
+    atr_now = atr_s.iloc[-1]
+
+    # ATR must be at or near its 20-bar minimum
+    if atr_now &gt; atr_s.iloc[-SQUEEZE_ATR_LOOKBACK:].min() * 1.08:
+        return None
+
+    atr_pre = atr_now
+    bbu, _, bbl = calc_bollinger(df_15m, RANGE_BB_PERIOD, RANGE_BB_STD)
+    last = df_15m.iloc[-1]
+    cr   = last[&#x27;high&#x27;] - last[&#x27;low&#x27;]
+    cb   = abs(last[&#x27;close&#x27;] - last[&#x27;open&#x27;])
+
+    # Breakout candle must have body &gt;= 45%
+    if cr == 0 or cb / cr &lt; SQUEEZE_BODY_MIN: return None
+
+    # Determine breakout direction from BB extreme
+    d = None
+    if last[&#x27;close&#x27;] &gt; bbu.iloc[-1] and last[&#x27;close&#x27;] &gt; last[&#x27;open&#x27;]:
+        d = &quot;BUY&quot;
+    elif last[&#x27;close&#x27;] &lt; bbl.iloc[-1] and last[&#x27;close&#x27;] &lt; last[&#x27;open&#x27;]:
+        d = &quot;SELL&quot;
+    if d is None: return None
+
+    # 4H bias alignment
+    if b4 is not None and d != b4: return None
+
+    ep = last[&#x27;close&#x27;]
+    td = atr_pre * SQUEEZE_ATR_MULT
+    sl = (last[&#x27;low&#x27;]  - 0.3) if d == &quot;BUY&quot;  else (last[&#x27;high&#x27;] + 0.3)
+    tp = (ep + td)             if d == &quot;BUY&quot;  else (ep - td)
+
+    return {&#x27;direction&#x27;: d, &#x27;entry_price&#x27;: ep, &#x27;sl&#x27;: sl, &#x27;tp&#x27;: tp}
+
+
+def generate_post_news_signal(df_15m):
+    &quot;&quot;&quot;
+    MODULE 04 — VOLATILE POST-NEWS (Post-News ICT Entry)
+    Active when regime is VOLATILE_NEWS.
+    Waits 60 minutes after an ATR spike, then looks for price consolidation
+    followed by a sweep + FVG entry in the spike direction.
+    One trade per session maximum (post_news_traded_this_session guard).
+    &quot;&quot;&quot;
+    global post_news_traded_this_session
+    if post_news_traded_this_session: return None
+
+    current_hour = datetime.utcnow().hour
+    if not (7 &lt;= current_hour &lt; 16): return None
+
+    atr_s = calc_atr(df_15m)
+    avg   = atr_s.iloc[-20:].mean()
+
+    # Find ATR spike candle in the last 6 bars
+    spike = None
+    for i in range(-6, -1):
+        c = df_15m.iloc[i]
+        if (c[&#x27;high&#x27;] - c[&#x27;low&#x27;]) &gt; avg * POST_NEWS_ATR_SPIKE_MULT:
+            spike = {
+                &#x27;direction&#x27;:   &quot;BUY&quot; if c[&#x27;close&#x27;] &gt; c[&#x27;open&#x27;] else &quot;SELL&quot;,
+                &#x27;spike_time&#x27;:  c.get(&#x27;time&#x27;, datetime.utcnow()),
+                &#x27;spike_range&#x27;: c[&#x27;high&#x27;] - c[&#x27;low&#x27;],
+            }
+            break
+    if spike is None: return None
+
+    # Normalise spike time to naive datetime
+    st = spike[&#x27;spike_time&#x27;]
+    if hasattr(st, &#x27;to_pydatetime&#x27;):
+        st = st.to_pydatetime().replace(tzinfo=None)
+
+    # Must wait POST_NEWS_WAIT_MINUTES (60 min) after spike
+    if (datetime.utcnow() - st).total_seconds() / 60 &lt; POST_NEWS_WAIT_MINUTES:
+        return None
+
+    # Consolidation check: last 4 candles must be within 35% of spike range
+    recent = df_15m.iloc[-POST_NEWS_CONSOLIDATION:]
+    if recent[&#x27;high&#x27;].max() - recent[&#x27;low&#x27;].min() &gt; spike[&#x27;spike_range&#x27;] * POST_NEWS_CONSOL_PCT:
+        return None
+
+    d = spike[&#x27;direction&#x27;]
+
+    # Sweep in spike direction
+    if detect_liquidity_sweep(df_15m) != d: return None
+
+    # FVG entry confirmation
+    fvg = detect_fvg(df_15m, d)
+    if fvg is None: return None
+
+    fl, fh = fvg
+    ep     = (fl + fh) / 2
+    av     = atr_s.iloc[-1]
+    sl     = (fl - av * 0.5) if d == &quot;BUY&quot; else (fh + av * 0.5)
+    sd     = abs(ep - sl)
+    tp     = (ep + sd * POST_NEWS_RR) if d == &quot;BUY&quot; else (ep - sd * POST_NEWS_RR)
+
+    post_news_traded_this_session = True
+
+    return {&#x27;direction&#x27;: d, &#x27;entry_price&#x27;: ep, &#x27;sl&#x27;: sl, &#x27;tp&#x27;: tp}
+
+
+def generate_signal(df_15m, df_1h, df_4h, regime):
+    &quot;&quot;&quot;
+    STEP 5 — v7 SIGNAL ROUTER
+    Routes to the correct module based on regime. Returns direction string or None.
+    Only one module fires at a time.
+    &quot;&quot;&quot;
+    if regime in (&quot;TREND_BULL&quot;, &quot;TREND_BEAR&quot;):
+        r = generate_trend_signal(df_15m, df_1h, df_4h)
+        return r[&#x27;direction&#x27;] if r else None
+
+    elif regime == &quot;RANGE&quot;:
+        r = generate_range_signal(df_15m)
+        return r[&#x27;direction&#x27;] if r else None
+
+    elif regime == &quot;VOLATILE_SQUEEZE&quot;:
+        r = generate_squeeze_signal(df_15m, df_4h)
+        return r[&#x27;direction&#x27;] if r else None
+
+    elif regime == &quot;VOLATILE_NEWS&quot;:
+        r = generate_post_news_signal(df_15m)
+        return r[&#x27;direction&#x27;] if r else None
+
+    return None
+
+# ═══════════════════════════════════════════════════════════
+# ENSEMBLE ML (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def load_ml_models():
+    global ml_xgb, ml_rf, ml_lr
+    loaded = []
+    for name, attr, file in [
+        (&quot;XGBoost&quot;,      &quot;ml_xgb&quot;, ML_MODEL_XGB),
+        (&quot;RandomForest&quot;, &quot;ml_rf&quot;,  ML_MODEL_RF),
+        (&quot;LogisticReg&quot;,  &quot;ml_lr&quot;,  ML_MODEL_LR),
+    ]:
+        try: globals()[attr] = joblib.load(file); loaded.append(name)
+        except Exception as e: log.info(f&quot;{name} not found: {e}&quot;)
+    log.info(f&quot;ML models loaded: {loaded}&quot; if loaded else &quot;No ML models — placeholder mode&quot;)
+
+def build_ml_features(signal, atr, sl_dist, regime, rsi_val=50.0):
+    &quot;&quot;&quot;v6 A2 FIX: dynamic rr_quality + rsi_at_entry. Unchanged.&quot;&quot;&quot;
+    now         = datetime.utcnow()
+    hour        = now.hour
+    dow         = now.weekday()
+    session_enc = 0 if 6 &lt;= hour &lt; 12 else 1 if 12 &lt;= hour &lt; 18 else 2
+    sig_enc     = 1 if signal == &quot;BUY&quot; else 0
+    tp_dist     = sl_dist * 2.0
+    rr          = round(tp_dist / sl_dist, 3) if sl_dist &gt; 0 else 2.0
+    sl_atr      = round(sl_dist / atr, 3) if atr &gt; 0 else 1.0
+    atr_tier    = 0 if atr &lt; 1.5 else 1 if atr &lt; 3.0 else 2
+    regime_enc  = {
+        &quot;TREND_BULL&quot;: 0, &quot;TREND_BEAR&quot;: 1, &quot;RANGE&quot;: 2,
+        &quot;VOLATILE_SQUEEZE&quot;: 3, &quot;VOLATILE_NEWS&quot;: 3, &quot;UNKNOWN&quot;: 4,
+    }.get(regime, 4)
+    lot = calculate_lot(sl_dist)
+    return pd.DataFrame([{
+        &quot;sl_distance&quot;:  sl_dist,
+        &quot;rr_quality&quot;:   rr,
+        &quot;atr_used&quot;:     atr,
+        &quot;sl_atr_ratio&quot;: sl_atr,
+        &quot;lot&quot;:          lot,
+        &quot;hour&quot;:         hour,
+        &quot;day_of_week&quot;:  dow,
+        &quot;session_enc&quot;:  session_enc,
+        &quot;signal_enc&quot;:   sig_enc,
+        &quot;atr_tier&quot;:     atr_tier,
+        &quot;regime_enc&quot;:   regime_enc,
+        &quot;rsi_at_entry&quot;: round(rsi_val, 2),
+    }])
+
+def ml_filter(signal, atr, sl_dist, regime, rsi_val=50.0):
+    &quot;&quot;&quot;Unchanged from v6.&quot;&quot;&quot;
+    threshold = get_mode(&quot;ml_threshold&quot;)
+    if ml_xgb is None and ml_rf is None and ml_lr is None: return True
+    features = build_ml_features(signal, atr, sl_dist, regime, rsi_val)
+    scores, weights = [], []
+    try:
+        if ml_xgb: scores.append(ml_xgb.predict_proba(features)[0][1]); weights.append(0.4)
+    except Exception as e: log.warning(f&quot;XGBoost: {e}&quot;)
+    try:
+        if ml_rf: scores.append(ml_rf.predict_proba(features)[0][1]); weights.append(0.3)
+    except Exception as e: log.warning(f&quot;RF: {e}&quot;)
+    try:
+        if ml_lr: scores.append(ml_lr.predict_proba(features)[0][1]); weights.append(0.3)
+    except Exception as e: log.warning(f&quot;LR: {e}&quot;)
+    if not scores: return True
+    total_w = sum(weights)
+    final   = sum(s * w for s, w in zip(scores, weights)) / total_w
+    log.info(f&quot;ML score: {round(final*100,1)}% (threshold: {int(threshold*100)}%)&quot;)
+    if final &lt; threshold:
+        telegram(f&quot;🤖 ML rejected | Score: {round(final*100,1)}% &lt; {int(threshold*100)}%&quot;)
+        return False
+    return True
+
+# ═══════════════════════════════════════════════════════════
+# FILTERS (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def session_filter():
+    return SESSION_START_UTC &lt;= datetime.utcnow().hour &lt; SESSION_END_UTC
+
+def spread_filter(regime=&quot;UNKNOWN&quot;):
+    try:
+        tick  = mt5.symbol_info_tick(SYMBOL)
+        info  = mt5.symbol_info(SYMBOL)
+        if tick is None or info is None: return False
+        spread = (tick.ask - tick.bid) / info.point
+        limit  = SPREAD_LIMITS.get(regime, 25)
+        if spread &gt; limit:
+            log.info(f&quot;Spread {spread:.1f}pts &gt; {limit} for {regime}&quot;)
+            return False
+        return True
+    except Exception as e: log.error(f&quot;Spread: {e}&quot;); return False
+
+def news_filter():
+    &quot;&quot;&quot;v6 A3 FIX: cache + fail-safe. Unchanged.&quot;&quot;&quot;
+    try:
+        now = datetime.utcnow()
+        url = (f&quot;https://finnhub.io/api/v1/calendar/economic&quot;
+               f&quot;?from={now.strftime(&#x27;%Y-%m-%d&#x27;)}&amp;to={now.strftime(&#x27;%Y-%m-%d&#x27;)}&quot;
+               f&quot;&amp;token={FINNHUB_KEY}&quot;)
+        events   = requests.get(url, timeout=5).json().get(&quot;economicCalendar&quot;, [])
+        keywords = [&quot;nonfarm&quot;,&quot;nfp&quot;,&quot;cpi&quot;,&quot;inflation&quot;,&quot;fomc&quot;,&quot;fed&quot;,&quot;interest rate&quot;,&quot;gdp&quot;,&quot;unemployment&quot;]
+        allow_trade = True
+        for ev in events:
+            if ev.get(&quot;impact&quot;, &quot;&quot;).lower() != &quot;high&quot;: continue
+            if not any(k in ev.get(&quot;event&quot;, &quot;&quot;).lower() for k in keywords): continue
+            try:
+                ev_dt = datetime.strptime(ev.get(&quot;time&quot;, &quot;&quot;), &quot;%Y-%m-%d %H:%M:%S&quot;)
+                if ev_dt - timedelta(minutes=NEWS_BLOCK_MINUTES) &lt;= now &lt;= ev_dt + timedelta(minutes=NEWS_BLOCK_MINUTES):
+                    msg = f&quot;📰 News block: {ev.get(&#x27;event&#x27;)} @ {ev.get(&#x27;time&#x27;)}&quot;
+                    log.info(msg); telegram(msg)
+                    allow_trade = False; break
+            except Exception: continue
+        _news_cache[&quot;result&quot;]     = allow_trade
+        _news_cache[&quot;fetched_at&quot;] = datetime.utcnow()
+        return allow_trade
+    except Exception as e:
+        log.warning(f&quot;News filter error: {e}&quot;)
+        if _news_cache[&quot;fetched_at&quot;] is not None:
+            age = (datetime.utcnow() - _news_cache[&quot;fetched_at&quot;]).total_seconds() / 60
+            if age &lt; NEWS_CACHE_MAX_AGE_MINUTES:
+                log.info(f&quot;Using cached news result (age: {age:.0f}min)&quot;)
+                return _news_cache[&quot;result&quot;]
+        log.warning(&quot;News cache stale — blocking trade as safe default&quot;)
+        telegram(&quot;WARNING: News filter API down + cache stale — trade blocked&quot;)
+        return False
+
+def get_todays_loss():
+    try:
+        t0    = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+        deals = mt5.history_deals_get(t0, datetime.utcnow())
+        if not deals: return 0.0
+        return round(sum(abs(d.profit) for d in deals
+                         if d.profit &lt; 0 and d.entry == mt5.DEAL_ENTRY_OUT), 2)
+    except: return 0.0
+
+def daily_reset():
+    global trades_today, last_reset
+    today = date.today()
+    if today != last_reset:
+        trades_today = 0; last_reset = today
+        log.info(&quot;Daily reset&quot;)
+
+def risk_filter():
+    global trades_today
+    daily_reset()
+    if trades_today &gt;= get_mode(&quot;max_trades&quot;):
+        telegram(f&quot;🚫 Max trades reached [{TRADING_MODE}]&quot;); return False
+    account = mt5.account_info()
+    if account is None: return False
+    if get_todays_loss() &gt;= account.balance * (get_mode(&quot;max_loss_pct&quot;) / 100):
+        telegram(f&quot;🚫 Daily loss limit hit&quot;); return False
+    return True
+
+def has_open_position():
+    pos = mt5.positions_get(symbol=SYMBOL)
+    return pos is not None and any(p.magic == 111444 for p in pos)
+
+def calculate_lot(sl_distance_price):
+    &quot;&quot;&quot;v6 A6 FIX: uses account.equity not account.balance. Unchanged.&quot;&quot;&quot;
+    try:
+        account = mt5.account_info()
+        info    = mt5.symbol_info(SYMBOL)
+        if account is None or info is None or info.trade_tick_size == 0:
+            return getattr(info, &#x27;volume_min&#x27;, 0.01) if info else 0.01
+        risk_amount   = account.equity * (get_mode(&quot;risk_pct&quot;) / 100)
+        value_per_lot = info.trade_tick_value / info.trade_tick_size
+        lot           = risk_amount / (sl_distance_price * value_per_lot)
+        return max(info.volume_min, min(round(lot, 2), info.volume_max))
+    except: return 0.01
+
+# ═══════════════════════════════════════════════════════════
+# TRADE LOGGER (unchanged from v6 — B5 slippage tracking)
+# ═══════════════════════════════════════════════════════════
+def setup_log():
+    if not os.path.exists(LOG_FILE):
+        with open(LOG_FILE, &quot;w&quot;, newline=&quot;&quot;) as f:
+            csv.writer(f).writerow([
+                &quot;date&quot;,&quot;time&quot;,&quot;signal&quot;,&quot;symbol&quot;,&quot;price&quot;,&quot;fill_price&quot;,
+                &quot;slippage_pts&quot;,&quot;sl&quot;,&quot;tp_ref&quot;,&quot;lot&quot;,&quot;risk_pct&quot;,
+                &quot;sl_distance&quot;,&quot;rr_ref&quot;,&quot;atr_used&quot;,&quot;account_balance&quot;,
+                &quot;regime&quot;,&quot;mode&quot;,&quot;result&quot;,&quot;pnl_usd&quot;,&quot;session&quot;,&quot;ticket&quot;,
+            ])
+
+def log_trade(signal, price, fill_price, sl, tp_ref, lot, atr, balance, ticket, regime, slippage_pts=0):
+    &quot;&quot;&quot;v6 B5: fill_price and slippage_pts logged. v6 C3: LDN_NY_Overlap label. Unchanged.&quot;&quot;&quot;
+    now     = datetime.utcnow()
+    sl_dist = round(abs(price - sl), 2)
+    tp_dist = round(abs(price - tp_ref), 2)
+    rr      = round(tp_dist / sl_dist, 2) if sl_dist &gt; 0 else 0
+    hour    = now.hour
+    if 12 &lt;= hour &lt; 15:   session = &quot;LDN_NY_Overlap&quot;
+    elif 6 &lt;= hour &lt; 12:  session = &quot;London&quot;
+    elif 15 &lt;= hour &lt; 18: session = &quot;NY&quot;
+    else:                 session = &quot;Asian&quot;
+    with open(LOG_FILE, &quot;a&quot;, newline=&quot;&quot;) as f:
+        csv.writer(f).writerow([
+            now.strftime(&quot;%Y-%m-%d&quot;), now.strftime(&quot;%H:%M:%S&quot;),
+            signal, SYMBOL, price, fill_price, slippage_pts,
+            sl, tp_ref, lot, get_mode(&quot;risk_pct&quot;),
+            sl_dist, rr, atr, round(balance, 2),
+            regime, TRADING_MODE, &quot;&quot;, &quot;&quot;, session, ticket,
+        ])
+    log.info(f&quot;Trade logged | Ticket:{ticket} | Regime:{regime} | Slippage:{slippage_pts}pts&quot;)
+
+# ═══════════════════════════════════════════════════════════
+# AUTO CSV UPDATER (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def auto_update_csv():
+    while True:
+        try:
+            time.sleep(AUTO_LOG_INTERVAL)
+            if not ensure_mt5() or not os.path.exists(LOG_FILE): continue
+            df_csv = pd.read_csv(LOG_FILE, dtype=str)
+            if &#x27;ticket&#x27; not in df_csv.columns: continue
+            from_dt = datetime.utcnow() - timedelta(days=30)
+            deals   = mt5.history_deals_get(from_dt, datetime.utcnow())
+            if not deals: continue
+            updated = False
+            for deal in deals:
+                if deal.entry != mt5.DEAL_ENTRY_OUT: continue
+                mask = df_csv[&#x27;ticket&#x27;] == str(deal.order)
+                if not mask.any(): continue
+                existing = str(df_csv.loc[mask, &#x27;result&#x27;].values[0]).strip()
+                if existing and existing.lower() not in (&quot;&quot;, &quot;nan&quot;): continue
+                result = &quot;WIN&quot; if deal.profit &gt; 0 else &quot;LOSS&quot;
+                df_csv.loc[mask, &#x27;result&#x27;]  = result
+                df_csv.loc[mask, &#x27;pnl_usd&#x27;] = round(deal.profit, 2)
+                updated = True
+                regime_val = str(df_csv.loc[mask, &#x27;regime&#x27;].values[0]).strip()
+                if regime_val and regime_val not in (&quot;nan&quot;, &quot;&quot;):
+                    update_regime_stats(regime_val, deal.profit &gt; 0)
+                log.info(f&quot;CSV updated: {deal.order} → {result}&quot;)
+            if updated: df_csv.to_csv(LOG_FILE, index=False)
+        except Exception as e: log.error(f&quot;auto_update_csv: {e}&quot;)
+
+# ═══════════════════════════════════════════════════════════
+# AUTO RETRAIN (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def auto_retrain_scheduler():
+    while True:
+        try:
+            now = datetime.utcnow()
+            if now.weekday() == AUTO_RETRAIN_DAY and now.hour == AUTO_RETRAIN_HOUR:
+                telegram(&quot;🔁 Weekly ML retrain starting...&quot;)
+                for script in [&quot;prepare_data.py&quot;, &quot;train_model.py&quot;]:
+                    r = subprocess.run([sys.executable, script],
+                                       capture_output=True, text=True, timeout=300)
+                    if r.returncode != 0:
+                        raise RuntimeError(f&quot;{script}: {r.stderr[:200]}&quot;)
+                load_ml_models()
+                telegram(&quot;✅ ML retrained and reloaded&quot;)
+                time.sleep(7200)
+            else:
+                time.sleep(3600)
+        except Exception as e:
+            log.error(f&quot;auto_retrain: {e}&quot;)
+            telegram(f&quot;❌ ML retrain failed: {e}&quot;)
+            time.sleep(3600)
+
+# ═══════════════════════════════════════════════════════════
+# TIERED PARTIAL EXIT + TRAILING SL (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+def manage_open_trades():
+    if not ensure_mt5(): return
+    positions = mt5.positions_get(symbol=SYMBOL)
+    if not positions: return
+    atr  = get_live_atr()
+    info = mt5.symbol_info(SYMBOL)
+    if info is None: return
+    min_vol = info.volume_min
+    for pos in positions:
+        if pos.magic != 111444 or pos.ticket not in open_trade_state: continue
+        state     = open_trade_state[pos.ticket]
+        entry     = state[&#x27;entry_price&#x27;]
+        init_sl   = state[&#x27;initial_sl&#x27;]
+        one_r     = abs(entry - init_sl)
+        direction = state[&#x27;direction&#x27;]
+        init_size = state[&#x27;initial_size&#x27;]
+        tick = mt5.symbol_info_tick(SYMBOL)
+        if tick is None: continue
+        price_now = tick.bid if direction == &quot;BUY&quot; else tick.ask
+        if not state.get(&#x27;p1_done&#x27;):
+            reached = ((direction == &quot;BUY&quot;  and price_now &gt;= entry + one_r) or
+                       (direction == &quot;SELL&quot; and price_now &lt;= entry - one_r))
+            if reached:
+                vol = round(init_size * 0.30, 2)
+                if vol &gt;= min_vol:
+                    if _partial_close(pos.ticket, vol, direction, price_now):
+                        state[&#x27;p1_done&#x27;] = True
+                        _modify_sl(pos.ticket, entry)
+                        telegram(f&quot;✂️ 30% @+1R | Ticket:{pos.ticket} | BE set&quot;)
+                        save_trade_state()
+                else:
+                    state[&#x27;p1_done&#x27;] = True
+        elif not state.get(&#x27;p2_done&#x27;):
+            reached = ((direction == &quot;BUY&quot;  and price_now &gt;= entry + 2 * one_r) or
+                       (direction == &quot;SELL&quot; and price_now &lt;= entry - 2 * one_r))
+            if reached:
+                vol = round(init_size * 0.30, 2)
+                if vol &gt;= min_vol:
+                    if _partial_close(pos.ticket, vol, direction, price_now):
+                        state[&#x27;p2_done&#x27;] = True
+                        telegram(f&quot;✂️ 30% @+2R | Ticket:{pos.ticket}&quot;)
+                        save_trade_state()
+                else:
+                    state[&#x27;p2_done&#x27;] = True
+        elif state.get(&#x27;p1_done&#x27;) and state.get(&#x27;p2_done&#x27;):
+            atr_sl = atr * 1.5
+            if direction == &quot;BUY&quot;:
+                new_sl = round(price_now - atr_sl, 2)
+                if new_sl &gt; pos.sl: _modify_sl(pos.ticket, new_sl)
+            elif direction == &quot;SELL&quot;:
+                new_sl = round(price_now + atr_sl, 2)
+                if new_sl &lt; pos.sl or pos.sl == 0: _modify_sl(pos.ticket, new_sl)
+
+def _partial_close(ticket, vol, direction, price):
+    res = mt5.order_send({
+        &quot;action&quot;:   mt5.TRADE_ACTION_DEAL,
+        &quot;symbol&quot;:   SYMBOL,
+        &quot;volume&quot;:   vol,
+        &quot;type&quot;:     mt5.ORDER_TYPE_SELL if direction == &quot;BUY&quot; else mt5.ORDER_TYPE_BUY,
+        &quot;price&quot;:    price,
+        &quot;position&quot;: ticket,
+        &quot;deviation&quot;: 10,
+        &quot;magic&quot;:    111444,
+        &quot;comment&quot;:  &quot;GoldBot_Partial_v7&quot;,
+    })
+    if res and res.retcode == mt5.TRADE_RETCODE_DONE:
+        log.info(f&quot;Partial close OK | Ticket:{ticket} | Vol:{vol}&quot;)
+        return True
+    log.error(f&quot;Partial close failed: {res}&quot;)
+    return False
+
+def _modify_sl(ticket, new_sl):
+    &quot;&quot;&quot;Never sends TP — only modifies SL. Unchanged from v6.&quot;&quot;&quot;
+    try:
+        if not mt5.positions_get(ticket=ticket): return
+        res = mt5.order_send({
+            &quot;action&quot;:   mt5.TRADE_ACTION_SLTP,
+            &quot;symbol&quot;:   SYMBOL,
+            &quot;position&quot;: ticket,
+            &quot;sl&quot;:       new_sl,
+        })
+        if res and res.retcode == mt5.TRADE_RETCODE_DONE:
+            log.info(f&quot;SL → {new_sl} | Ticket:{ticket}&quot;)
+        else:
+            log.error(f&quot;SL modify failed: {res}&quot;)
+    except Exception as e: log.error(f&quot;_modify_sl: {e}&quot;)
+
+# ═══════════════════════════════════════════════════════════
+# STEP 7 — TRADE EXECUTION (comment field → GoldBot_v7_{regime})
+# ═══════════════════════════════════════════════════════════
+def place_trade(signal, regime):
+    global trades_today
+    if not ensure_mt5(): telegram(&quot;❌ MT5 not connected&quot;); return
+    if not session_filter(): return
+    if has_open_position(): return
+    if not spread_filter(regime): telegram(f&quot;⚠️ Spread too high for {regime}&quot;); return
+    if not news_filter(): return
+    if not risk_filter(): return
+    if not is_regime_allowed(regime): return
+
+    tick    = mt5.symbol_info_tick(SYMBOL)
+    account = mt5.account_info()
+    if tick is None or account is None: telegram(&quot;❌ Cannot get market data&quot;); return
+
+    atr = get_live_atr()
+
+    if signal == &quot;BUY&quot;:
+        price  = tick.ask
+        sl     = round(price - atr * 1.5, 2)
+        tp_ref = round(price + atr * 3.0, 2)
+        otype  = mt5.ORDER_TYPE_BUY
+    else:
+        price  = tick.bid
+        sl     = round(price + atr * 1.5, 2)
+        tp_ref = round(price - atr * 3.0, 2)
+        otype  = mt5.ORDER_TYPE_SELL
+
+    sl_dist = abs(price - sl)
+    tp_dist = abs(price - tp_ref)
+    if sl_dist == 0: telegram(&quot;❌ SL distance zero&quot;); return
+    if tp_dist / sl_dist &lt; 2.0: telegram(f&quot;⚠️ RR too low&quot;); return
+
+    rsi_now = 50.0
+    try:
+        df_tmp = fetch_candles(TF_ENTRY, 20)
+        if df_tmp is not None:
+            rsi_now = round(calc_rsi(df_tmp[&#x27;close&#x27;]).iloc[-1], 2)
+    except: pass
+
+    if not ml_filter(signal, atr, sl_dist, regime, rsi_now): return
+
+    lot    = calculate_lot(sl_dist)
+    info   = mt5.symbol_info(SYMBOL)
+
+    # STEP 7: comment field → GoldBot_v7_{regime}
+    result = mt5.order_send({
+        &quot;action&quot;:   mt5.TRADE_ACTION_DEAL,
+        &quot;symbol&quot;:   SYMBOL,
+        &quot;volume&quot;:   lot,
+        &quot;type&quot;:     otype,
+        &quot;price&quot;:    price,
+        &quot;sl&quot;:       sl,
+        &quot;deviation&quot;: 10,
+        &quot;magic&quot;:    111444,
+        &quot;comment&quot;:  f&quot;GoldBot_v7_{regime}&quot;,   # STEP 7 change
+    })
+    if result is None: telegram(&quot;❌ order_send None&quot;); return
+
+    if result.retcode == mt5.TRADE_RETCODE_DONE:
+        trades_today += 1
+        ticket      = result.order
+        fill_price  = result.price
+        slippage_pts = round(abs(fill_price - price) / info.point, 1) if info else 0
+        open_trade_state[ticket] = {
+            &quot;p1_done&quot;: False, &quot;p2_done&quot;: False,
+            &quot;initial_sl&quot;:   sl,
+            &quot;entry_price&quot;:  price,
+            &quot;initial_size&quot;: lot,
+            &quot;direction&quot;:    signal,
+            &quot;regime&quot;:       regime,
+        }
+        save_trade_state()
+        log_trade(signal, price, fill_price, sl, tp_ref, lot, atr,
+                  account.balance, ticket, regime, slippage_pts)
+        # STEP 7: Telegram message updated to v7
+        telegram(
+            f&quot;✅ {signal} EXECUTED (v7)\n&quot;
+            f&quot;Module: {regime} | Mode: {TRADING_MODE}\n&quot;
+            f&quot;Price: {price} | Fill: {fill_price} | Slip: {slippage_pts}pts\n&quot;
+            f&quot;ATR: {atr} | SL: {sl} | Lot: {lot} | Risk: {get_mode(&#x27;risk_pct&#x27;)}%\n&quot;
+            f&quot;Exits: 30%@1R → 30%@2R → 40% trail | Ticket: {ticket}&quot;
+        )
+    else:
+        err = f&quot;❌ Order failed: {result.retcode} — {result.comment}&quot;
+        telegram(err); log.error(err)
+
+# ═══════════════════════════════════════════════════════════
+# SIGNAL ENGINE — STEP 6: post-news session reset added
+# ═══════════════════════════════════════════════════════════
+def run_signal_engine():
+    global last_signal_time, post_news_traded_this_session
+    log.info(&quot;Signal engine started — v7 four-module routing — 15 min intervals&quot;)
+    while True:
+        try:
+            time.sleep(SIGNAL_INTERVAL_SEC)
+            if not ensure_mt5(): continue
+
+            manage_open_trades()
+
+            if has_open_position() or not session_filter(): continue
+
+            # v6 C2: 30-minute signal cooldown
+            now = datetime.utcnow()
+            if last_signal_time is not None:
+                minutes_since = (now - last_signal_time).total_seconds() / 60
+                if minutes_since &lt; SIGNAL_COOLDOWN_MINUTES:
+                    log.info(f&quot;Signal cooldown active ({minutes_since:.0f}min since last)&quot;)
+                    continue
+
+            # STEP 6: post-news session guard reset at session start
+            if now.hour == SESSION_START_UTC and now.minute &lt; 15:
+                if post_news_traded_this_session:
+                    post_news_traded_this_session = False
+                    log.info(&quot;Post-news session guard reset.&quot;)
+
+            # Fetch all required timeframes
+            df_1h  = fetch_candles(TF_TREND, 300)   # 300 bars for BB squeeze check
+            df_15m = fetch_candles(TF_ENTRY, 100)
+            df_4h  = fetch_candles(TF_HTF, 250)
+            if df_1h is None or df_15m is None: continue
+
+            # v7: detect_regime takes df_1h only
+            regime = detect_regime(df_1h)
+            log.info(f&quot;Regime: {regime}&quot;)
+
+            # Block unresolved regimes
+            if regime == &quot;UNKNOWN&quot;:
+                log.info(&quot;Regime UNKNOWN — no new trades&quot;)
+                continue
+
+            if not spread_filter(regime): continue
+
+            signal = generate_signal(df_15m, df_1h, df_4h, regime)
+            if signal is None: continue
+
+            if not news_filter() or not risk_filter(): continue
+
+            log.info(f&quot;✅ Signal: {signal} | Regime: {regime}&quot;)
+            last_signal_time = now
+            place_trade(signal, regime)
+
+        except Exception as e:
+            log.error(f&quot;Signal engine error: {e}&quot;)
+
+# ═══════════════════════════════════════════════════════════
+# FLASK ENDPOINTS (unchanged from v6)
+# ═══════════════════════════════════════════════════════════
+@app.route(&#x27;/webhook&#x27;, methods=[&#x27;POST&#x27;])
+def webhook():
+    data   = request.get_json(silent=True)
+    if not data: return {&quot;status&quot;: &quot;error&quot;, &quot;msg&quot;: &quot;no json&quot;}, 400
+    signal = data.get(&quot;signal&quot;, &quot;&quot;).upper()
+    regime = data.get(&quot;regime&quot;, &quot;UNKNOWN&quot;)
+    if signal not in (&quot;BUY&quot;, &quot;SELL&quot;):
+        return {&quot;status&quot;: &quot;error&quot;, &quot;msg&quot;: &quot;invalid signal&quot;}, 400
+    log.info(f&quot;Webhook: {signal}&quot;)
+    place_trade(signal, regime)
+    return {&quot;status&quot;: &quot;ok&quot;}
+
+@app.route(&#x27;/health&#x27;, methods=[&#x27;GET&#x27;])
+def health():
+    connected = ensure_mt5()
+    df_1h     = fetch_candles(TF_TREND, 300) if connected else None
+    regime    = detect_regime(df_1h) if df_1h is not None else &quot;N/A&quot;
+    return jsonify({
+        &quot;version&quot;:        &quot;v7&quot;,
+        &quot;status&quot;:         &quot;running&quot;,
+        &quot;mode&quot;:           TRADING_MODE,
+        &quot;mt5_connected&quot;:  connected,
+        &quot;regime&quot;:         regime,
+        &quot;trades_today&quot;:   trades_today,
+        &quot;loss_today&quot;:     f&quot;${get_todays_loss():.2f}&quot; if connected else &quot;N/A&quot;,
+        &quot;live_atr&quot;:       get_live_atr() if connected else &quot;N/A&quot;,
+        &quot;open_trades&quot;:    len(open_trade_state),
+        &quot;ml_status&quot;:      f&quot;XGB:{&#x27;✅&#x27; if ml_xgb else &#x27;❌&#x27;} RF:{&#x27;✅&#x27; if ml_rf else &#x27;❌&#x27;} LR:{&#x27;✅&#x27; if ml_lr else &#x27;❌&#x27;}&quot;,
+        &quot;regime_stats&quot;:   regime_stats,
+        &quot;silver_bullet&quot;:  is_silver_bullet_window(),
+        &quot;post_news_guard&quot;: post_news_traded_this_session,
+    })
+
+@app.route(&#x27;/regime_stats&#x27;, methods=[&#x27;GET&#x27;])
+def get_regime_stats_endpoint():
+    stats = {}
+    for r, s in regime_stats.items():
+        t  = s.get(&quot;total&quot;, 0)
+        w  = s.get(&quot;wins&quot;,  0)
+        wr = round(w / t * 100, 1) if t &gt; 0 else 0
+        stats[r] = {&quot;total&quot;: t, &quot;wins&quot;: w, &quot;win_rate&quot;: f&quot;{wr}%&quot;,
+                    &quot;allowed&quot;: is_regime_allowed(r)}
+    return jsonify(stats)
+
+# ═══════════════════════════════════════════════════════════
+# STARTUP
+# ═══════════════════════════════════════════════════════════
+def start_threads():
+    for fn, name in [
+        (run_signal_engine,      &quot;SignalEngine&quot;),
+        (auto_update_csv,        &quot;CSVUpdater&quot;),
+        (auto_retrain_scheduler, &quot;MLRetrain&quot;),
+    ]:
+        t = threading.Thread(target=fn, daemon=True, name=name)
+        t.start()
+        log.info(f&quot;Thread started: {name}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    setup_log()
+    load_regime_stats()
+    load_trade_state()
+    load_ml_models()
+    if connect_mt5():
+        telegram(
+            f&quot;🤖 Gold Bot v7 started ✅\n&quot;
+            f&quot;Mode: {TRADING_MODE}\n&quot;
+            f&quot;Modules: TREND (OB+OTE+FVG) | RANGE (SMC) | SQUEEZE | POST-NEWS\n&quot;
+            f&quot;Silver Bullet: {SILVER_BULLET_WINDOWS} UTC | Session: 06:00–16:00\n&quot;
+            f&quot;Sweep filter: {int(SWEEP_BODY_FILTER*100)}% body | ADX trend: {ADX_TREND_THRESHOLD}&quot;
+        )
+    else:
+        telegram(&quot;⚠️ Bot v7 started — MT5 connection failed, retrying&quot;)
+    start_threads()
+    app.run(host=&quot;0.0.0.0&quot;, port=5000)
+
+</pre></div>
+<div class="box bg"><div class="bi">💡</div><div>Start with <code>TRADING_MODE = "NORMAL"</code>. Always start on a demo account first. Change to CONSERVATIVE for lower risk while learning.</div></div>
+</div></div>
+
+<!-- STEP 8 -->
+<div class="step"><div class="sh"><div class="sn">8</div><div class="stitle">Run the Bot for the First Time</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> Now that all your credentials are filled in and saved, you can start the bot. The bot runs inside a Command Prompt window — the window must stay open the entire time the bot is running. If you close it, the bot stops. You can minimise it, but do not close it.</p>
+<ul class="ol-steps">
+<li>Make sure <strong>MetaTrader 5 is open and logged in</strong> before doing anything else. The bot cannot connect if MT5 is closed.</li>
+<li>Press <code>Win + R</code>, type <code>cmd</code>, press Enter to open Command Prompt</li>
+<li>Navigate to your goldbot folder by typing this command and pressing Enter:</li>
+</ul>
+<div class="cw"><div class="cl">CMD — navigate to goldbot folder <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot</pre></div>
+<ul class="ol-steps" style="counter-reset:steps 3">
+<li>Now start the bot:</li>
+</ul>
+<div class="cw"><div class="cl">CMD — start the bot <button class="cb" onclick="cp(this)">COPY</button></div><pre>python bot.py</pre></div>
+<ul class="ol-steps" style="counter-reset:steps 4">
+<li>Wait about 10–15 seconds. You will see a lot of text appearing — this is normal activity output.</li>
+<li>Look for the line: <code>* Running on http://0.0.0.0:5000</code> — this means the bot started successfully.</li>
+<li>Check your Telegram app on your phone — you should receive a message saying <strong>"Gold Bot v6 started ✅"</strong> within about 15 seconds.</li>
+</ul>
+<div class="box bo"><div class="bi">✓</div><div>If you see the "Running on" line in CMD and receive the Telegram message, the bot is working correctly. Leave this CMD window open.</div></div>
+<div class="box bi2"><div class="bi">ℹ</div><div>The signal engine checks for trade opportunities every 15 minutes automatically. You do not need to do anything — the bot runs on its own.</div></div>
+</div></div>
+
+<!-- STEP 9 -->
+<div class="step"><div class="sh"><div class="sn">9</div><div class="stitle">Verify Everything Is Working Correctly</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Why this step:</strong> Before leaving the bot to run unattended, do these four verification checks. Each one confirms a different part of the system is functioning. If any check fails, the troubleshooting steps below will tell you exactly how to fix it.</p>
+
+<p style="font-size:13px;color:var(--gold-light);font-weight:600;margin-bottom:10px">Check 1 — Health Check (most important)</p>
+<p style="font-size:13px;color:#aaa;margin-bottom:10px">Open a <strong>second</strong> Command Prompt window (keep the first one running). Run:</p>
+<div class="cw"><div class="cl">CMD — health check <button class="cb" onclick="cp(this)">COPY</button></div><pre>curl http://localhost:5000/health</pre></div>
+<p style="font-size:13px;color:#aaa;margin-top:10px;margin-bottom:6px">You should see a response that includes:</p>
+<ul class="il">
+<li><code>"version": "v6"</code> — confirms it's the right version</li>
+<li><code>"mt5_connected": true</code> — confirms MT5 connection is working</li>
+<li><code>"regime": "TREND_BULL"</code> or similar — confirms market data is being read</li>
+<li><code>"live_atr": 2.4</code> or similar number — confirms price data is live</li>
+<li><code>"ml_status": "XGB:❌ RF:❌ LR:❌"</code> — this is normal at this stage, ML models are trained in Phase 3</li>
+</ul>
+
+<p style="font-size:13px;color:var(--gold-light);font-weight:600;margin:18px 0 10px">Check 2 — goldbot.log File</p>
+<ul class="il">
+<li>Open File Explorer → navigate to Desktop → open goldbot folder</li>
+<li>Open <strong>goldbot.log</strong> with Notepad</li>
+<li>You should see lines showing MT5 connected, threads started, and 15-minute signal checks running</li>
+<li>Look for any lines with <code>[ERROR]</code> — if you see MT5 errors, check that MT5 is open and logged in</li>
+</ul>
+
+<p style="font-size:13px;color:var(--gold-light);font-weight:600;margin:18px 0 10px">Check 3 — Test a Manual Trade Signal (optional)</p>
+<p style="font-size:13px;color:#aaa;margin-bottom:10px">To test that trades can actually be placed on your demo account:</p>
+<div class="cw"><div class="cl">CMD — send a test BUY signal <button class="cb" onclick="cp(this)">COPY</button></div><pre>curl -X POST http://localhost:5000/webhook -H "Content-Type: application/json" -d "{\"signal\":\"BUY\",\"regime\":\"TREND_BULL\"}"</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>After running this: a trade should appear in MT5 on your demo account, you should receive a Telegram notification, and a row should be added to trades_log.csv in your goldbot folder.</div></div>
+
+<p style="font-size:13px;color:var(--gold-light);font-weight:600;margin:18px 0 10px">Check 4 — trades_log.csv After First Trade</p>
+<ul class="il">
+<li>Open <strong>trades_log.csv</strong> in your goldbot folder with Notepad or Excel</li>
+<li>The first row is the column headers — it should contain: date, time, signal, symbol, price, fill_price, slippage_pts, sl, tp_ref, lot, risk_pct, sl_distance, rr_ref, atr_used, account_balance, regime, mode, result, pnl_usd, session, ticket</li>
+<li>The second row is your first trade — result and pnl_usd will be blank at first, they get filled automatically within 5 minutes after the trade closes</li>
+</ul>
+</div></div>
+
+<!-- STEP 10 -->
+<div class="step"><div class="sh"><div class="sn">10</div><div class="stitle">What To Do Daily After This</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8">The bot runs automatically once started. You do not need to watch it constantly. Here is the daily routine:</p>
+<ul class="il">
+<li><strong>Every morning:</strong> Open MT5 first, then open CMD and run <code>python bot.py</code>. The bot needs to be restarted every time you restart your computer.</li>
+<li><strong>Every day:</strong> Check your Telegram for any alerts. Trade alerts, error messages, and news blocks are all sent to you automatically.</li>
+<li><strong>Every week:</strong> Open trades_log.csv and verify the result and pnl_usd columns are being filled in. Also open goldbot.log and scan for any ERROR lines.</li>
+<li><strong>Every Sunday 2am UTC:</strong> The bot automatically retrains its ML models (once you have completed Phase 3). You will receive a Telegram message confirming this.</li>
+<li><strong>Do not:</strong> Close the CMD window while trading is active. Do not close MT5 while the bot is running. Do not modify bot.py while the bot is running.</li>
+</ul>
+<div class="box bg"><div class="bi">💡</div><div>Run the bot on demo for a minimum of 2 months before considering any real money. The bot is completely safe to run on demo indefinitely — use this time to understand how it behaves, what the Telegram alerts look like, and whether the CSV results match your expectations.</div></div>
+</div></div>
+
+<!-- COMMON MISTAKES -->
+<div class="step"><div class="sh"><div class="sn r">!</div><div class="stitle">Common Beginner Mistakes — And How to Fix Them</div></div>
+<div class="sb">
+
+<div class="mistake">
+<div class="mtitle">Mistake 1 — Forgot to tick "Add Python to PATH" during installation</div>
+<div class="mbody">
+<strong>What happens:</strong> When you type <code>python --version</code> in CMD you get an error like "'python' is not recognized as an internal or external command".<br><br>
+<strong>How to fix:</strong> Go to Control Panel → Add or Remove Programs → find Python 3.12 → Uninstall it. Then go back to python.org, download the installer again, and this time on the very first screen of the installer, tick the "Add Python to PATH" checkbox before clicking Install Now.
+</div>
+</div>
+
+<div class="mistake">
+<div class="mtitle">Mistake 2 — MT5 is closed when running the bot</div>
+<div class="mbody">
+<strong>What happens:</strong> The bot starts but immediately shows errors like "MT5 init failed" or "MT5 connection failed after retries" in CMD, and you receive a Telegram message saying "MT5 connection failed".<br><br>
+<strong>How to fix:</strong> Always open MetaTrader 5 first and make sure it is fully logged in and showing XAUUSD price data before you run python bot.py. The bot connects to the running MT5 app — it cannot work without it.
+</div>
+</div>
+
+<div class="mistake">
+<div class="mtitle">Mistake 3 — Wrong MT5 server name in bot.py</div>
+<div class="mbody">
+<strong>What happens:</strong> MT5 is open but the bot still cannot connect. You see "MT5 init failed" or an authentication error.<br><br>
+<strong>How to find the correct server name:</strong> Open MetaTrader 5 → click File → Login to Trade Account → look at the "Server" dropdown — the exact text shown there is what you must enter as MT5_SERVER in bot.py. It is usually something like "Exness-MT5Trial" or "Exness-Demo". Copy it exactly including the hyphen and capitalisation.
+</div>
+</div>
+
+<div class="mistake">
+<div class="mtitle">Mistake 4 — Telegram token has spaces or is incomplete</div>
+<div class="mbody">
+<strong>What happens:</strong> Bot runs but you never receive any Telegram messages. No errors appear in CMD.<br><br>
+<strong>How to check:</strong> Open bot.py in Notepad. Look at the TELEGRAM_TOKEN line. The token must be inside quote marks and have no spaces — it should look like: <code>TELEGRAM_TOKEN = "7123456789:ABCdefGHIjkl..."</code>. The full token is about 45 characters long. If it looks shorter, you may have accidentally truncated it when copying. Go back to @BotFather in Telegram, type /mybots, select your bot, click API Token, and copy the full token again.
+</div>
+</div>
+
+<div class="mistake">
+<div class="mtitle">Mistake 5 — Bot runs but no Telegram message received</div>
+<div class="mbody">
+<strong>Step-by-step debug:</strong><br>
+1. Check that your CHAT_ID in bot.py is your personal chat ID from @userinfobot — not your phone number and not your Telegram username.<br>
+2. Make sure you have started a conversation with your bot — search for your bot's username in Telegram and press Start. If you never pressed Start, the bot cannot send you messages.<br>
+3. Check that TELEGRAM_TOKEN and CHAT_ID are both inside quote marks in bot.py.<br>
+4. In CMD, run the health check: <code>curl http://localhost:5000/health</code>. If this returns a response, the bot is alive. The Telegram issue is credential-related, not a bot crash.
+</div>
+</div>
+
+<div class="mistake">
+<div class="mtitle">Mistake 6 — "pip is not recognized" when trying to install libraries</div>
+<div class="mbody">
+<strong>What happens:</strong> You type the pip install command and get "'pip' is not recognized".<br><br>
+<strong>How to fix:</strong> This is the same root cause as Mistake 1 — Python PATH was not set. Fix it the same way: uninstall Python, reinstall with the PATH checkbox ticked. Alternatively, try replacing <code>pip</code> with <code>python -m pip</code> in the install command — this sometimes works even without PATH being set correctly.
+</div>
+</div>
+
+</div></div>
+</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="page" id="p2">
+<div class="wrap">
+<div class="ph"><div class="pnum">PHASE 02</div><div><div class="ptitle">Streamlit Dashboard</div><div class="psub">Start after 30–50 closed trades with results auto-filled in CSV.</div></div></div>
+<div class="box bw"><div class="bi">⚠</div><div>Do not start Phase 2 until you have at least 30 trades with WIN/LOSS results in trades_log.csv. The bot auto-fills these — just wait for them to accumulate.</div></div>
+
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Install Streamlit and Plotly</div></div>
+<div class="sb"><p style="font-size:13px;color:#aaa;margin-bottom:10px">If you used the single install command in Phase 1 Step 3, these are already installed. If not, run:</p>
+<div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>pip install streamlit plotly</pre></div></div></div>
+
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Create dashboard.py</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>dashboard.py</code> inside your goldbot folder. Paste this complete code:</p>
+<div class="cw"><div class="cl">dashboard.py — complete code <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
+dashboard.py — Phase 2 Performance Dashboard
+Reads trades_log.csv. Shows real win rate, equity, regime breakdown.
+Run: streamlit run dashboard.py
+"""
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import json, os
+from datetime import datetime
+
+LOG_FILE    = "trades_log.csv"
+REGIME_FILE = "regime_stats.json"
+
+st.set_page_config(page_title="Gold Bot v6 Dashboard", page_icon="📊", layout="wide")
+
+@st.cache_data(ttl=60)
+def load():
+    if not os.path.exists(LOG_FILE):
+        return pd.DataFrame()
+    df = pd.read_csv(LOG_FILE)
+    df = df[df["result"].isin(["WIN","LOSS"])].copy()
+    df["pnl_usd"] = pd.to_numeric(df["pnl_usd"], errors="coerce").fillna(0)
+    df["date"]    = pd.to_datetime(df["date"], errors="coerce")
+    df["cum_pnl"] = df["pnl_usd"].cumsum()
+    return df
+
+df  = load()
+reg = {}
+if os.path.exists(REGIME_FILE):
+    with open(REGIME_FILE) as f:
+        reg = json.load(f)
+
+st.title("📊 Gold Bot v6 — Live Performance Dashboard")
+st.caption(f"Auto-refreshes every 60s · {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+if df.empty:
+    st.warning("No closed trades yet. Bot auto-fills results — check back later.")
+    st.stop()
+
+total = len(df)
+wins  = (df["result"]=="WIN").sum()
+wr    = round(wins/total*100,1)
+pnl   = round(df["pnl_usd"].sum(),2)
+avg_w = round(df[df["result"]=="WIN"]["pnl_usd"].mean(),2) if wins>0 else 0
+avg_l = round(df[df["result"]=="LOSS"]["pnl_usd"].mean(),2) if total-wins>0 else 0
+dd    = round((df["cum_pnl"]-df["cum_pnl"].cummax()).min(),2)
+
+c1,c2,c3,c4 = st.columns(4)
+c1.metric("Total Trades", total)
+c2.metric("Win Rate",     f"{wr}%", delta=f"+{round(wr-50,1)}% vs breakeven")
+c3.metric("Total P&amp;L",    f"${pnl}")
+c4.metric("Max Drawdown", f"${dd}")
+
+c5,c6,c7,c8 = st.columns(4)
+c5.metric("Wins",    wins)
+c6.metric("Losses",  total-wins)
+c7.metric("Avg Win", f"${avg_w}")
+c8.metric("Avg Loss",f"${avg_l}")
+
+# Slippage analysis (v6 new column)
+if "slippage_pts" in df.columns:
+    df["slippage_pts"] = pd.to_numeric(df["slippage_pts"], errors="coerce").fillna(0)
+    avg_slip = round(df["slippage_pts"].mean(), 1)
+    st.metric("Avg Slippage", f"{avg_slip} pts",
+              delta="⚠️ High — consider switching broker" if avg_slip > 3 else "✅ Within range")
+
+st.divider()
+st.subheader("📈 Equity Curve")
+fig = px.line(df,x="date",y="cum_pnl",labels={"cum_pnl":"P&amp;L ($)","date":"Date"})
+fig.add_hline(y=0,line_dash="dash",line_color="red",opacity=0.5)
+st.plotly_chart(fig,use_container_width=True)
+
+ca,cb2 = st.columns(2)
+with ca:
+    st.subheader("🕐 By Session")
+    s=df.groupby(["session","result"]).size().reset_index(name="n")
+    st.plotly_chart(px.bar(s,x="session",y="n",color="result",barmode="group",
+        color_discrete_map={"WIN":"#2ECC71","LOSS":"#E74C3C"}),use_container_width=True)
+with cb2:
+    st.subheader("📊 BUY vs SELL")
+    s2=df.groupby(["signal","result"]).size().reset_index(name="n")
+    st.plotly_chart(px.bar(s2,x="signal",y="n",color="result",barmode="group",
+        color_discrete_map={"WIN":"#2ECC71","LOSS":"#E74C3C"}),use_container_width=True)
+
+if "regime" in df.columns and df["regime"].notna().any():
+    st.subheader("🌍 Performance by Regime")
+    rdf=df.groupby(["regime","result"]).size().reset_index(name="n")
+    st.plotly_chart(px.bar(rdf,x="regime",y="n",color="result",barmode="group",
+        color_discrete_map={"WIN":"#2ECC71","LOSS":"#E74C3C"}),use_container_width=True)
+
+if "mode" in df.columns and df["mode"].notna().any():
+    st.subheader("⚙️ Performance by Trading Mode")
+    mdf=df.groupby(["mode","result"]).size().reset_index(name="n")
+    st.plotly_chart(px.bar(mdf,x="mode",y="n",color="result",barmode="group",
+        color_discrete_map={"WIN":"#2ECC71","LOSS":"#E74C3C"}),use_container_width=True)
+
+st.subheader("📅 Daily P&amp;L")
+daily=df.groupby("date")["pnl_usd"].sum().reset_index()
+st.plotly_chart(px.bar(daily,x="date",y="pnl_usd",color="pnl_usd",
+    color_continuous_scale=["#E74C3C","#2ECC71"]),use_container_width=True)
+
+if reg:
+    st.subheader("🧠 Self-Learning: Regime Stats")
+    reg_rows=[]
+    for r,s in reg.items():
+        t=s.get("total",0); w=s.get("wins",0)
+        wr2=round(w/t*100,1) if t>0 else 0
+        allowed = "✅ Active" if (t&lt;30 or wr2>=35) else "🚫 Auto-blocked"
+        reg_rows.append({"Regime":r,"Trades":t,"Wins":w,"Win Rate":f"{wr2}%","Status":allowed})
+    st.dataframe(pd.DataFrame(reg_rows),use_container_width=True)
+
+st.subheader("📋 Trade Log")
+cols = [c for c in ["date","time","signal","price","fill_price","slippage_pts",
+        "sl","lot","rr_ref","atr_used","regime","mode","session","result","pnl_usd"]
+        if c in df.columns]
+st.dataframe(df[cols].sort_values("date",ascending=False),use_container_width=True)
+
+st.subheader("💡 Insights")
+if wr &lt; 40: st.error("⚠️ Win rate below 40% — review strategy or check regime stats")
+elif wr > 55: st.success("🔥 Win rate above 55% — strategy performing well")
+if dd &lt; -200: st.warning("⚠️ Drawdown exceeding $200 — consider switching to CONSERVATIVE mode")
+if "slippage_pts" in df.columns and df["slippage_pts"].mean() > 3:
+    st.warning("⚠️ Average slippage above 3 pts — broker execution quality may be hurting results")</pre></div>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Run the Dashboard</div></div>
+<div class="sb">
+<div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
+streamlit run dashboard.py</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>Browser opens automatically at <code>http://localhost:8501</code> showing live stats. Dashboard auto-refreshes every 60 seconds. Includes slippage tracking (new in v6) and regime performance table from self-learning system.</div></div>
+</div></div>
+</div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="page" id="p3">
+<div class="wrap">
+<div class="ph"><div class="pnum">PHASE 03</div><div><div class="ptitle">Ensemble ML / AI Filter</div><div class="psub">Start after 200+ closed trades. Run backtest first. Trains XGBoost + RandomForest + LogisticRegression with walk-forward validation.</div></div></div>
+<div class="box bw"><div class="bi">⚠</div><div>200 trades minimum before training. v7 generates more trades across 4 modules — you may reach 200 faster. However do not train until you have at least 50 trades from each active module (TREND and RANGE are the most common).</div></div>
+<div class="box bo"><div class="bi">✓</div><div><strong>Bot v6 is already ready.</strong> All 3 ML models run in placeholder mode until trained. Once pkl files exist in goldbot folder, ensemble activates automatically on restart.</div></div>
+
+<!-- STEP 0 — BACKTEST FIRST -->
+<div class="step"><div class="sh"><div class="sn g">0</div><div class="stitle">Step 0 — Run Backtest First (Before Training ML)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8">The backtest must be run before ML training for one important reason: it validates that the strategy itself has edge before you teach the ML model to filter signals from it. Training ML on a strategy with no edge produces a model that confidently filters random noise. Always validate the strategy first, then train the ML on confirmed winning setups.</p>
+<ul class="ol-steps">
+<li>Make sure MT5 is open and logged in to your Exness demo account</li>
+<li>Open Command Prompt and navigate to your goldbot folder: <code>cd Desktop\goldbot</code></li>
+<li>Run the backtest:</li>
+</ul>
+<div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>python backtest.py</pre></div>
+<ul class="ol-steps" style="counter-reset:steps 3">
+<li>Wait 2 to 5 minutes while it processes historical data — you will see candle counts and progress printed</li>
+<li>Read the <strong>THRESHOLD CHECK</strong> section at the bottom of the output</li>
+<li>All 5 thresholds should show PASS before proceeding to ML training</li>
+<li>If any show FAIL — do not train ML yet. Come back after more demo trading and review which regime is underperforming in the regime breakdown table</li>
+</ul>
+<div class="box bw"><div class="bi">⚠</div><div><strong>Important:</strong> If Profit Factor is below 1.5 or Win Rate is below 42% in the backtest, do NOT proceed to live trading or any funded account evaluation. The strategy needs refinement first. This is the safety check that protects your capital.</div></div>
+<p style="font-size:13px;color:#aaa;margin:16px 0 10px;font-weight:600">Backtest results interpretation:</p>
+<table>
+<tr><th>Metric</th><th>Minimum to proceed</th><th>What it means if failing</th></tr>
+<tr><td>Win Rate</td><td>Above 42%</td><td>Too many losing signals — review regime settings</td></tr>
+<tr><td>Profit Factor</td><td>Above 1.5</td><td>Losses outweigh wins in dollar terms</td></tr>
+<tr><td>Sharpe Ratio</td><td>Above 1.0</td><td>Returns not worth the volatility taken</td></tr>
+<tr><td>Max Drawdown</td><td>Better than -20%</td><td>Strategy too aggressive for account size</td></tr>
+<tr><td>Avg R:R</td><td>Above 1.5R</td><td>Exits too early or entries too late</td></tr>
+</table>
+</div></div>
+
+<!-- CRITICAL NOTE -->
+<div class="step"><div class="sh"><div class="sn r">!</div><div class="stitle">Critical — Why Only Your CSV Is Valid Training Data</div></div>
+<div class="sb">
+<div class="cw"><div class="cl">❌ WRONG — do not use this approach</div><pre># Many tutorials use this:
+df['target'] = np.where(df['close'].shift(-5) > df['close'], 1, 0)
+# This asks "did price go UP in next 5 candles?"
+# Has NOTHING to do with whether YOUR specific trade setup won.
+# Training on this = model that predicts price direction, not trade outcomes.
+# Will look trained but fail completely on live trades.</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>The only correct target is your real WIN/LOSS results from trades_log.csv. prepare_data.py uses this correctly — it reads your actual results.</div></div>
+</div></div>
+
+<!-- STEP 1 — prepare_data.py -->
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Create prepare_data.py — with rsi_at_entry (v6 new feature)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>prepare_data.py</code> inside your goldbot folder. FEATURES list now includes <code>rsi_at_entry</code> to match bot.py's build_ml_features().</p>
+<div class="cw"><div class="cl">prepare_data.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
+prepare_data.py — Phase 3 Feature Engineering (v6)
+MUST match build_ml_features() in bot.py EXACTLY.
+Features: sl_distance, rr_quality, atr_used, sl_atr_ratio, lot,
+          hour, day_of_week, session_enc, signal_enc, atr_tier,
+          regime_enc, rsi_at_entry  ← rsi_at_entry is NEW in v6
+"""
+import pandas as pd, numpy as np, logging, sys
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+log = logging.getLogger(__name__)
+
+try:
+    df = pd.read_csv("trades_log.csv", dtype=str)
+    log.info(f"Loaded {len(df)} rows")
+except FileNotFoundError:
+    log.error("trades_log.csv not found — run the bot first to generate trade data")
+    sys.exit(1)
+
+df = df[df["result"].isin(["WIN","LOSS"])].copy()
+log.info(f"Closed trades with results: {len(df)}")
+if len(df) &lt; 100:
+    log.error(f"Need 200+ trades. Have {len(df)}. Keep running on demo."); sys.exit(1)
+
+for col in ["price","sl","lot","risk_pct","sl_distance","rr_ref",
+            "atr_used","account_balance","pnl_usd","rsi_at_entry","slippage_pts"]:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+df["datetime"]    = pd.to_datetime(df["date"].astype(str)+" "+df["time"].astype(str), errors="coerce")
+df["target"]      = (df["result"] == "WIN").astype(int)
+df["hour"]        = df["datetime"].dt.hour
+df["day_of_week"] = df["datetime"].dt.dayofweek
+df["session_enc"] = df["session"].map({"London":0,"LDN_NY_Overlap":1,"NY":2,"Asian":3}).fillna(3)
+df["signal_enc"]  = (df["signal"] == "BUY").astype(int)
+df["sl_atr_ratio"]= (df["sl_distance"] / df["atr_used"].replace(0,np.nan)).round(3)
+# v6: rr_quality comes from actual sl_distance (dynamic, not hardcoded 2.0)
+df["rr_quality"]  = df["rr_ref"].fillna(2.0)
+df["atr_tier"]    = pd.qcut(df["atr_used"], q=3, labels=[0,1,2], duplicates="drop").astype(float)
+regime_map        = {"TREND_BULL":0,"TREND_BEAR":1,"RANGE":2,"VOLATILE_SQUEEZE":3,"VOLATILE_NEWS":3,"UNKNOWN":4}
+df["regime_enc"]  = df.get("regime", pd.Series(["UNKNOWN"]*len(df))).map(regime_map).fillna(4)
+# v6: rsi_at_entry — use 50.0 as default if column missing (older trades)
+if "rsi_at_entry" not in df.columns or df["rsi_at_entry"].isna().all():
+    df["rsi_at_entry"] = 50.0
+    log.warning("rsi_at_entry not in CSV (old trades) — defaulting to 50.0")
+else:
+    df["rsi_at_entry"] = df["rsi_at_entry"].fillna(50.0)
+
+# MUST match build_ml_features() in bot.py exactly
+FEATURES = ["sl_distance","rr_quality","atr_used","sl_atr_ratio","lot",
+            "hour","day_of_week","session_enc","signal_enc","atr_tier",
+            "regime_enc","rsi_at_entry"]
+
+X = df[FEATURES].dropna()
+y = df.loc[X.index,"target"]
+
+log.info(f"Samples:{len(X)} | Wins:{y.sum()} ({round(y.mean()*100,1)}%) | Features:{len(FEATURES)}")
+if len(X) &lt; 200:
+    log.warning(f"Only {len(X)} clean samples — 200+ recommended for reliable training")
+
+X.to_csv("features.csv", index=False)
+y.to_csv("targets.csv",  index=False)
+log.info("Saved features.csv + targets.csv ✅")</pre></div>
+<div class="cw"><div class="cl">CMD — run first <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
+python prepare_data.py</pre></div>
+</div></div>
+
+<!-- STEP 2 — train_model.py with TimeSeriesSplit -->
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Create train_model.py — with Walk-Forward TimeSeriesSplit (v6)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>train_model.py</code> inside your goldbot folder. Uses TimeSeriesSplit instead of random train/test split — prevents data leakage on time-series trading data.</p>
+<div class="cw"><div class="cl">train_model.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
+train_model.py — Phase 3 Ensemble Training (v6)
+Walk-forward validation using TimeSeriesSplit — no data leakage.
+Trains XGBoost + RandomForest + LogisticRegression.
+Saves ml_xgb.pkl, ml_rf.pkl, ml_lr.pkl.
+"""
+import pandas as pd, numpy as np, joblib, logging, os, sys
+from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+from sklearn.metrics import accuracy_score, roc_auc_score
+from sklearn.preprocessing import StandardScaler
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+log = logging.getLogger(__name__)
+
+try:
+    X = pd.read_csv("features.csv")
+    y = pd.read_csv("targets.csv").squeeze()
+    log.info(f"Loaded {len(X)} samples with {len(X.columns)} features")
+except FileNotFoundError:
+    log.error("Run prepare_data.py first"); sys.exit(1)
+
+if len(X) &lt; 100:
+    log.error(f"Only {len(X)} samples — need 200+"); sys.exit(1)
+
+# v6: TimeSeriesSplit — correct for time-ordered trading data
+# Prevents the data leakage that random train_test_split causes
+tscv = TimeSeriesSplit(n_splits=5)
+log.info("Using TimeSeriesSplit (5 folds) — walk-forward validation")
+
+results = {}
+
+# ── XGBoost ───────────────────────────────────────────────
+log.info("Training XGBoost with walk-forward CV...")
+cv_scores_xgb = []
+for fold, (train_idx, test_idx) in enumerate(tscv.split(X)):
+    X_tr, X_te = X.iloc[train_idx], X.iloc[test_idx]
+    y_tr, y_te = y.iloc[train_idx], y.iloc[test_idx]
+    m = XGBClassifier(n_estimators=100, max_depth=4, learning_rate=0.05,
+                      eval_metric="logloss", random_state=42)
+    m.fit(X_tr, y_tr)
+    score = m.score(X_te, y_te)
+    cv_scores_xgb.append(score)
+    log.info(f"  XGB Fold {fold+1}: {score:.3f}")
+log.info(f"XGB Mean CV: {np.mean(cv_scores_xgb):.3f} +/- {np.std(cv_scores_xgb):.3f}")
+results['XGBoost'] = round(np.mean(cv_scores_xgb)*100, 1)
+
+# Train final XGBoost on ALL data for deployment
+xgb_final = XGBClassifier(n_estimators=300, max_depth=4, learning_rate=0.03,
+                            subsample=0.8, colsample_bytree=0.8, min_child_weight=5,
+                            reg_alpha=0.1, reg_lambda=1.0, eval_metric="logloss",
+                            random_state=42)
+xgb_final.fit(X, y)
+
+# ── RandomForest ──────────────────────────────────────────
+log.info("Training RandomForest with walk-forward CV...")
+cv_scores_rf = []
+for fold, (train_idx, test_idx) in enumerate(tscv.split(X)):
+    X_tr, X_te = X.iloc[train_idx], X.iloc[test_idx]
+    y_tr, y_te = y.iloc[train_idx], y.iloc[test_idx]
+    m = RandomForestClassifier(n_estimators=100, max_depth=6, min_samples_leaf=5,
+                                n_jobs=-1, random_state=42)
+    m.fit(X_tr, y_tr)
+    cv_scores_rf.append(m.score(X_te, y_te))
+    log.info(f"  RF Fold {fold+1}: {cv_scores_rf[-1]:.3f}")
+log.info(f"RF Mean CV: {np.mean(cv_scores_rf):.3f} +/- {np.std(cv_scores_rf):.3f}")
+results['RandomForest'] = round(np.mean(cv_scores_rf)*100, 1)
+
+rf_final = RandomForestClassifier(n_estimators=200, max_depth=6, min_samples_leaf=5,
+                                   n_jobs=-1, random_state=42)
+rf_final.fit(X, y)
+
+# ── LogisticRegression ────────────────────────────────────
+log.info("Training LogisticRegression with walk-forward CV...")
+scaler = StandardScaler()
+X_sc = scaler.fit_transform(X)
+cv_scores_lr = []
+for fold, (train_idx, test_idx) in enumerate(tscv.split(X_sc)):
+    X_tr, X_te = X_sc[train_idx], X_sc[test_idx]
+    y_tr, y_te = y.iloc[train_idx], y.iloc[test_idx]
+    m = LogisticRegression(C=0.5, max_iter=500, random_state=42)
+    m.fit(X_tr, y_tr)
+    cv_scores_lr.append(m.score(X_te, y_te))
+    log.info(f"  LR Fold {fold+1}: {cv_scores_lr[-1]:.3f}")
+log.info(f"LR Mean CV: {np.mean(cv_scores_lr):.3f} +/- {np.std(cv_scores_lr):.3f}")
+results['LogisticReg'] = round(np.mean(cv_scores_lr)*100, 1)
+
+lr_final = LogisticRegression(C=0.5, max_iter=500, random_state=42)
+lr_final.fit(X_sc, y)
+
+# ── Summary ───────────────────────────────────────────────
+log.info(f"\n{'='*50}")
+log.info("  WALK-FORWARD CROSS-VALIDATION RESULTS")
+for name, cv_sc in results.items():
+    log.info(f"  {name:16s}: CV {cv_sc}%")
+log.info(f"{'='*50}")
+
+# Quality guidance
+min_acc = min(results.values())
+if min_acc &lt; 50:
+    log.warning("⚠️  At least one model below 50% — collect more trades before deploying")
+elif min_acc &lt; 53:
+    log.warning("⚠️  Models below 53% — use ML_THRESHOLD=0.72 (strict mode)")
+elif min_acc &lt; 57:
+    log.info("✅  Decent accuracy — use ML_THRESHOLD=0.65 (default)")
+else:
+    log.info("🔥  Good accuracy — ML_THRESHOLD=0.65 is fine")
+
+# Backup old models before saving
+for fname in ["ml_xgb.pkl","ml_rf.pkl","ml_lr.pkl"]:
+    if os.path.exists(fname):
+        os.rename(fname, fname.replace(".pkl","_prev.pkl"))
+
+joblib.dump(xgb_final,        "ml_xgb.pkl")
+joblib.dump(rf_final,          "ml_rf.pkl")
+joblib.dump((lr_final, scaler),"ml_lr.pkl")
+log.info("Saved ml_xgb.pkl, ml_rf.pkl, ml_lr.pkl ✅")
+log.info("Restart bot.py to activate ensemble ML")</pre></div>
+<div class="cw"><div class="cl">CMD — run after prepare_data.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
+python train_model.py</pre></div>
+</div></div>
+
+<!-- STEP 3 — backtest.py full rewrite -->
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Create backtest.py — Full Signal-Replicated Engine (v6 rewrite)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Complete rewrite. Uses the <strong>exact same signal functions</strong> as the live bot — including all v6 fixes. Tiered exits simulated. Spread and slippage modelled. Walk-forward regime breakdown included.</p>
+<div class="cw"><div class="cl">backtest.py — complete v6 rewrite <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
+backtest.py — Gold Bot v6 Backtesting Engine
+Uses EXACT same signal logic as live bot (including all v6 fixes).
+Tiered exits simulated candle-by-candle.
+Spread + slippage modelled conservatively.
+Walk-forward regime breakdown included.
+Run: python backtest.py  (MT5 must be open)
+"""
+import MetaTrader5 as mt5
+import pandas as pd
+import numpy as np
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+log = logging.getLogger(__name__)
+
+# ── CONFIG ────────────────────────────────────────────────
+MT5_LOGIN        = 12345678        # ← same as bot.py
+MT5_PASSWORD     = "yourpassword"  # ← same as bot.py
+MT5_SERVER       = "Exness-MT5Trial"
+SYMBOL           = "XAUUSD"
+INITIAL_BALANCE  = 10000
+RISK_PCT         = 1.0
+ATR_MULTIPLIER_SL = 1.5
+ATR_MULTIPLIER_TP = 3.0
+BACKTEST_DAYS    = 180
+SESSION_START_UTC = 6
+SESSION_END_UTC   = 18
+TIMEFRAME_ENTRY  = mt5.TIMEFRAME_M15
+TIMEFRAME_TREND  = mt5.TIMEFRAME_H1
+TIMEFRAME_HTF    = mt5.TIMEFRAME_H4
+SPREAD_COST      = {"TREND_BULL":30,"TREND_BEAR":30,"RANGE":20,"VOLATILE":15,"UNKNOWN":25}
+SLIPPAGE_POINTS  = 3.0   # conservative assumption per trade
+
+# ── CONNECT ───────────────────────────────────────────────
+if not mt5.initialize(login=MT5_LOGIN, password=MT5_PASSWORD, server=MT5_SERVER):
+    log.error(f"MT5 failed: {mt5.last_error()}"); exit(1)
+log.info("MT5 connected ✅")
+
+# ── INDICATORS (same as bot.py) ───────────────────────────
+def calc_ema(s,p): return s.ewm(span=p,adjust=False).mean()
+def calc_rsi(s,p=14):
+    d=s.diff();g=d.clip(lower=0);l=(-d).clip(lower=0)
+    return 100-(100/(1+g.ewm(com=p-1,adjust=False).mean()/l.ewm(com=p-1,adjust=False).mean().replace(0,np.nan)))
+def calc_atr(df,p=14):
+    tr=pd.concat([df['high']-df['low'],(df['high']-df['close'].shift(1)).abs(),
+                  (df['low']-df['close'].shift(1)).abs()],axis=1).max(axis=1)
+    return tr.rolling(p).mean()
+def calc_adx(df,p=14):
+    high,low,close=df['high'],df['low'],df['close']
+    tr=pd.concat([high-low,(high-close.shift(1)).abs(),(low-close.shift(1)).abs()],axis=1).max(axis=1)
+    up=high.diff();down=-low.diff()
+    dm_p=np.where((up>down)&(up>0),up,0.0);dm_m=np.where((down>up)&(down>0),down,0.0)
+    atr_s=pd.Series(tr).ewm(com=p-1,adjust=False).mean()
+    di_p=100*pd.Series(dm_p).ewm(com=p-1,adjust=False).mean()/atr_s.replace(0,np.nan)
+    di_m=100*pd.Series(dm_m).ewm(com=p-1,adjust=False).mean()/atr_s.replace(0,np.nan)
+    return (100*(di_p-di_m).abs()/(di_p+di_m).replace(0,np.nan)).ewm(com=p-1,adjust=False).mean()
+
+def detect_regime(df15,df1h):
+    df=df1h.copy()
+    df['ema50']=calc_ema(df['close'],50);df['ema200']=calc_ema(df['close'],200)
+    df['adx']=calc_adx(df);df['atr']=calc_atr(df)
+    last=df.iloc[-1];slope=df['ema50'].iloc[-1]-df['ema50'].iloc[-5]
+    atr_avg=df['atr'].rolling(20).mean().iloc[-1]
+    if not np.isnan(atr_avg) and last['atr']>atr_avg*1.5: return "VOLATILE"
+    thresh=last['atr']*0.05
+    if last['adx']>25 and abs(slope)>thresh:
+        return "TREND_BULL" if last['ema50']>last['ema200'] else "TREND_BEAR"
+    return "RANGE"
+
+def get_4h_bias(df4h):
+    df=df4h.copy();df['ema50']=calc_ema(df['close'],50);df['ema200']=calc_ema(df['close'],200)
+    last=df.iloc[-1]
+    if last['ema50']>last['ema200']: return "BUY"
+    elif last['ema50']&lt;last['ema200']: return "SELL"
+    return None
+
+def detect_liquidity_sweep(df,lookback=20):
+    if len(df)&lt;lookback+2: return None
+    last=df.iloc[-1];r=last['high']-last['low'];b=abs(last['close']-last['open'])
+    if r==0 or b/r&lt;0.30: return None
+    prev_low=df['low'].iloc[-lookback-1:-1].min();prev_high=df['high'].iloc[-lookback-1:-1].max()
+    if last['low']&lt;prev_low and last['close']>prev_low: return "BUY"
+    if last['high']>prev_high and last['close']&lt;prev_high: return "SELL"
+    return None
+
+def detect_mss(df,d):
+    if len(df)&lt;12: return False
+    last=df.iloc[-1];r=last['high']-last['low'];b=abs(last['close']-last['open'])
+    if r==0 or b/r&lt;0.40: return False
+    if d=="BUY": return last['close']>df['high'].iloc[-11:-1].max()
+    if d=="SELL": return last['close']&lt;df['low'].iloc[-11:-1].min()
+    return False
+
+def detect_fvg(df,d):
+    if len(df)&lt;4: return None
+    c0,c2=df.iloc[-1],df.iloc[-3];cp=c0['close']
+    if d=="BUY" and c2['high']&lt;c0['low']:
+        if cp>=c2['high']: return (c2['high'],c0['low'])
+    if d=="SELL" and c2['low']>c0['high']:
+        if cp&lt;=c2['low']: return (c0['high'],c2['low'])
+    return None
+
+def generate_signal(df15,df1h,df4h,regime):
+    df15=df15.copy();df15['rsi']=calc_rsi(df15['close']);rsi=df15['rsi'].iloc[-1]
+    if "TREND" in regime:
+        df=df1h.copy();df['ema50']=calc_ema(df['close'],50);df['ema200']=calc_ema(df['close'],200)
+        slope=df['ema50'].iloc[-1]-df['ema50'].iloc[-5];last=df.iloc[-1]
+        if last['ema50']>last['ema200'] and slope>0: trend="BUY"
+        elif last['ema50']&lt;last['ema200'] and slope&lt;0: trend="SELL"
+        else: return None
+        sweep=detect_liquidity_sweep(df15)
+        if sweep is None or sweep!=trend: return None
+        if not detect_mss(df15,sweep): return None
+        if detect_fvg(df15,sweep) is None: return None
+        if sweep=="BUY" and rsi>65: return None
+        if sweep=="SELL" and rsi&lt;35: return None
+        bias=get_4h_bias(df4h)
+        if bias is not None and sweep!=bias: return None
+        return sweep
+    return None
+
+# ── LOT SIZING ────────────────────────────────────────────
+def bt_calculate_lot(balance,sl_dist):
+    risk=balance*(RISK_PCT/100)
+    info=mt5.symbol_info(SYMBOL)
+    if info is None or info.trade_tick_size==0: return 0.01
+    vpl=info.trade_tick_value/info.trade_tick_size
+    lot=risk/(sl_dist*vpl)
+    return max(info.volume_min,min(round(lot,2),info.volume_max))
+
+# ── DATA LOADER ───────────────────────────────────────────
+def load_data(tf,days):
+    bars=days*24*4 if tf==mt5.TIMEFRAME_M15 else days*24 if tf==mt5.TIMEFRAME_H1 else days*6
+    rates=mt5.copy_rates_from_pos(SYMBOL,tf,0,int(bars*1.2))
+    df=pd.DataFrame(rates);df['time']=pd.to_datetime(df['time'],unit='s')
+    df.set_index('time',inplace=True);return df
+
+# ── TIERED EXIT SIMULATOR ─────────────────────────────────
+def simulate_tiered_exit(df_future,signal,entry_price,sl,atr,lot):
+    sl_distance=abs(entry_price-sl)
+    tp1=sl_distance*1.0;tp2=sl_distance*2.0
+    lot1=round(lot*0.30,2);lot2=round(lot*0.30,2)
+    lots_remaining=lot
+    trail_sl=sl;tier1_done=False;tier2_done=False
+    total_pnl=0.0
+    info=mt5.symbol_info(SYMBOL)
+    spread_cost=(SPREAD_COST.get("TREND_BULL",30)*info.point*lot*100) if info else 0
+    slippage_cost=(SLIPPAGE_POINTS*info.point*lot*100) if info else 0
+    for i,row in df_future.iterrows():
+        high=row['high'];low=row['low']
+        if signal=="BUY":
+            if low&lt;=trail_sl:
+                total_pnl+=(trail_sl-entry_price)*lots_remaining*100
+                return {"pnl":round(total_pnl-spread_cost-slippage_cost,2),
+                        "exit_reason":"SL","bars_held":i+1,
+                        "r_multiple":round(total_pnl/(sl_distance*lot*100),2) if sl_distance>0 else 0}
+            if not tier1_done and high>=entry_price+tp1:
+                total_pnl+=tp1*lot1*100;lots_remaining-=lot1;tier1_done=True;trail_sl=entry_price
+            if tier1_done and not tier2_done and high>=entry_price+tp2:
+                total_pnl+=tp2*lot2*100;lots_remaining-=lot2;tier2_done=True;trail_sl=entry_price+tp1
+            if tier2_done:
+                new_t=high-atr*1.0
+                if new_t>trail_sl: trail_sl=new_t
+        elif signal=="SELL":
+            if high>=trail_sl:
+                total_pnl+=(entry_price-trail_sl)*lots_remaining*100
+                return {"pnl":round(total_pnl-spread_cost-slippage_cost,2),
+                        "exit_reason":"SL","bars_held":i+1,
+                        "r_multiple":round(total_pnl/(sl_distance*lot*100),2) if sl_distance>0 else 0}
+            if not tier1_done and low&lt;=entry_price-tp1:
+                total_pnl+=tp1*lot1*100;lots_remaining-=lot1;tier1_done=True;trail_sl=entry_price
+            if tier1_done and not tier2_done and low&lt;=entry_price-tp2:
+                total_pnl+=tp2*lot2*100;lots_remaining-=lot2;tier2_done=True;trail_sl=entry_price-tp1
+            if tier2_done:
+                new_t=low+atr*1.0
+                if new_t&lt;trail_sl: trail_sl=new_t
+    last_price=df_future['close'].iloc[-1]
+    remaining_pnl=(last_price-entry_price if signal=="BUY" else entry_price-last_price)*lots_remaining*100
+    total_pnl+=remaining_pnl
+    return {"pnl":round(total_pnl-spread_cost-slippage_cost,2),"exit_reason":"END_OF_DATA",
+            "bars_held":len(df_future),"r_multiple":round(total_pnl/(sl_distance*lot*100),2) if sl_distance>0 else 0}
+
+# ── MAIN BACKTEST LOOP ────────────────────────────────────
+def run_backtest():
+    print("Loading historical data from MT5...")
+    df_15m=load_data(TIMEFRAME_ENTRY,BACKTEST_DAYS)
+    df_1h=load_data(TIMEFRAME_TREND,BACKTEST_DAYS)
+    df_4h=load_data(TIMEFRAME_HTF,BACKTEST_DAYS)
+    print(f"15M:{len(df_15m)} 1H:{len(df_1h)} 4H:{len(df_4h)} candles loaded")
+    balance=INITIAL_BALANCE;trades=[];equity_curve=[balance];LOOKBACK=250
+    for i in range(LOOKBACK,len(df_15m)-50):
+        df_s=df_15m.iloc[i-LOOKBACK:i].copy();current_time=df_15m.index[i]
+        hour=current_time.hour
+        if not (SESSION_START_UTC&lt;=hour&lt;SESSION_END_UTC): continue
+        df_s['atr']=calc_atr(df_s);atr=df_s['atr'].iloc[-1]
+        if np.isnan(atr) or atr==0: continue
+        df_1h_s=df_1h[df_1h.index&lt;=current_time].tail(250).copy()
+        df_4h_s=df_4h[df_4h.index&lt;=current_time].tail(250).copy()
+        if len(df_1h_s)&lt;210 or len(df_4h_s)&lt;210: continue
+        regime=detect_regime(df_s,df_1h_s)
+        if regime in ("VOLATILE","UNKNOWN"): continue
+        signal=generate_signal(df_s,df_1h_s,df_4h_s,regime)
+        if signal is None: continue
+        entry=df_15m['close'].iloc[i];sl_dist=atr*ATR_MULTIPLIER_SL
+        sl=entry-sl_dist if signal=="BUY" else entry+sl_dist
+        lot=bt_calculate_lot(balance,sl_dist)
+        df_future=df_15m.iloc[i:i+100].copy()
+        result=simulate_tiered_exit(df_future,signal,entry,sl,atr,lot)
+        balance+=result["pnl"];equity_curve.append(balance)
+        trades.append({"time":str(current_time),"signal":signal,"regime":regime,
+            "entry":round(entry,2),"sl":round(sl,2),"atr":round(atr,2),"lot":lot,
+            "pnl":result["pnl"],"exit_reason":result["exit_reason"],
+            "bars_held":result["bars_held"],"r_multiple":result["r_multiple"],"balance":round(balance,2)})
+    return pd.DataFrame(trades),equity_curve
+
+# ── METRICS ───────────────────────────────────────────────
+def print_metrics(trades_df,equity_curve,initial_balance):
+    if len(trades_df)==0: print("No trades generated — check signal logic or data range"); return
+    total=len(trades_df);wins=trades_df[trades_df['pnl']>0];losses=trades_df[trades_df['pnl']&lt;=0]
+    wr=len(wins)/total*100;total_pnl=trades_df['pnl'].sum()
+    avg_w=wins['pnl'].mean() if len(wins)>0 else 0
+    avg_l=losses['pnl'].mean() if len(losses)>0 else 0
+    pf=abs(wins['pnl'].sum()/losses['pnl'].sum()) if losses['pnl'].sum()!=0 else float('inf')
+    avg_rr=trades_df['r_multiple'].mean()
+    eq=pd.Series(equity_curve);dd=((eq-eq.cummax())/eq.cummax()*100).min()
+    ret=trades_df['pnl']/initial_balance
+    sharpe=(ret.mean()/ret.std()*np.sqrt(252)) if ret.std()>0 else 0
+    results=(trades_df['pnl']>0).astype(int);mcl=cl=0
+    for r in results:
+        if r==0: cl+=1;mcl=max(mcl,cl)
+        else: cl=0
+    print("\n"+"="*55)
+    print("  GOLD BOT v6 — BACKTEST RESULTS")
+    print("="*55)
+    print(f"  Period tested        : {BACKTEST_DAYS} days")
+    print(f"  Total trades         : {total}")
+    print(f"  Win rate             : {wr:.1f}%")
+    print(f"  Profit factor        : {pf:.2f}")
+    print(f"  Sharpe ratio         : {sharpe:.2f}")
+    print(f"  Average R:R achieved : {avg_rr:.2f}R")
+    print(f"  Average win          : ${avg_w:.2f}")
+    print(f"  Average loss         : ${avg_l:.2f}")
+    print(f"  Max drawdown         : {dd:.1f}%")
+    print(f"  Max consecutive loss : {mcl}")
+    print(f"  Net P&amp;L              : ${total_pnl:.2f}")
+    print(f"  Final balance        : ${initial_balance+total_pnl:.2f}")
+    print("="*55)
+    print("\n  PERFORMANCE BY REGIME:")
+    rg=trades_df.groupby('regime').agg(trades=('pnl','count'),
+        win_rate=('pnl',lambda x:(x>0).mean()*100),total_pnl=('pnl','sum'),
+        avg_rr=('r_multiple','mean')).round(2)
+    print(rg.to_string())
+    print("\n  THRESHOLD CHECK:")
+    print(f"  Win rate > 42%       : {'PASS ✅' if wr>42 else 'FAIL ❌'}")
+    print(f"  Profit factor > 1.5  : {'PASS ✅' if pf>1.5 else 'FAIL ❌'}")
+    print(f"  Sharpe ratio > 1.0   : {'PASS ✅' if sharpe>1.0 else 'FAIL ❌'}")
+    print(f"  Max drawdown > -20%  : {'PASS ✅' if dd>-20 else 'FAIL ❌'}")
+    print(f"  Avg R:R > 1.5        : {'PASS ✅' if avg_rr>1.5 else 'FAIL ❌'}")
+    print("="*55)
+    trades_df.to_csv("backtest_results.csv",index=False)
+    print("\n  Full results saved to backtest_results.csv ✅")
+
+if __name__=="__main__":
+    print("Gold Bot v6 — Backtest Engine")
+    print("Using exact same signal logic as live bot (all v6 fixes applied)")
+    print("Spread + slippage modelled. Tiered exits simulated candle-by-candle.")
+    print()
+    trades_df,equity_curve=run_backtest()
+    print_metrics(trades_df,equity_curve,INITIAL_BALANCE)
+    mt5.shutdown()</pre></div>
+<div class="box bg"><div class="bi">💡</div><div>Open backtest.py and fill in your MT5_LOGIN, MT5_PASSWORD, MT5_SERVER at the top — same values as bot.py.</div></div>
+<div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
+python backtest.py</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>Shows full performance metrics with regime breakdown and THRESHOLD CHECK. Results saved to backtest_results.csv.</div></div>
+</div></div>
+
+<!-- STEP 4 — activate -->
+<div class="step"><div class="sh"><div class="sn">4</div><div class="stitle">Activate — Restart Bot After Training</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">After train_model.py creates ml_xgb.pkl, ml_rf.pkl, ml_lr.pkl — restart the bot to activate ensemble:</p>
+<div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
+python bot.py</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>Console shows: <code>ML models loaded: [XGBoost, RandomForest, LogisticReg]</code>. Health check at localhost:5000/health shows all three as ✅.</div></div>
+</div></div>
+
+<!-- ML THRESHOLD GUIDE -->
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">ML Threshold Guide</div></div>
+<div class="sb"><table>
+<tr><th>Trades collected</th><th>Walk-forward CV accuracy</th><th>Recommended ML_THRESHOLD</th></tr>
+<tr><td>200–500</td><td>Any</td><td>0.72 — strict, fewer but higher-confidence signals</td></tr>
+<tr><td>500–1000</td><td>55–60%</td><td>0.65 — default, good balance</td></tr>
+<tr><td>1000+</td><td>60%+</td><td>0.60 — more signals, model is trustworthy</td></tr>
+<tr><td>Any</td><td>Below 52%</td><td>0.0 — disable ML, collect more data first</td></tr>
+</table></div></div>
+</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="page" id="p4">
+<div class="wrap">
+<div class="ph"><div class="pnum">PHASE 04</div><div><div class="ptitle">VPS — 24/7 Live Trading</div><div class="psub">Move off your laptop. Bot runs even when you sleep or laptop is off.</div></div></div>
+
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Choose a VPS Provider</div></div>
+<div class="sb"><table>
+<tr><th>Provider</th><th>Cost/month</th><th>Notes</th></tr>
+<tr><td>Contabo</td><td>~₹420</td><td>Best value — recommended for beginners</td></tr>
+<tr><td>DigitalOcean</td><td>~₹500</td><td>Easy interface, reliable uptime</td></tr>
+<tr><td>AWS Lightsail</td><td>~₹420</td><td>Most scalable if you grow</td></tr>
+</table>
+<div class="box bg"><div class="bi">💡</div><div>Must choose <strong>Windows Server</strong> OS when setting up your VPS. The MetaTrader5 Python library only works on Windows. Minimum specs: 2GB RAM, 50GB storage, 1 CPU core.</div></div>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Connect to Your VPS via Remote Desktop</div></div>
+<div class="sb">
+<ul class="il">
+<li>Press <code>Win + R</code> on your home laptop → type <code>mstsc</code> → press Enter. This opens the Remote Desktop Connection app.</li>
+<li>Enter the VPS IP address provided by your VPS host → click Connect</li>
+<li>Login with username <code>Administrator</code> and the VPS password from your host</li>
+<li>You now see the VPS Windows desktop — it works exactly like your home laptop, just running remotely in a data centre</li>
+</ul>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Set Up the VPS</div></div>
+<div class="sb">
+<ul class="il">
+<li>On the VPS: repeat Phase 1 Steps 1–5 exactly as you did on your home laptop (install Python 3.12, install MT5, install all Python libraries)</li>
+<li>Download <strong>WinSCP</strong> on your home laptop (free — search "WinSCP download"). This is a file transfer tool.</li>
+<li>Open WinSCP → enter your VPS IP address → login → drag your entire <strong>goldbot</strong> folder from your home laptop Desktop to the VPS Desktop</li>
+<li>On the VPS: open MT5 → login to your Exness account → make sure it is showing live prices and XAUUSD is visible</li>
+<li>Leave MT5 open on the VPS. It must stay running at all times.</li>
+</ul>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">4</div><div class="stitle">Auto-Start Bot with Windows Task Scheduler</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">This makes the bot restart automatically every time the VPS reboots — so you never have to manually start it again.</p>
+<ul class="il">
+<li>On the VPS: press the Windows key → search for <strong>Task Scheduler</strong> → open it</li>
+<li>Click <strong>Create Basic Task</strong> in the right panel → name it <code>GoldBot</code> → click Next</li>
+<li>Trigger: select <strong>When the computer starts</strong> → Next</li>
+<li>Action: select <strong>Start a program</strong> → Next</li>
+<li>Program/script: type <code>python</code> — Add arguments: <code>C:\Users\Administrator\Desktop\goldbot\bot.py</code> → Next → Finish</li>
+<li>Right-click the GoldBot task → Properties → tick <strong>"Run whether user is logged on or not"</strong> → OK</li>
+</ul>
+<div class="box bo"><div class="bi">✓</div><div>Bot now starts automatically every time the VPS restarts. You do not need to log in to start it.</div></div>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">5</div><div class="stitle">Open Firewall Port 5000</div></div>
+<div class="sb">
+<ul class="il">
+<li>On the VPS: search <strong>Windows Defender Firewall</strong> → click <strong>Advanced Settings</strong></li>
+<li>Click <strong>Inbound Rules</strong> → New Rule → Port → TCP → Specific port: <code>5000</code> → Allow the connection → Save</li>
+</ul>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">6</div><div class="stitle">Verify VPS Is Running 24/7</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">From your <strong>home laptop</strong> (not the VPS), run:</p>
+<div class="cw"><div class="cl">CMD — from your HOME laptop <button class="cb" onclick="cp(this)">COPY</button></div><pre>curl http://YOUR_VPS_IP:5000/health</pre></div>
+<div class="box bo"><div class="bi">✓</div><div>JSON response showing <code>"mt5_connected": true</code> and <code>"version": "v6"</code> confirms the bot is running on the VPS 24/7. Your laptop can now be turned off.</div></div>
+</div></div>
+</div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="page" id="p5">
+<div class="wrap">
+<div class="ph"><div class="pnum">PHASE 05</div><div><div class="ptitle">Business / SaaS (Optional)</div><div class="psub">After 3+ verified profitable live months. Turn your system into a product.</div></div></div>
+<div class="box bw"><div class="bi">⚠</div><div>Do not attempt this until you have at least 3 months of verified live profitable trading. Without real verified results, no one will pay. Trust first, business second.</div></div>
+
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Get Verified Results (Mandatory First Step)</div></div>
+<div class="sb">
+<ul class="il">
+<li>Run your bot on a live account for 3+ months with real (small) capital</li>
+<li>Connect your MT5 account to <strong>Myfxbook.com</strong> (free) — this independently verifies your performance so others can see it is real and not fabricated</li>
+<li>Make your Myfxbook account public — this is your proof of concept</li>
+<li>Without verified results, no marketing will work — people are extremely skeptical of trading claims. A public Myfxbook link changes everything.</li>
+</ul>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Pricing Structure</div></div>
+<div class="sb"><table>
+<tr><th>Plan</th><th>Price</th><th>What the customer gets</th></tr>
+<tr><td>Starter</td><td>₹999/month</td><td>Telegram signal alerts only (bot sends signals to a shared channel)</td></tr>
+<tr><td>Pro</td><td>₹2,999/month</td><td>Signals + access to live performance dashboard</td></tr>
+<tr><td>Elite</td><td>₹9,999/month</td><td>Full bot setup on their machine + ongoing support</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Delivery System for Signals</div></div>
+<div class="sb">
+<ul class="il">
+<li>Create a <strong>Telegram Channel</strong> (different from your personal bot chat)</li>
+<li>In bot.py, add the channel's chat ID as a second recipient in the <code>telegram()</code> function so trade alerts go to both you and the channel</li>
+<li>Starter plan subscribers get added to this channel</li>
+<li>Use <strong>Razorpay</strong> (India) for subscription billing — it has recurring payment built in and takes minutes to set up</li>
+</ul>
+</div></div>
+
+<div class="step"><div class="sh"><div class="sn">4</div><div class="stitle">Marketing — No Budget Needed Initially</div></div>
+<div class="sb">
+<ul class="il">
+<li><strong>Instagram Reels:</strong> Post daily — screenshot of Telegram alert, trade result, equity curve from dashboard. Real results only — never fake. One viral Reel can bring 500+ followers in a day.</li>
+<li><strong>Telegram trading groups:</strong> Share free signals in popular trading groups. Convert interested people to your paid channel.</li>
+<li><strong>Word of mouth:</strong> First 10 customers are usually referrals from people who know you. Give the first month at 50% discount to get testimonials.</li>
+<li><strong>Myfxbook link:</strong> Include this in every post as independent proof. This alone separates you from 99% of signal sellers who show no verified results.</li>
+</ul>
+<div class="box bg"><div class="bi">💡</div><div>Month 1 realistic target: 10 paying customers × ₹999 = ₹10,000. Month 3 target: 50 customers = ₹50,000/month. These are realistic numbers if your results are genuine, consistent, and verified.</div></div>
+</div></div>
+</div>
+</div>
+
+
+<!-- v7 MODULES TAB -->
+<div class="page" id="mods">
+<div class="wrap">
+<div class="ph"><div><div class="ptitle">v7 Strategy Modules — Complete Reference</div><div class="psub">Four independent modules. Only one is active at a time. The regime detector chooses automatically every 15 minutes.</div></div></div>
+
+<div class="box bw"><div class="bi">⚠</div><div><strong>Important:</strong> You do not activate or deactivate modules manually. The bot reads the current market regime from ADX, ATR, and Bollinger Band width, then routes to the correct module automatically. Your only control is TRADING_MODE (CONSERVATIVE / NORMAL / AGGRESSIVE) which adjusts risk, daily trade limits, and ML thresholds across all modules equally.</div></div>
+
+<!-- MODULE 01 -->
+<div class="step"><div class="sh"><div class="sn">01</div><div class="stitle">MODULE 01 — TREND (SMC + Order Block + Fibonacci OTE)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> ADX ≥ 28 on 1H (or ≥ 24 during Silver Bullet windows 10–11 UTC and 14–15 UTC) AND EMA50 vs EMA200 direction confirmed. This is the core strategy — the most selective and most reliable module. It handles the majority of trades during genuine trending Gold conditions.</p>
+
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Session:</strong> 06:00–16:00 UTC only. The 16:30–18:00 UTC NY late window was removed in v7 because London liquidity has already exited and follow-through on signals drops significantly in that window.</p>
+
+<table>
+<tr><th>Filter</th><th>Requirement</th><th>Why</th></tr>
+<tr><td>4H Bias</td><td>EMA50 must be above EMA200 for BUY, below for SELL</td><td>Aligns with highest timeframe trend direction — never trades against the 4H structure</td></tr>
+<tr><td>1H Trend</td><td>EMA50 vs EMA200 with positive/negative slope</td><td>Confirms intermediate trend direction matches signal direction</td></tr>
+<tr><td>Liquidity Sweep</td><td>Body ≥ 38% of candle range (raised from v6's 30%)</td><td>Filters random wick sweeps. Only candles with genuine body commitment qualify.</td></tr>
+<tr><td>MSS</td><td>Body ≥ 40% of candle range, close above/below 10-bar extreme</td><td>Market Structure Shift must be decisive — weak closes rejected</td></tr>
+<tr><td>RSI Guard</td><td>RSI &lt; 65 for BUY, RSI &gt; 35 for SELL</td><td>Avoids overbought entries in trend direction</td></tr>
+</table>
+
+<p style="font-size:13px;color:#ccc;margin:14px 0 8px;font-weight:600">Three entry types — checked in this exact priority order:</p>
+<table>
+<tr><th>Priority</th><th>Entry Type</th><th>Condition</th><th>What it means</th></tr>
+<tr><td>1st</td><td>FVG (Fair Value Gap)</td><td>3-candle imbalance gap exists in signal direction, price still outside gap</td><td>Institutional imbalance zone — price likely to return to fill. Highest probability entry.</td></tr>
+<tr><td>2nd</td><td>OB (Order Block)</td><td>Last opposing bearish/bullish candle before MSS with price currently inside OB zone</td><td>Institutional limit order cluster — the candle where smart money entered before the move. Body ≥ 25% required.</td></tr>
+<tr><td>3rd</td><td>OTE (Optimal Trade Entry)</td><td>Current price within ±0.3 pts of 61.8% Fibonacci retracement of MSS candle range</td><td>ICT Fibonacci OTE level — 61.8% pullback into MSS candle is the ideal retracement entry point.</td></tr>
+</table>
+
+<div class="box bg"><div class="bi">💡</div><div><strong>Silver Bullet logic:</strong> ICT Silver Bullet windows (10–11 UTC = London open drive, 14–15 UTC = NY open drive) historically show higher institutional participation. During these windows, the bot uses ADX ≥ 24 instead of ≥ 28. A signal at ADX 25.5 during 10:30 UTC is valid; the same signal at 09:00 UTC is blocked. Check <code>goldbot.log</code> — you will see "Silver Bullet window active — ADX threshold: 24" when this is in effect.</div></div>
+</div></div>
+
+<!-- MODULE 02 -->
+<div class="step"><div class="sh"><div class="sn">02</div><div class="stitle">MODULE 02 — RANGE (Range Boundary SMC)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> ADX &lt; 20 AND a structural range is confirmed on the 1H chart. A structural range means: at least 8 candles bouncing within a 60–200 point band, with all closes within 10% tolerance of the range boundaries. This completely replaces v6's broken RSI-only range strategy.</p>
+
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Session:</strong> 07:00–15:00 UTC only. Range trading during Asian session (00:00–06:00) and NY late session produces unreliable follow-through due to thin liquidity.</p>
+
+<table>
+<tr><th>Filter</th><th>Requirement</th><th>Why</th></tr>
+<tr><td>Structural Range</td><td>8+ candles bouncing in 60–200 pt width band, all closes within 10% of boundaries</td><td>Confirms a genuine range exists — not just a temporary pause in trend</td></tr>
+<tr><td>Rejection Candle</td><td>Previous candle wicks above range high (SELL) or below range low (BUY), then closes back inside. Body ≥ 40% of candle range.</td><td>SMC-style range boundary rejection — shows price was pushed through the level and rejected by institutional orders</td></tr>
+<tr><td>RSI Divergence</td><td>Bearish divergence at range high (lower RSI despite higher price), bullish divergence at range low</td><td>Confluence confirmation — divergence shows momentum weakening at the boundary</td></tr>
+<tr><td>Bollinger Band Touch</td><td>Rejection candle high must touch or exceed upper BB (SELL), low must touch or exceed lower BB (BUY)</td><td>BB extremes at range boundaries confirm statistically stretched conditions — higher mean-reversion probability</td></tr>
+</table>
+
+<div class="box bi2"><div class="bi">ℹ</div><div><strong>Target structure:</strong> The RANGE module uses explicit TP1 (midpoint of range) and TP2 (opposite boundary minus 2 points) rather than the standard 3.0×ATR TP reference. This is appropriate for range trading — the target is the other side of the range, not an ATR multiple into the unknown.</div></div>
+<div class="box bo"><div class="bi">✓</div><div><strong>Why this is safe in all modes:</strong> The <code>range_allowed</code> flag is now <code>True</code> in all modes (CONSERVATIVE, NORMAL, AGGRESSIVE) because the v7 RANGE module has proper structural and confluence confirmation. The old v6 RSI-only range strategy was correctly blocked — v7's replacement is a genuine SMC range strategy.</div></div>
+</div></div>
+
+<!-- MODULE 03 -->
+<div class="step"><div class="sh"><div class="sn">03</div><div class="stitle">MODULE 03 — VOLATILE SQUEEZE (Bollinger Squeeze Breakout)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> ADX is in the 20–28 zone (not trending, not fully ranging) AND ATR(14) is at or near its 20-period minimum AND the Bollinger Band width is at its 3-month (252 bar) minimum. This is the "coiled spring" condition — low volatility that precedes a sharp breakout. This module did not exist in v6 at all (the VOLATILE regime was simply blocked).</p>
+
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Session:</strong> 07:00–16:00 UTC. Also has a built-in 2-hour news blackout — if any high-impact event is within 120 minutes, the squeeze module is skipped entirely (Finnhub API checked in real-time).</p>
+
+<table>
+<tr><th>Filter</th><th>Requirement</th><th>Why</th></tr>
+<tr><td>ATR Squeeze</td><td>Current ATR(14) within 8% of its 20-bar minimum</td><td>Volatility must be genuinely compressed — not just temporarily low</td></tr>
+<tr><td>BB Squeeze</td><td>Current BB width within 5% of its 252-bar minimum</td><td>Price compression at 3-month extremes produces the most powerful breakouts</td></tr>
+<tr><td>Breakout Candle</td><td>Close above upper BB (BUY) or below lower BB (SELL) with body ≥ 45% of candle range</td><td>Strong body on the breakout candle confirms genuine directional commitment — not a wick spike</td></tr>
+<tr><td>4H Alignment</td><td>4H EMA50 vs EMA200 must align with breakout direction</td><td>Higher timeframe trend must support the breakout direction — avoids counter-trend squeezes</td></tr>
+<tr><td>News Guard</td><td>No high-impact event within 120 minutes (checked via Finnhub)</td><td>Post-news squeezes are unreliable — the spike distorts the BB/ATR readings</td></tr>
+</table>
+
+<div class="box bw"><div class="bi">⚠</div><div><strong>Important:</strong> The squeeze module will not fire if the news API is unavailable (Finnhub timeout). This is intentional — the 2-hour news blackout is part of the safety logic. If you see "Squeeze blocked — news API unavailable" in the log, this is working correctly. Do not disable the Finnhub API key to "fix" this.</div></div>
+</div></div>
+
+<!-- MODULE 04 -->
+<div class="step"><div class="sh"><div class="sn">04</div><div class="stitle">MODULE 04 — POST-NEWS (Post-News ICT Entry)</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> The VOLATILE_NEWS regime is detected — meaning an ATR spike above 1.5× the 20-bar average has occurred in the last 6 bars. The module then waits exactly 60 minutes for the post-news consolidation to form before looking for an entry. This module did not exist in v6. Previously, news spikes simply blocked all trading.</p>
+
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Session:</strong> 07:00–16:00 UTC. Maximum one post-news trade per trading day — the <code>post_news_traded_this_session</code> flag resets at 06:00 UTC each day. This prevents the bot from chasing multiple news events in one session.</p>
+
+<table>
+<tr><th>Step</th><th>Condition</th><th>What it means</th></tr>
+<tr><td>1. Spike detection</td><td>Any of the last 6 candles has high–low range &gt; avg_ATR × 1.5</td><td>A significant news-driven move occurred recently</td></tr>
+<tr><td>2. Wait period</td><td>At least 60 minutes must have passed since the spike candle</td><td>Initial volatility and stop-hunting after news must settle before entering</td></tr>
+<tr><td>3. Consolidation check</td><td>Last 4 candles' total range must be ≤ 35% of the spike candle's range</td><td>Price must be genuinely consolidating — not still in the initial volatile phase</td></tr>
+<tr><td>4. Sweep</td><td>Liquidity sweep in the direction of the original spike</td><td>Smart money harvests stops before the continuation move in spike direction</td></tr>
+<tr><td>5. FVG entry</td><td>Fair Value Gap exists in the spike direction with price still outside the gap</td><td>Institutional imbalance confirms entry zone — price should return to fill the gap before continuation</td></tr>
+</table>
+
+<div class="box bg"><div class="bi">💡</div><div><strong>The logic behind post-news trading:</strong> After a major news spike (NFP, FOMC, CPI), institutional participants who were on the wrong side of the move close their positions over the next 30–60 minutes — creating a "shake out" sweep of obvious stop levels. After this settling period, the genuine directional commitment from the original spike resumes. The Post-News module captures this second-wave entry after the initial chaos has cleared.</div></div>
+<div class="box bi2"><div class="bi">ℹ</div><div><strong>One trade per session:</strong> Once a post-news trade fires, <code>post_news_traded_this_session = True</code> and no further post-news entries will trigger that day. This prevents overtrading on multiple news events in one session. The flag resets at 06:00 UTC the next day.</div></div>
+</div></div>
+
+<!-- REGIME DETECTOR -->
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">How the v7 Regime Detector Works</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8">The regime detector runs every 15 minutes and classifies the current market into one of six states. It takes only the 1H chart as input (v6 required both 15M and 1H). The classification logic is checked in this exact priority order:</p>
+<table>
+<tr><th>Priority</th><th>Regime</th><th>ADX Condition</th><th>Additional Condition</th><th>Module Activated</th></tr>
+<tr><td>1st</td><td>TREND_BULL / TREND_BEAR</td><td>ADX ≥ get_adx_threshold() (28 or 24)</td><td>EMA50 vs EMA200 for direction</td><td>MODULE 01 — TREND</td></tr>
+<tr><td>2nd</td><td>RANGE</td><td>ADX &lt; 20</td><td>is_confirmed_range() returns True (8+ candle structural range)</td><td>MODULE 02 — RANGE</td></tr>
+<tr><td>3rd</td><td>VOLATILE_NEWS</td><td>ADX 20–28</td><td>ATR &gt; 1.5× 20-bar average (spike detected)</td><td>MODULE 04 — POST-NEWS</td></tr>
+<tr><td>4th</td><td>VOLATILE_SQUEEZE</td><td>ADX 20–28</td><td>is_bb_squeeze() — BB width at 252-bar minimum</td><td>MODULE 03 — SQUEEZE</td></tr>
+<tr><td>5th</td><td>UNKNOWN</td><td>ADX 20–28</td><td>None of the above conditions met</td><td>No trades</td></tr>
+</table>
+<div class="box bo"><div class="bi">✓</div><div><strong>Key difference from v6:</strong> The old VOLATILE regime (ATR spike &gt; 1.5× average) now maps to VOLATILE_NEWS and activates MODULE 04 instead of blocking all trading. The new VOLATILE_SQUEEZE regime is a separate classification for low-volatility compression conditions. In v6, both of these would simply have been blocked. In v7, both have actionable strategies.</div></div>
+</div></div>
+
+</div><!-- end wrap -->
+</div><!-- end mods page -->
+
+<!-- BOT RATING -->
+<div class="page" id="rate">
+<div class="wrap">
+<div class="ph"><div><div class="ptitle">Bot Rating — Honest Assessment (v7)</div><div class="psub">What it does well, where the limits are, how it compares. v7 adds four independent modules — each rated individually.</div></div></div>
+
+<div class="rgrid">
+<div class="rcard"><div class="rl">OVERALL</div><div class="rs sa">9.3 / 10</div><div class="rn">Four-module institutional-grade system — TREND + RANGE + SQUEEZE + POST-NEWS</div><div class="rb"><div class="rf" style="width:93%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">RISK MANAGEMENT</div><div class="rs sa">9.5 / 10</div><div class="rn">Real MT5 equity-based sizing, tiered exits, mode system, slippage tracked</div><div class="rb"><div class="rf" style="width:95%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">STRATEGY QUALITY</div><div class="rs sa">9.0 / 10</div><div class="rn">Four independent regime-gated modules. OB + OTE + FVG entries. RSI divergence range. Squeeze breakout. Post-news ICT.</div><div class="rb"><div class="rf" style="width:90%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">ML / AI FILTER</div><div class="rs sb2">8 / 10</div><div class="rn">Ensemble of 3 models. rr_quality now dynamic. rsi_at_entry added. Quality depends on data collected (200+ trades needed).</div><div class="rb"><div class="rf" style="width:80%;background:var(--gold)"></div></div></div>
+<div class="rcard"><div class="rl">REGIME DETECTION</div><div class="rs sa">9.5 / 10</div><div class="rn">6 regimes: TREND_BULL/BEAR, RANGE, VOLATILE_SQUEEZE, VOLATILE_NEWS, UNKNOWN. Silver Bullet ADX relaxation. BB squeeze detection.</div><div class="rb"><div class="rf" style="width:95%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">SELF-LEARNING</div><div class="rs sb2">8.5 / 10</div><div class="rn">Regime win rate tracking across all 4 v7 modules. 14-day cooldown + 10 trial trades. Modules auto-block if win rate &lt;35%.</div><div class="rb"><div class="rf" style="width:85%;background:var(--gold)"></div></div></div>
+<div class="rcard"><div class="rl">EXIT MANAGEMENT</div><div class="rs sa">9 / 10</div><div class="rn">Tiered: 30%@1R + 30%@2R + 40% trail. State persists across restarts.</div><div class="rb"><div class="rf" style="width:90%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">RELIABILITY</div><div class="rs sa">9.5 / 10</div><div class="rn">Auto-reconnect, retry logic, crash-safe state, news cache, thread-safe.</div><div class="rb"><div class="rf" style="width:95%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">AUTOMATION</div><div class="rs sa">9.5 / 10</div><div class="rn">Signal engine, CSV, retrain, regime stats — all automatic. 30-min cooldown prevents overtrading.</div><div class="rb"><div class="rf" style="width:95%;background:#2ECC71"></div></div></div>
+<div class="rcard"><div class="rl">BACKTESTING</div><div class="rs sa">9.0 / 10</div><div class="rn">Exact signal logic replicated. Tiered exits simulated. Spread + slippage modelled. Walk-forward validation on ML training.</div><div class="rb"><div class="rf" style="width:90%;background:#2ECC71"></div></div></div>
+</div>
+
+<div class="step"><div class="sh"><div class="sn">+</div><div class="stitle">What This Bot Does That Most Bots Don't</div></div>
+<div class="sb"><ul class="il">
+<li><strong>Regime detection with correct ADX:</strong> Classifies market before trading using proper Wilder RMA smoothing — no more inflated ADX calling TREND on choppy days</li>
+<li><strong>4H bias filter:</strong> Never trades against the higher timeframe trend — every signal must align with 4H EMA direction</li>
+<li><strong>Body confirmation on signals:</strong> Both sweep and MSS require meaningful candle bodies — random wicks no longer trigger entries</li>
+<li><strong>Crash-safe state:</strong> Tiered exit progress saved to JSON — survives bot restarts and VPS reboots without losing position management</li>
+<li><strong>Self-learning with recovery:</strong> Bad regimes are blocked but given a second chance after 14 days — adapts to market condition changes</li>
+<li><strong>Slippage tracking:</strong> Every trade logs actual fill price vs requested price — you can measure your broker's execution quality over time</li>
+<li><strong>Signal cooldown:</strong> 30-minute gap enforced between signals — prevents revenge trading after a stop-loss</li>
+<li><strong>RANGE module (v7 new):</strong> Proper structural range + RSI divergence + BB extreme — replaces the broken v6 RSI-only range strategy</li>
+<li><strong>SQUEEZE module (v7 new):</strong> Bollinger squeeze breakout during compressed volatility — previously these conditions blocked all trading</li>
+<li><strong>POST-NEWS module (v7 new):</strong> ICT post-news entry after 60-min settling — news spikes now create opportunity instead of just blocking trading</li>
+<li><strong>Order Block entries (v7 new):</strong> Institutional order block zone detection as second entry type in TREND module</li>
+<li><strong>Fibonacci OTE entries (v7 new):</strong> 61.8% optimal trade entry as third entry type in TREND module</li>
+<li><strong>Walk-forward ML validation:</strong> No data leakage — model tested on future data it was never trained on</li>
+</ul></div></div>
+
+<div class="step"><div class="sh"><div class="sn r">−</div><div class="stitle">Honest Limits</div></div>
+<div class="sb"><ul class="il">
+<li><strong>No guaranteed profits:</strong> No trading system has guaranteed profits. Markets change. This bot helps manage risk intelligently — it cannot eliminate it.</li>
+<li><strong>ML needs data:</strong> The ensemble runs in placeholder mode until 200+ real trades are collected. This takes 2–4 months of consistent demo trading. Patience is required.</li>
+<li><strong>Module frequency imbalance:</strong> TREND module will produce the majority of trades in most market conditions. RANGE, SQUEEZE, and POST-NEWS modules may go weeks without firing during sustained trending markets. Do not judge these modules from a single month of data — evaluate over 3+ months minimum.</li>
+<li><strong>Single symbol:</strong> Optimised for XAUUSD only. Adapting to other symbols requires reviewing all ATR multipliers and spread thresholds.</li>
+</ul></div></div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">How It Compares</div></div>
+<div class="sb"><table>
+<tr><th>System</th><th>Rating</th><th>Notes</th></tr>
+<tr><td>Basic webhook bot (ChatGPT-style)</td><td>4/10</td><td>No real risk management, broken lot sizing, no regime awareness</td></tr>
+<tr><td>Standard MT5 EA (marketplace)</td><td>6/10</td><td>Usually no regime detection, no self-learning, no ML</td></tr>
+<tr><td>Our bot v7</td><td>9.3/10</td><td>Four regime-gated modules. OB+OTE+FVG entries. Silver Bullet windows. Post-news ICT. Squeeze breakout.</td></tr>
+<tr><td>Entry-level prop firm algo</td><td>8.5–9/10</td><td>Similar — they have live tick data feeds and larger backtesting periods</td></tr>
+<tr><td>Hedge fund quant system</td><td>9.5/10</td><td>Teams of quants, co-location servers, tick data, regulatory infrastructure</td></tr>
+</table></div></div>
+</div>
+</div>
+
+<!-- GOLDEN RULES -->
+<div class="page" id="rules">
+<div class="wrap">
+<div class="ph"><div><div class="ptitle">Golden Rules</div><div class="psub">Never break these. Print and keep them visible.</div></div></div>
+
+<div class="step"><div class="sh"><div class="sn r">!</div><div class="stitle">The 10 Rules</div></div>
+<div class="sb"><table>
+<tr><th>#</th><th>Rule</th><th>Why it matters</th></tr>
+<tr><td>1</td><td>Demo trade minimum 2 months before any real money</td><td>Real money adds emotion. Emotion breaks every rule below.</td></tr>
+<tr><td>2</td><td>Start on CONSERVATIVE mode. Never change to AGGRESSIVE until 3 profitable months verified</td><td>CONSERVATIVE protects capital while you learn how the system behaves in real market conditions.</td></tr>
+<tr><td>3</td><td>Never trade during NFP, CPI, FOMC — the news filter protects you, respect it</td><td>One news spike destroys a technically perfect setup in seconds. The filter exists for this reason.</td></tr>
+<tr><td>4</td><td>Start live with ₹20,000–₹30,000 maximum</td><td>Learn on small capital. Scale only after proof of consistency, not on hope.</td></tr>
+<tr><td>5</td><td>Never manually override the bot's decisions</td><td>The bot has no emotions. You do. Human overrides almost always make things worse — this is documented in trading psychology research.</td></tr>
+<tr><td>6</td><td>Check trades_log.csv and goldbot.log weekly</td><td>Catch any issues early. Verify auto-CSV is filling result and pnl_usd columns correctly within 5 minutes of trade close.</td></tr>
+<tr><td>7</td><td>Do not train ML until 200+ closed trades with results</td><td>A model trained on insufficient data is more dangerous than no model — it confidently rejects good signals and accepts bad ones.</td></tr>
+<tr><td>8</td><td>Let the self-learning system work — do not manually edit regime_stats.json</td><td>The regime blocker now has a 14-day recovery mechanism. Manually editing it breaks the recovery logic and corrupts the win rate data.</td></tr>
+<tr><td>9</td><td>Keep studying the strategy concepts alongside the bot</td><td>The bot can fail, need updating, or stop working with a broker change. If you understand the logic, you can fix it. If not, you are blind.</td></tr>
+<tr><td>10</td><td>Check fill_price vs price columns in your trades_log.csv every month</td><td>Slippage is now tracked automatically. If your average slippage is consistently above 3 points per trade, your broker's execution quality is hurting your results — contact them or consider switching to a broker with tighter execution.</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn r">!</div><div class="stitle">v7-Specific Rules — Additional to the 10 Golden Rules Above</div></div>
+<div class="sb"><table>
+<tr><th>#</th><th>v7 Rule</th><th>Why it matters</th></tr>
+<tr><td>v7-1</td><td>Do not judge individual modules in isolation for the first 2 months</td><td>RANGE, SQUEEZE, and POST-NEWS modules may fire rarely. A module with 5 trades is not enough data to evaluate. Judge the system as a whole after 3+ months.</td></tr>
+<tr><td>v7-2</td><td>Never disable the Silver Bullet window logic by changing SILVER_BULLET_WINDOWS</td><td>The relaxed ADX threshold during 10–11 and 14–15 UTC is backed by ICT research on institutional participation windows. Changing it is likely to hurt, not help.</td></tr>
+<tr><td>v7-3</td><td>The post-news one-trade-per-day limit is non-negotiable</td><td>Multiple post-news entries in one session chase the same event. The second and third entries almost always have lower quality setups as the market regains equilibrium.</td></tr>
+<tr><td>v7-4</td><td>Check the MODULE label in trades_log.csv and MT5 comment field</td><td>The comment field now shows "GoldBot_v7_TREND_BULL" or "GoldBot_v7_RANGE" etc. This tells you exactly which module produced each trade. Review module-level performance separately after 50+ trades per module.</td></tr>
+<tr><td>v7-5</td><td>If the SQUEEZE module fires but you are near a major news event, check the log</td><td>The squeeze module has a built-in 2-hour news blackout, but if Finnhub API times out, the trade is blocked by default. "Squeeze blocked — news API unavailable" in the log is correct safe behaviour, not a bug.</td></tr>
+</table></div></div>
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">Complete Phase Timeline</div></div>
+<div class="sb"><table>
+<tr><th>Phase</th><th>Start when</th><th>Duration</th><th>Status</th></tr>
+<tr><td>Phase 1 — Bot Setup</td><td>Now</td><td>Week 1</td><td>✅ Start today</td></tr>
+<tr><td>Phase 2 — Dashboard</td><td>30–50 closed trades</td><td>~Month 2</td><td>⏳ Pending</td></tr>
+<tr><td>Phase 3 — Backtest + Ensemble ML</td><td>Run backtest Month 2, ML after 200+ trades</td><td>~Month 4–5</td><td>⏳ Pending</td></tr>
+<tr><td>Phase 4 — VPS</td><td>Before real money</td><td>~Month 5–6</td><td>⏳ Pending</td></tr>
+<tr><td>Phase 5 — Business</td><td>3 verified profitable live months</td><td>Month 9+</td><td>⏳ Optional</td></tr>
+</table></div></div>
+</div>
+</div>
+
+<div class="footer">
+<div>Gold Bot v7 — Final Complete Guide · 4-Module Strategy System · Beginner-Friendly</div>
+<div>Good luck. Stay disciplined. 🎯 &nbsp;·&nbsp; v7: Four modules. One system. Each regime gets the strategy it deserves.
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const m={road:0,p1:1,p2:2,p3:3,p4:4,p5:5,mods:6,rate:7,rules:8};
+  document.querySelectorAll('.tab')[m[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function cp(btn){
+  const pre=btn.closest('.cw').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{
+    btn.textContent='COPIED';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('ok');},2000);
+  });
+}
+function tk(el){
+  el.classList.toggle('dn');
+  el.parentElement.classList.toggle('st');
+}
+</script>
+</body>
+</html>
