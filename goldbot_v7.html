@@ -1783,9 +1783,9 @@ if __name__ == &quot;__main__&quot;:
 <ul class="il">
 <li><code>"version": "v7"</code> — confirms it's the right version</li>
 <li><code>"mt5_connected": true</code> — confirms MT5 connection is working</li>
-<li><code>"regime": "TREND_BULL"</code> or similar — confirms market data is being read</li>
+<li><code>"regime": "TREND_BULL"</code> or similar — confirms market data is being read. The regime is chosen automatically — you do not set this. Whatever value appears here is what the bot currently sees in the market.</li>
 <li><code>"live_atr": 2.4</code> or similar number — confirms price data is live</li>
-<li><code>"ml_status": "XGB:❌ RF:❌ LR:❌"</code> — <strong>this is normal and expected at Phase 1.</strong> ML models are trained in Phase 3 only.</li>
+<li><code>"ml_status": "XGB:❌ RF:❌ LR:❌"</code> — <strong>this is normal and expected at this stage.</strong> The bot trades correctly without them. ML models are trained in Phase 3 only — the bot uses a pass-through placeholder until then.</li>
 </ul>
 
 <p style="font-size:13px;color:var(--gold-light);font-weight:600;margin:18px 0 10px">Check 2 — goldbot.log File</p>
@@ -1896,7 +1896,7 @@ if __name__ == &quot;__main__&quot;:
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>dashboard.py</code> inside your goldbot folder. Paste this complete code:</p>
 <div class="cw"><div class="cl">dashboard.py — complete code <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-dashboard.py — Phase 2 Performance Dashboard
+dashboard.py — Gold Bot v7 Performance Dashboard
 Reads trades_log.csv. Shows real win rate, equity, regime breakdown.
 Run: streamlit run dashboard.py
 """
@@ -2083,11 +2083,8 @@ df['target'] = np.where(df['close'].shift(-5) > df['close'], 1, 0)
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>prepare_data.py</code> inside your goldbot folder. FEATURES list now includes <code>rsi_at_entry</code> to match bot.py's build_ml_features().</p>
 <div class="cw"><div class="cl">prepare_data.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-prepare_data.py — Phase 3 Feature Engineering
-MUST match build_ml_features() in bot.py EXACTLY.
-Features: sl_distance, rr_quality, atr_used, sl_atr_ratio, lot,
-          hour, day_of_week, session_enc, signal_enc, atr_tier,
-          regime_enc, rsi_at_entry  ← """
+prepare_data.py — Gold Bot v7 Feature Engineering
+"""
 import pandas as pd, numpy as np, logging, sys
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger(__name__)
@@ -2152,7 +2149,7 @@ python prepare_data.py</pre></div>
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>train_model.py</code> inside your goldbot folder. Uses TimeSeriesSplit instead of random train/test split — prevents data leakage on time-series trading data.</p>
 <div class="cw"><div class="cl">train_model.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-train_model.py — Phase 3 Ensemble Training
+train_model.py — Gold Bot v7 Ensemble Training
 Walk-forward validation using TimeSeriesSplit — no data leakage.
 Trains XGBoost + RandomForest + LogisticRegression.
 Saves ml_xgb.pkl, ml_rf.pkl, ml_lr.pkl.
@@ -2295,7 +2292,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger(__name__)
 
 # ── CONFIG ────────────────────────────────────────────────
-MT5_LOGIN        = 12345678        
+MT5_LOGIN        = 12345678        # ← UPDATE: your Exness login number
 MT5_PASSWORD     = "yourpassword"  # ← UPDATE: your Exness password
 MT5_SERVER       = "Exness-MT5Trial"  # ← UPDATE: your Exness server name
 SYMBOL           = "XAUUSD"
@@ -2709,7 +2706,7 @@ python bot.py</pre></div>
 <tr><th>Filter</th><th>Requirement</th><th>Why</th></tr>
 <tr><td>4H Bias</td><td>EMA50 must be above EMA200 for BUY, below for SELL</td><td>Aligns with highest timeframe trend direction — never trades against the 4H structure</td></tr>
 <tr><td>1H Trend</td><td>EMA50 vs EMA200 with positive/negative slope</td><td>Confirms intermediate trend direction matches signal direction</td></tr>
-<tr><td>Liquidity Sweep</td><td>Body ≥ 38% of candle range (raised from v6's 30%)</td><td>Filters random wick sweeps. Only candles with genuine body commitment qualify.</td></tr>
+<tr><td>Liquidity Sweep</td><td>Body ≥ 38% of candle range</td><td>Filters random wick sweeps. Only candles with genuine body commitment qualify.</td></tr>
 <tr><td>MSS</td><td>Body ≥ 40% of candle range, close above/below 10-bar extreme</td><td>Market Structure Shift must be decisive — weak closes rejected</td></tr>
 <tr><td>RSI Guard</td><td>RSI &lt; 65 for BUY, RSI &gt; 35 for SELL</td><td>Avoids overbought entries in trend direction</td></tr>
 </table>
@@ -2836,7 +2833,7 @@ python bot.py</pre></div>
 <tr><td>4H Bias Filter</td><td>No higher-timeframe directional filter — traded against 4H trend</td><td>get_4h_bias() added — signals blocked if against 4H EMA direction</td></tr>
 <tr><td>Signal Cooldown</td><td>Bot could re-enter immediately after SL hit</td><td>30-minute cooldown (2 x 15M candles) between any two signals</td></tr>
 <tr><td>Session Overlap Label</td><td>London-NY overlap (12-15 UTC) was unlabelled — logged as plain "NY"</td><td>New session label "LDN_NY_Overlap" — trackable in CSV separately</td></tr>
-<tr><td>Backtest Signal Logic</td><td>backtest.py tested simple trend+RSI — completely different from live bot's sweep+MSS+FVG signal chain</td><td>Full rewrite — backtest now uses exact same functions as live bot including all v6 signal fixes</td></tr>
+<tr><td>Backtest Signal Logic</td><td>backtest.py tested simple trend+RSI — completely different from live bot's sweep+MSS+FVG signal chain</td><td>Full rewrite — backtest now uses exact same functions as live bot</td></tr>
 <tr><td>Walk-Forward Validation</td><td>train_test_split used — single period, potential data leakage</td><td>TimeSeriesSplit with 5 folds — proper time-ordered cross-validation, no leakage</td></tr>
 </table></div></div>
 <div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v7 vs v6</div></div>
