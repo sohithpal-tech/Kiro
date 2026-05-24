@@ -168,65 +168,11 @@ code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,1
 <tr><td>ml_lr.pkl</td><td>Trained LogisticRegression + scaler</td><td>Phase 3 training</td></tr>
 </table></div></div>
 
-<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v5 vs v4</div></div>
-<div class="sb"><table>
-<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
-<tr><td>ML Features Mismatch</td><td>bot.py used different features than prepare_data.py — model would crash</td><td>Unified: both use exact same 11 features including regime_enc</td></tr>
-<tr><td>ADX Calculation</td><td>Regime detection used ADX but it was never calculated</td><td>calc_adx() added — proper smoothing</td></tr>
-<tr><td>Ensemble Models</td><td>Only XGBoost trained — RF and LR files missing</td><td>train_model.py now trains all 3, saves all 3</td></tr>
-<tr><td>Partial Close Floor</td><td>small lots × 0.5 = below broker minimum → order rejected</td><td>Checked against info.volume_min before attempting</td></tr>
-<tr><td>SL Modify TP Bug</td><td>_modify_sl sent tp=0 which some brokers reject</td><td>Never sends TP in SLTP request</td></tr>
-<tr><td>Self-Learning</td><td>Mentioned but not implemented</td><td>Regime win rate tracked, regimes &lt;35% auto-blocked</td></tr>
-<tr><td>Backtest Engine</td><td>Missing entirely</td><td>backtest.py added</td></tr>
-<tr><td>Dynamic Spread</td><td>Fixed 30pt threshold regardless of regime</td><td>TREND=30, RANGE=20, VOLATILE=15</td></tr>
-<tr><td>Tiered Exits</td><td>50% at 1R only</td><td>30% at 1R → 30% at 2R → 40% trail</td></tr>
-<tr><td>Trading Mode</td><td>Not implemented</td><td>CONSERVATIVE / NORMAL / AGGRESSIVE with different settings</td></tr>
-<tr><td>Regime Detection</td><td>Not implemented</td><td>Full ADX + EMA + ATR regime classification</td></tr>
-<tr><td>Regime-Adaptive Strategy</td><td>Same logic for all conditions</td><td>SMC for trends, RSI for ranges (AGGRESSIVE only)</td></tr>
-</table></div></div>
 
-<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v6 vs v5</div></div>
-<div class="sb"><table>
-<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
-<tr><td>ADX Wilder Smoothing</td><td>ewm(span=) formula produced inflated ADX values — regime called TREND too early</td><td>Changed to ewm(com=period-1) — correct Wilder RMA formula</td></tr>
-<tr><td>rr_quality ML Feature</td><td>Hardcoded constant 2.0 every trade — useless ML input</td><td>Now calculated from real sl_dist and tp_dist — dynamic per trade</td></tr>
-<tr><td>rsi_at_entry ML Feature</td><td>RSI at entry moment never captured</td><td>Added as new ML feature in build_ml_features() and prepare_data.py</td></tr>
-<tr><td>News Filter Fail-Safe</td><td>API failure silently allowed trades — even during NFP</td><td>Cache added — uses last known result if fresh, blocks trade if stale</td></tr>
-<tr><td>Trade State Persistence</td><td>open_trade_state in memory only — lost on crash</td><td>Saved to open_trade_state.json on every update, reloaded on startup</td></tr>
-<tr><td>Regime Blocker Recovery</td><td>Blocked regimes stayed blocked permanently</td><td>14-day cooldown + 10 trial trades before re-evaluation</td></tr>
-<tr><td>Lot Sizing Equity Fix</td><td>Used account.balance — overleverages during open drawdown</td><td>Changed to account.equity — correct basis during live trading</td></tr>
-<tr><td>EMA Slope Threshold</td><td>Hardcoded 0.1 — always true at Gold's price level, filters nothing</td><td>Made ATR-relative (5% of ATR) — meaningful at any price level</td></tr>
-<tr><td>FVG Filled Gap Check</td><td>FVG detected even if price had already re-entered the gap</td><td>Now checks current price is still outside the gap zone</td></tr>
-<tr><td>Liquidity Sweep Body Check</td><td>Single-candle wick triggered sweep signal — including random wicks</td><td>Requires body at least 30% of candle range before confirming sweep</td></tr>
-<tr><td>MSS Body Confirmation</td><td>Closing above 10-bar high triggered MSS — too common in any trend</td><td>Requires candle body at least 40% of range — decisive candles only</td></tr>
-<tr><td>Slippage Tracking</td><td>Only requested price logged — actual fill never captured</td><td>fill_price and slippage_pts columns added to trades_log.csv</td></tr>
-<tr><td>4H Bias Filter</td><td>No higher-timeframe directional filter — traded against 4H trend</td><td>get_4h_bias() added — signals blocked if against 4H EMA direction</td></tr>
-<tr><td>Signal Cooldown</td><td>Bot could re-enter immediately after SL hit</td><td>30-minute cooldown (2 x 15M candles) between any two signals</td></tr>
-<tr><td>Session Overlap Label</td><td>London-NY overlap (12-15 UTC) was unlabelled — logged as plain "NY"</td><td>New session label "LDN_NY_Overlap" — trackable in CSV separately</td></tr>
-<tr><td>Backtest Signal Logic</td><td>backtest.py tested simple trend+RSI — completely different from live bot's sweep+MSS+FVG signal chain</td><td>Full rewrite — backtest now uses exact same functions as live bot including all v6 signal fixes</td></tr>
-<tr><td>Walk-Forward Validation</td><td>train_test_split used — single period, potential data leakage</td><td>TimeSeriesSplit with 5 folds — proper time-ordered cross-validation, no leakage</td></tr>
-</table></div></div>
 
-<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v7 vs v6</div></div>
-<div class="sb"><table>
-<tr><th>Change</th><th>v6 Behaviour</th><th>v7 Behaviour</th></tr>
-<tr><td>Strategy Architecture</td><td>Single TREND strategy only; RANGE used broken RSI-only logic</td><td>Four independent modules — TREND, RANGE, VOLATILE SQUEEZE, POST-NEWS — each gated by regime detector</td></tr>
-<tr><td>MODULE 01 — TREND</td><td>Single entry type: FVG only. Sweep body filter 30%.</td><td>Three entry types in priority order: FVG → Order Block → Fibonacci OTE. Sweep body filter raised to 38%.</td></tr>
-<tr><td>Silver Bullet Windows</td><td>Not implemented</td><td>ADX threshold relaxed from 28 to 24 during 10–11 UTC and 14–15 UTC — ICT Silver Bullet windows with higher edge</td></tr>
-<tr><td>SESSION_END_UTC for TREND</td><td>18:00 UTC (full London+NY)</td><td>16:00 UTC — removes low-conviction 16:30–18:00 NY late session from TREND module</td></tr>
-<tr><td>MODULE 02 — RANGE</td><td>RSI-only (rsi&lt;30 buy, rsi&gt;70 sell) — unreliable, no structure confirmation</td><td>Full Range Boundary SMC: confirmed 8+ candle structural range (60–200 pts wide) + RSI divergence + Bollinger Band extreme touch + rejection candle body filter 40%</td></tr>
-<tr><td>MODULE 03 — VOLATILE SQUEEZE</td><td>Not implemented. VOLATILE regime was a complete block.</td><td>Bollinger Squeeze breakout: ATR at 20-period low + BB width at 3-month low + breakout candle body ≥45% + 4H alignment. 2-hour news blackout built in.</td></tr>
-<tr><td>MODULE 04 — POST-NEWS</td><td>Not implemented. VOLATILE_NEWS regime did not exist.</td><td>Post-News ICT Entry: waits 60 min after ATR spike, checks consolidation ≤35% of spike, requires sweep + FVG in spike direction. One trade per session maximum.</td></tr>
-<tr><td>Regime Detector</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE, UNKNOWN. Takes (df_15m, df_1h).</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE_SQUEEZE, VOLATILE_NEWS, UNKNOWN. Takes (df_1h) only. Uses is_bb_squeeze() and ATR spike detection for new volatile sub-regimes.</td></tr>
-<tr><td>Spread Limits</td><td>VOLATILE: 15 pts</td><td>VOLATILE_SQUEEZE: 18 pts, VOLATILE_NEWS: 20 pts — separate limits per module</td></tr>
-<tr><td>max_trades per mode</td><td>CONSERVATIVE: 2, NORMAL: 3, AGGRESSIVE: 5</td><td>CONSERVATIVE: 3, NORMAL: 5, AGGRESSIVE: 8 — increased to accommodate multi-module trade frequency</td></tr>
-<tr><td>range_allowed flag</td><td>False in CONSERVATIVE and NORMAL modes</td><td>True in all modes — RANGE module is now properly implemented and safe to use</td></tr>
-<tr><td>Order Block Detection</td><td>Not implemented</td><td>detect_order_block() added — finds institutional opposing candle before MSS, verifies current price is inside OB zone</td></tr>
-<tr><td>Fibonacci OTE Entry</td><td>Not implemented</td><td>detect_fib_ote() added — checks 61.8% retracement of MSS candle range as Optimal Trade Entry</td></tr>
-<tr><td>RSI Divergence</td><td>Not implemented</td><td>detect_rsi_divergence() added — used by RANGE module as confluence confirmation filter</td></tr>
-<tr><td>Post-news guard</td><td>Not implemented</td><td>post_news_traded_this_session flag — resets at SESSION_START_UTC, limits post-news module to 1 trade per day</td></tr>
-<tr><td>Order comment field</td><td>"GoldBot_v6"</td><td>"GoldBot_v7_{regime}" — shows active module in MT5 trade history</td></tr>
-</table></div></div>
+
+
+
 
 </div>
 </div>
@@ -283,7 +229,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,1
 
 <div class="step"><div class="sh"><div class="sn b">v7</div><div class="stitle">Understanding the Four v7 Trading Modules — Read This First</div></div>
 <div class="sb">
-<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>v7 is fundamentally different from v6.</strong> Instead of one strategy that always runs the same logic, v7 has four completely independent modules. The bot checks the current market regime every 15 minutes and automatically activates the correct module. You do not need to choose — the bot does it. Here is what each module does and when it activates:</p>
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>v7 uses four independent strategy modules.</strong> Instead of one strategy that always runs the same logic, v7 has four completely independent modules. The bot checks the current market regime every 15 minutes and automatically activates the correct module. You do not need to choose — the bot does it. Here is what each module does and when it activates:</p>
 <table>
 <tr><th>Module</th><th>Regime Required</th><th>Active Hours (UTC)</th><th>What It Does</th><th>Entry Types</th></tr>
 <tr><td>MODULE 01 — TREND</td><td>TREND_BULL or TREND_BEAR<br><small style="color:var(--dim)">(ADX ≥ 28, or ≥ 24 during Silver Bullet windows)</small></td><td>06:00 – 16:00<br><small style="color:var(--dim)">(removed 16:30–18:00 low-conviction window)</small></td><td>SMC sweep + MSS confirmation + 1H/4H multi-timeframe alignment. Three entry types in priority order.</td><td>FVG (Fair Value Gap)<br>OB (Order Block)<br>OTE (Fibonacci 61.8%)</td></tr>
@@ -369,7 +315,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,1
 <li>Search for <strong>@BotFather</strong> — tap it — tap <strong>Start</strong></li>
 <li>Type and send: <code>/newbot</code></li>
 <li>BotFather asks for a name — type anything you like, for example: <strong>MyGoldBot</strong></li>
-<li>BotFather then asks for a username — it must end in "bot", for example: <strong>mygoldbot_v6bot</strong></li>
+<li>BotFather then asks for a username — it must end in "bot", for example: <strong>mygoldbot_v7bot</strong></li>
 <li>BotFather will then send you a message containing your <strong>API Token</strong>. It looks like: <code>7123456789:ABCdefGHIjklMNOpqrSTUvwxYZ</code>. Copy it and save it somewhere safe.</li>
 <li>Now search for <strong>@userinfobot</strong> → tap it → tap Start → send any message (just type "hi")</li>
 <li>@userinfobot will reply with your <strong>Chat ID</strong> — a plain number like <code>987654321</code>. Save this too.</li>
@@ -439,20 +385,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,1
 <div class="box bw"><div class="bi">⚠</div><div><strong>Privacy warning:</strong> Do not share the bot.py file with anyone after filling in your credentials. These credentials are like passwords — anyone who has them can connect to your trading account and send messages as your Telegram bot. Keep the file private.</div></div>
 
 <div class="cw"><div class="cl">bot.py — COMPLETE Gold Bot v7 CODE (paste this into Notepad) <button class="cb" onclick="cp(this)">COPY</button></div><pre>
-&quot;&quot;&quot;
-Gold Bot v7 — Four-Module Strategy System
-Built on v6 foundation. Four independent modules gated by regime detector.
-
-v7 Modules:
-  MODULE 01 — TREND (SMC + Order Block + Fibonacci OTE)
-  MODULE 02 — RANGE (Range Boundary SMC)
-  MODULE 03 — VOLATILE SQUEEZE (Bollinger Squeeze Breakout)
-  MODULE 04 — VOLATILE POST-NEWS (Post-News ICT Entry)
-
-v6 foundations preserved: Wilder ADX, 4H bias, equity lot sizing,
-state persistence, regime recovery, slippage tracking, walk-forward ML,
-tiered exits, news cache, signal cooldown, session labels.
-&quot;&quot;&quot;
+# Gold Bot v7 — Four-Module Strategy System
 
 import MetaTrader5 as mt5
 import pandas as pd
@@ -466,13 +399,19 @@ logging.basicConfig(level=logging.INFO, format=&quot;%(asctime)s [%(levelname)s]
     handlers=[logging.FileHandler(&quot;goldbot.log&quot;), logging.StreamHandler()])
 log = logging.getLogger(__name__)
 
-TELEGRAM_TOKEN = &quot;YOUR_TELEGRAM_TOKEN_HERE&quot;
-CHAT_ID        = &quot;YOUR_CHAT_ID_HERE&quot;
-MT5_LOGIN      = 12345678
-MT5_PASSWORD   = &quot;yourpassword&quot;
-MT5_SERVER     = &quot;Exness-MT5Trial&quot;
-FINNHUB_KEY    = &quot;YOUR_FINNHUB_KEY_HERE&quot;
+# ═══════════════════════════════════════════════════════════
+# YOUR PERSONAL CREDENTIALS — FILL IN ALL 6 BEFORE RUNNING
+# ═══════════════════════════════════════════════════════════
+TELEGRAM_TOKEN = &quot;YOUR_TELEGRAM_TOKEN_HERE&quot;  # ← UPDATE: paste your token from @BotFather
+CHAT_ID        = &quot;YOUR_CHAT_ID_HERE&quot;           # ← UPDATE: paste your ID from @userinfobot
+MT5_LOGIN      = 12345678                       # ← UPDATE: your Exness login number (digits only, no quotes)
+MT5_PASSWORD   = &quot;yourpassword&quot;                 # ← UPDATE: your Exness account password
+MT5_SERVER     = &quot;Exness-MT5Trial&quot;              # ← UPDATE: your exact server name from Exness email
+FINNHUB_KEY    = &quot;YOUR_FINNHUB_KEY_HERE&quot;        # ← UPDATE: paste your key from finnhub.io dashboard
 
+# ═══════════════════════════════════════════════════════════
+# BOT SETTINGS — REVIEW BEFORE GOING LIVE
+# ═══════════════════════════════════════════════════════════
 SYMBOL               = &quot;XAUUSD&quot;
 LOG_FILE             = &quot;trades_log.csv&quot;
 REGIME_FILE          = &quot;regime_stats.json&quot;
@@ -487,8 +426,8 @@ SESSION_END_UTC      = 18
 NEWS_BLOCK_MINUTES   = 30
 SIGNAL_INTERVAL_SEC  = 900
 AUTO_LOG_INTERVAL    = 300
-AUTO_RETRAIN_DAY     = 6
-AUTO_RETRAIN_HOUR    = 2
+AUTO_RETRAIN_DAY     = 6        # ← UPDATE if needed: 0=Mon 1=Tue 2=Wed 3=Thu 4=Fri 5=Sat 6=Sun
+AUTO_RETRAIN_HOUR    = 2        # ← UPDATE if needed: UTC hour for weekly ML retrain (default 2am Sunday)
 MAX_RETRIES          = 3
 RETRY_DELAY_SEC      = 5
 SIGNAL_COOLDOWN_MINUTES = 30
@@ -496,7 +435,7 @@ SIGNAL_COOLDOWN_MINUTES = 30
 _news_cache = {&quot;result&quot;: True, &quot;fetched_at&quot;: None}
 NEWS_CACHE_MAX_AGE_MINUTES = 90
 
-# v7 NEW SETTINGS
+# STRATEGY SETTINGS
 ADX_TREND_THRESHOLD       = 28
 ADX_SILVER_BULLET_RELAXED = 24
 SWEEP_BODY_FILTER         = 0.38
@@ -520,7 +459,7 @@ POST_NEWS_RR              = 1.5
 
 post_news_traded_this_session = False
 
-TRADING_MODE = &quot;NORMAL&quot;
+TRADING_MODE = &quot;NORMAL&quot;   # ← UPDATE: choose &quot;CONSERVATIVE&quot; / &quot;NORMAL&quot; / &quot;AGGRESSIVE&quot; — start with NORMAL
 
 MODE_SETTINGS = {
     &quot;CONSERVATIVE&quot;: {&quot;risk_pct&quot;: 0.5, &quot;ml_threshold&quot;: 0.72, &quot;max_trades&quot;: 3, &quot;max_loss_pct&quot;: 2.0, &quot;range_allowed&quot;: True},
@@ -588,7 +527,7 @@ def safe_run(fn, *args, retries=MAX_RETRIES, **kwargs):
     return None
 
 # ═══════════════════════════════════════════════════════════
-# INDICATORS (unchanged from v6)
+# INDICATORS
 # ═══════════════════════════════════════════════════════════
 def calc_ema(series, period):
     return series.ewm(span=period, adjust=False).mean()
@@ -608,7 +547,7 @@ def calc_atr(df, period=14):
     return pd.concat([hl, hc, lc], axis=1).max(axis=1).rolling(period).mean()
 
 def calc_adx(df, period=14):
-    &quot;&quot;&quot;ADX using correct Wilder RMA: ewm(com=period-1) — v6 Fix A1, unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;Calculate ADX using Wilder RMA smoothing.&quot;&quot;&quot;
     high, low, close = df[&#x27;high&#x27;], df[&#x27;low&#x27;], df[&#x27;close&#x27;]
     tr = pd.concat([
         high - low,
@@ -644,7 +583,7 @@ def get_live_atr():
     except: return ATR_DEFAULT
 
 # ═══════════════════════════════════════════════════════════
-# STEP 3 — v7 REGIME DETECTION (full replacement of v6 detect_regime)
+# REGIME DETECTION
 # ═══════════════════════════════════════════════════════════
 def is_silver_bullet_window():
     &quot;&quot;&quot;Returns True if current UTC hour falls within a Silver Bullet window.&quot;&quot;&quot;
@@ -712,8 +651,6 @@ def detect_regime(df_1h):
       VOLATILE_SQUEEZE — BB width at 3-month low AND ADX 20–28
       UNKNOWN         — none of the above
 
-    Note: df_1h replaces the (df_15m, df_1h) signature from v6.
-    The calling code in run_signal_engine passes df_1h directly.
     &quot;&quot;&quot;
     if len(df_1h) &lt; 50:
         return &quot;UNKNOWN&quot;
@@ -748,7 +685,7 @@ def detect_regime(df_1h):
         return &quot;UNKNOWN&quot;
 
 # ═══════════════════════════════════════════════════════════
-# 4H BIAS FILTER (unchanged from v6)
+# 4H BIAS FILTER
 # ═══════════════════════════════════════════════════════════
 def get_4h_bias(df_4h):
     &quot;&quot;&quot;Returns BUY, SELL or None based on 4H EMA50 vs EMA200 direction.&quot;&quot;&quot;
@@ -761,7 +698,7 @@ def get_4h_bias(df_4h):
     return None
 
 # ═══════════════════════════════════════════════════════════
-# REGIME STATS — SELF-LEARNING with v6 A5 recovery (unchanged)
+# REGIME STATS — SELF-LEARNING
 # ═══════════════════════════════════════════════════════════
 def load_regime_stats():
     global regime_stats
@@ -783,7 +720,7 @@ def update_regime_stats(regime, won):
     save_regime_stats()
 
 def is_regime_allowed(regime):
-    &quot;&quot;&quot;v6 A5 FIX: 14-day cooldown + 10 trial trades before permanent block. Unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;14-day cooldown + 10 trial trades before re-evaluation.&quot;&quot;&quot;
     stats       = regime_stats.get(regime, {})
     total       = stats.get(&quot;total&quot;, 0)
     if total &lt; 30: return True
@@ -807,7 +744,7 @@ def is_regime_allowed(regime):
     return True
 
 # ═══════════════════════════════════════════════════════════
-# TRADE STATE PERSISTENCE (unchanged from v6 A4)
+# TRADE STATE PERSISTENCE
 # ═══════════════════════════════════════════════════════════
 def save_trade_state():
     try:
@@ -826,11 +763,9 @@ def load_trade_state():
 
 # ═══════════════════════════════════════════════════════════
 # SIGNAL HELPER FUNCTIONS
-# (get_trend_1h, detect_mss, detect_fvg unchanged from v6)
-# detect_liquidity_sweep: STEP 2 — body filter raised to SWEEP_BODY_FILTER (0.38)
 # ═══════════════════════════════════════════════════════════
 def get_trend_1h(df_1h):
-    &quot;&quot;&quot;Unchanged from v6.&quot;&quot;&quot;
+    &quot;&quot;&quot;Returns 1H trend direction based on EMA50/EMA200 slope.&quot;&quot;&quot;
     df = df_1h.copy()
     df[&#x27;ema50&#x27;]  = calc_ema(df[&#x27;close&#x27;], 50)
     df[&#x27;ema200&#x27;] = calc_ema(df[&#x27;close&#x27;], 200)
@@ -841,15 +776,11 @@ def get_trend_1h(df_1h):
     return None
 
 def detect_liquidity_sweep(df, lookback=20):
-    &quot;&quot;&quot;
-    STEP 2: body/range filter raised from 0.30 to SWEEP_BODY_FILTER (0.38).
-    Everything else identical to v6 B3.
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;Liquidity sweep detection. Body must be &gt;= SWEEP_BODY_FILTER (38%) of candle range.&quot;&quot;&quot;
     if len(df) &lt; lookback + 2: return None
     last         = df.iloc[-1]
     candle_range = last[&#x27;high&#x27;] - last[&#x27;low&#x27;]
     body_size    = abs(last[&#x27;close&#x27;] - last[&#x27;open&#x27;])
-    # STEP 2 CHANGE: 0.30 → SWEEP_BODY_FILTER
     if candle_range == 0 or body_size / candle_range &lt; SWEEP_BODY_FILTER: return None
     prev_low  = df[&#x27;low&#x27;].iloc[-lookback - 1:-1].min()
     prev_high = df[&#x27;high&#x27;].iloc[-lookback - 1:-1].max()
@@ -858,7 +789,7 @@ def detect_liquidity_sweep(df, lookback=20):
     return None
 
 def detect_mss(df, sweep_direction):
-    &quot;&quot;&quot;Unchanged from v6 B4: body &gt;= 40% of range.&quot;&quot;&quot;
+    &quot;&quot;&quot;Market Structure Shift confirmation. Body must be &gt;= 40% of candle range.&quot;&quot;&quot;
     if len(df) &lt; 12: return False
     last         = df.iloc[-1]
     candle_range = last[&#x27;high&#x27;] - last[&#x27;low&#x27;]
@@ -869,7 +800,7 @@ def detect_mss(df, sweep_direction):
     return False
 
 def detect_fvg(df, direction):
-    &quot;&quot;&quot;Unchanged from v6 B2: checks gap not already filled.&quot;&quot;&quot;
+    &quot;&quot;&quot;Fair Value Gap detection. Verifies gap has not already been filled.&quot;&quot;&quot;
     if len(df) &lt; 4: return None
     c0, c1, c2   = df.iloc[-1], df.iloc[-2], df.iloc[-3]
     current_price = c0[&#x27;close&#x27;]
@@ -882,8 +813,7 @@ def detect_fvg(df, direction):
     return None
 
 # ═══════════════════════════════════════════════════════════
-# STEP 4 — NEW v7 SIGNAL HELPER FUNCTIONS
-# (added after detect_fvg, do not replace any existing function)
+# NEW SIGNAL HELPER FUNCTIONS
 # ═══════════════════════════════════════════════════════════
 def detect_order_block(df, direction, mss_candle_idx=-1):
     &quot;&quot;&quot;
@@ -962,8 +892,7 @@ def detect_rsi_divergence(df, direction, lookback_bars=20):
     return False
 
 # ═══════════════════════════════════════════════════════════
-# STEP 5 — v7 SIGNAL ROUTING SYSTEM
-# (replaces generate_signal; four module functions + router)
+# SIGNAL ROUTING SYSTEM
 # ═══════════════════════════════════════════════════════════
 def generate_trend_signal(df_15m, df_1h, df_4h):
     &quot;&quot;&quot;
@@ -971,8 +900,7 @@ def generate_trend_signal(df_15m, df_1h, df_4h):
     Active when regime is TREND_BULL or TREND_BEAR.
     Session: 06:00–16:00 UTC (removed 16:30–18:00 late window).
     Three entry types in priority order: FVG → OB → OTE.
-    ADX threshold relaxed during Silver Bullet windows (10–11, 14–15 UTC).
-    Sweep body filter raised to 38% (SWEEP_BODY_FILTER).
+    Sweep body filter: 38% (SWEEP_BODY_FILTER).
     &quot;&quot;&quot;
     current_hour = datetime.utcnow().hour
     if not (SESSION_START_UTC &lt;= current_hour &lt; SESSION_END_UTC_V7):
@@ -1041,7 +969,6 @@ def generate_range_signal(df_15m):
     Active when regime is RANGE (ADX &lt; 20, confirmed structural range).
     Session: 07:00–15:00 UTC (peak liquidity hours for range trading).
     Requires: range rejection candle + RSI divergence + BB extreme touch.
-    Fully replaces the broken v6 RSI-only range strategy.
     &quot;&quot;&quot;
     current_hour = datetime.utcnow().hour
     if not (7 &lt;= current_hour &lt; 15): return None
@@ -1229,11 +1156,7 @@ def generate_post_news_signal(df_15m):
 
 
 def generate_signal(df_15m, df_1h, df_4h, regime):
-    &quot;&quot;&quot;
-    STEP 5 — v7 SIGNAL ROUTER
-    Routes to the correct module based on regime. Returns direction string or None.
-    Only one module fires at a time.
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;Signal router — routes to the correct module based on regime. Returns direction string or None.&quot;&quot;&quot;
     if regime in (&quot;TREND_BULL&quot;, &quot;TREND_BEAR&quot;):
         r = generate_trend_signal(df_15m, df_1h, df_4h)
         return r[&#x27;direction&#x27;] if r else None
@@ -1253,7 +1176,7 @@ def generate_signal(df_15m, df_1h, df_4h, regime):
     return None
 
 # ═══════════════════════════════════════════════════════════
-# ENSEMBLE ML (unchanged from v6)
+# ENSEMBLE ML
 # ═══════════════════════════════════════════════════════════
 def load_ml_models():
     global ml_xgb, ml_rf, ml_lr
@@ -1268,7 +1191,7 @@ def load_ml_models():
     log.info(f&quot;ML models loaded: {loaded}&quot; if loaded else &quot;No ML models — placeholder mode&quot;)
 
 def build_ml_features(signal, atr, sl_dist, regime, rsi_val=50.0):
-    &quot;&quot;&quot;v6 A2 FIX: dynamic rr_quality + rsi_at_entry. Unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;Build feature vector for ML ensemble.&quot;&quot;&quot;
     now         = datetime.utcnow()
     hour        = now.hour
     dow         = now.weekday()
@@ -1299,7 +1222,7 @@ def build_ml_features(signal, atr, sl_dist, regime, rsi_val=50.0):
     }])
 
 def ml_filter(signal, atr, sl_dist, regime, rsi_val=50.0):
-    &quot;&quot;&quot;Unchanged from v6.&quot;&quot;&quot;
+    &quot;&quot;&quot;Run ensemble ML filter. Returns True if signal passes threshold.&quot;&quot;&quot;
     threshold = get_mode(&quot;ml_threshold&quot;)
     if ml_xgb is None and ml_rf is None and ml_lr is None: return True
     features = build_ml_features(signal, atr, sl_dist, regime, rsi_val)
@@ -1323,7 +1246,7 @@ def ml_filter(signal, atr, sl_dist, regime, rsi_val=50.0):
     return True
 
 # ═══════════════════════════════════════════════════════════
-# FILTERS (unchanged from v6)
+# FILTERS
 # ═══════════════════════════════════════════════════════════
 def session_filter():
     return SESSION_START_UTC &lt;= datetime.utcnow().hour &lt; SESSION_END_UTC
@@ -1342,7 +1265,7 @@ def spread_filter(regime=&quot;UNKNOWN&quot;):
     except Exception as e: log.error(f&quot;Spread: {e}&quot;); return False
 
 def news_filter():
-    &quot;&quot;&quot;v6 A3 FIX: cache + fail-safe. Unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;News filter with cache and fail-safe. Blocks trading 30 min before/after high-impact events.&quot;&quot;&quot;
     try:
         now = datetime.utcnow()
         url = (f&quot;https://finnhub.io/api/v1/calendar/economic&quot;
@@ -1407,7 +1330,7 @@ def has_open_position():
     return pos is not None and any(p.magic == 111444 for p in pos)
 
 def calculate_lot(sl_distance_price):
-    &quot;&quot;&quot;v6 A6 FIX: uses account.equity not account.balance. Unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;Calculate position size based on account equity and risk percentage.&quot;&quot;&quot;
     try:
         account = mt5.account_info()
         info    = mt5.symbol_info(SYMBOL)
@@ -1420,7 +1343,7 @@ def calculate_lot(sl_distance_price):
     except: return 0.01
 
 # ═══════════════════════════════════════════════════════════
-# TRADE LOGGER (unchanged from v6 — B5 slippage tracking)
+# TRADE LOGGER
 # ═══════════════════════════════════════════════════════════
 def setup_log():
     if not os.path.exists(LOG_FILE):
@@ -1433,7 +1356,7 @@ def setup_log():
             ])
 
 def log_trade(signal, price, fill_price, sl, tp_ref, lot, atr, balance, ticket, regime, slippage_pts=0):
-    &quot;&quot;&quot;v6 B5: fill_price and slippage_pts logged. v6 C3: LDN_NY_Overlap label. Unchanged.&quot;&quot;&quot;
+    &quot;&quot;&quot;Log trade to CSV including fill price and slippage.&quot;&quot;&quot;
     now     = datetime.utcnow()
     sl_dist = round(abs(price - sl), 2)
     tp_dist = round(abs(price - tp_ref), 2)
@@ -1454,7 +1377,7 @@ def log_trade(signal, price, fill_price, sl, tp_ref, lot, atr, balance, ticket, 
     log.info(f&quot;Trade logged | Ticket:{ticket} | Regime:{regime} | Slippage:{slippage_pts}pts&quot;)
 
 # ═══════════════════════════════════════════════════════════
-# AUTO CSV UPDATER (unchanged from v6)
+# AUTO CSV UPDATER
 # ═══════════════════════════════════════════════════════════
 def auto_update_csv():
     while True:
@@ -1485,7 +1408,7 @@ def auto_update_csv():
         except Exception as e: log.error(f&quot;auto_update_csv: {e}&quot;)
 
 # ═══════════════════════════════════════════════════════════
-# AUTO RETRAIN (unchanged from v6)
+# AUTO RETRAIN
 # ═══════════════════════════════════════════════════════════
 def auto_retrain_scheduler():
     while True:
@@ -1509,7 +1432,7 @@ def auto_retrain_scheduler():
             time.sleep(3600)
 
 # ═══════════════════════════════════════════════════════════
-# TIERED PARTIAL EXIT + TRAILING SL (unchanged from v6)
+# TIERED PARTIAL EXIT + TRAILING SL
 # ═══════════════════════════════════════════════════════════
 def manage_open_trades():
     if not ensure_mt5(): return
@@ -1574,7 +1497,7 @@ def _partial_close(ticket, vol, direction, price):
         &quot;position&quot;: ticket,
         &quot;deviation&quot;: 10,
         &quot;magic&quot;:    111444,
-        &quot;comment&quot;:  &quot;GoldBot_Partial_v7&quot;,
+        &quot;comment&quot;:  &quot;GoldBot_Partial&quot;,
     })
     if res and res.retcode == mt5.TRADE_RETCODE_DONE:
         log.info(f&quot;Partial close OK | Ticket:{ticket} | Vol:{vol}&quot;)
@@ -1583,7 +1506,7 @@ def _partial_close(ticket, vol, direction, price):
     return False
 
 def _modify_sl(ticket, new_sl):
-    &quot;&quot;&quot;Never sends TP — only modifies SL. Unchanged from v6.&quot;&quot;&quot;
+    &quot;&quot;&quot;Modify stop-loss only. Never sends TP to avoid broker rejection.&quot;&quot;&quot;
     try:
         if not mt5.positions_get(ticket=ticket): return
         res = mt5.order_send({
@@ -1599,7 +1522,7 @@ def _modify_sl(ticket, new_sl):
     except Exception as e: log.error(f&quot;_modify_sl: {e}&quot;)
 
 # ═══════════════════════════════════════════════════════════
-# STEP 7 — TRADE EXECUTION (comment field → GoldBot_v7_{regime})
+# TRADE EXECUTION
 # ═══════════════════════════════════════════════════════════
 def place_trade(signal, regime):
     global trades_today
@@ -1645,7 +1568,6 @@ def place_trade(signal, regime):
     lot    = calculate_lot(sl_dist)
     info   = mt5.symbol_info(SYMBOL)
 
-    # STEP 7: comment field → GoldBot_v7_{regime}
     result = mt5.order_send({
         &quot;action&quot;:   mt5.TRADE_ACTION_DEAL,
         &quot;symbol&quot;:   SYMBOL,
@@ -1655,7 +1577,7 @@ def place_trade(signal, regime):
         &quot;sl&quot;:       sl,
         &quot;deviation&quot;: 10,
         &quot;magic&quot;:    111444,
-        &quot;comment&quot;:  f&quot;GoldBot_v7_{regime}&quot;,   # STEP 7 change
+        &quot;comment&quot;:  f&quot;GoldBot_v7_{{regime}}&quot;,
     })
     if result is None: telegram(&quot;❌ order_send None&quot;); return
 
@@ -1675,7 +1597,6 @@ def place_trade(signal, regime):
         save_trade_state()
         log_trade(signal, price, fill_price, sl, tp_ref, lot, atr,
                   account.balance, ticket, regime, slippage_pts)
-        # STEP 7: Telegram message updated to v7
         telegram(
             f&quot;✅ {signal} EXECUTED (v7)\n&quot;
             f&quot;Module: {regime} | Mode: {TRADING_MODE}\n&quot;
@@ -1688,7 +1609,7 @@ def place_trade(signal, regime):
         telegram(err); log.error(err)
 
 # ═══════════════════════════════════════════════════════════
-# SIGNAL ENGINE — STEP 6: post-news session reset added
+# SIGNAL ENGINE
 # ═══════════════════════════════════════════════════════════
 def run_signal_engine():
     global last_signal_time, post_news_traded_this_session
@@ -1702,7 +1623,7 @@ def run_signal_engine():
 
             if has_open_position() or not session_filter(): continue
 
-            # v6 C2: 30-minute signal cooldown
+            # 30-minute signal cooldown
             now = datetime.utcnow()
             if last_signal_time is not None:
                 minutes_since = (now - last_signal_time).total_seconds() / 60
@@ -1710,7 +1631,7 @@ def run_signal_engine():
                     log.info(f&quot;Signal cooldown active ({minutes_since:.0f}min since last)&quot;)
                     continue
 
-            # STEP 6: post-news session guard reset at session start
+            # Post-news session guard reset at session start
             if now.hour == SESSION_START_UTC and now.minute &lt; 15:
                 if post_news_traded_this_session:
                     post_news_traded_this_session = False
@@ -1746,7 +1667,7 @@ def run_signal_engine():
             log.error(f&quot;Signal engine error: {e}&quot;)
 
 # ═══════════════════════════════════════════════════════════
-# FLASK ENDPOINTS (unchanged from v6)
+# FLASK ENDPOINTS
 # ═══════════════════════════════════════════════════════════
 @app.route(&#x27;/webhook&#x27;, methods=[&#x27;POST&#x27;])
 def webhook():
@@ -1821,7 +1742,7 @@ if __name__ == &quot;__main__&quot;:
     else:
         telegram(&quot;⚠️ Bot v7 started — MT5 connection failed, retrying&quot;)
     start_threads()
-    app.run(host=&quot;0.0.0.0&quot;, port=5000)
+    app.run(host=&quot;0.0.0.0&quot;, port=5000)  # ← UPDATE if needed: change port if 5000 is already in use
 
 </pre></div>
 <div class="box bg"><div class="bi">💡</div><div>Start with <code>TRADING_MODE = "NORMAL"</code>. Always start on a demo account first. Change to CONSERVATIVE for lower risk while learning.</div></div>
@@ -1844,7 +1765,7 @@ if __name__ == &quot;__main__&quot;:
 <ul class="ol-steps" style="counter-reset:steps 4">
 <li>Wait about 10–15 seconds. You will see a lot of text appearing — this is normal activity output.</li>
 <li>Look for the line: <code>* Running on http://0.0.0.0:5000</code> — this means the bot started successfully.</li>
-<li>Check your Telegram app on your phone — you should receive a message saying <strong>"Gold Bot v6 started ✅"</strong> within about 15 seconds.</li>
+<li>Check your Telegram app on your phone — you should receive a message saying <strong>"Gold Bot v7 started ✅"</strong> within about 15 seconds.</li>
 </ul>
 <div class="box bo"><div class="bi">✓</div><div>If you see the "Running on" line in CMD and receive the Telegram message, the bot is working correctly. Leave this CMD window open.</div></div>
 <div class="box bi2"><div class="bi">ℹ</div><div>The signal engine checks for trade opportunities every 15 minutes automatically. You do not need to do anything — the bot runs on its own.</div></div>
@@ -1860,11 +1781,11 @@ if __name__ == &quot;__main__&quot;:
 <div class="cw"><div class="cl">CMD — health check <button class="cb" onclick="cp(this)">COPY</button></div><pre>curl http://localhost:5000/health</pre></div>
 <p style="font-size:13px;color:#aaa;margin-top:10px;margin-bottom:6px">You should see a response that includes:</p>
 <ul class="il">
-<li><code>"version": "v6"</code> — confirms it's the right version</li>
+<li><code>"version": "v7"</code> — confirms it's the right version</li>
 <li><code>"mt5_connected": true</code> — confirms MT5 connection is working</li>
 <li><code>"regime": "TREND_BULL"</code> or similar — confirms market data is being read</li>
 <li><code>"live_atr": 2.4</code> or similar number — confirms price data is live</li>
-<li><code>"ml_status": "XGB:❌ RF:❌ LR:❌"</code> — this is normal at this stage, ML models are trained in Phase 3</li>
+<li><code>"ml_status": "XGB:❌ RF:❌ LR:❌"</code> — <strong>this is normal and expected at Phase 1.</strong> ML models are trained in Phase 3 only.</li>
 </ul>
 
 <p style="font-size:13px;color:var(--gold-light);font-weight:600;margin:18px 0 10px">Check 2 — goldbot.log File</p>
@@ -1986,10 +1907,10 @@ import plotly.graph_objects as go
 import json, os
 from datetime import datetime
 
-LOG_FILE    = "trades_log.csv"
+LOG_FILE    = "trades_log.csv"   # ← UPDATE if needed: rename if you prefer
 REGIME_FILE = "regime_stats.json"
 
-st.set_page_config(page_title="Gold Bot v6 Dashboard", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Gold Bot v7 Dashboard", page_icon="📊", layout="wide")
 
 @st.cache_data(ttl=60)
 def load():
@@ -2008,7 +1929,7 @@ if os.path.exists(REGIME_FILE):
     with open(REGIME_FILE) as f:
         reg = json.load(f)
 
-st.title("📊 Gold Bot v6 — Live Performance Dashboard")
+st.title("📊 Gold Bot v7 — Live Performance Dashboard")
 st.caption(f"Auto-refreshes every 60s · {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
 if df.empty:
@@ -2035,7 +1956,7 @@ c6.metric("Losses",  total-wins)
 c7.metric("Avg Win", f"${avg_w}")
 c8.metric("Avg Loss",f"${avg_l}")
 
-# Slippage analysis (v6 new column)
+# Slippage analysis
 if "slippage_pts" in df.columns:
     df["slippage_pts"] = pd.to_numeric(df["slippage_pts"], errors="coerce").fillna(0)
     avg_slip = round(df["slippage_pts"].mean(), 1)
@@ -2105,7 +2026,7 @@ if "slippage_pts" in df.columns and df["slippage_pts"].mean() > 3:
 <div class="sb">
 <div class="cw"><div class="cl">CMD <button class="cb" onclick="cp(this)">COPY</button></div><pre>cd Desktop\goldbot
 streamlit run dashboard.py</pre></div>
-<div class="box bo"><div class="bi">✓</div><div>Browser opens automatically at <code>http://localhost:8501</code> showing live stats. Dashboard auto-refreshes every 60 seconds. Includes slippage tracking (new in v6) and regime performance table from self-learning system.</div></div>
+<div class="box bo"><div class="bi">✓</div><div>Browser opens automatically at <code>http://localhost:8501</code> showing live stats. Dashboard auto-refreshes every 60 seconds. Includes slippage tracking and regime performance table from self-learning system.</div></div>
 </div></div>
 </div>
 </div>
@@ -2115,7 +2036,7 @@ streamlit run dashboard.py</pre></div>
 <div class="wrap">
 <div class="ph"><div class="pnum">PHASE 03</div><div><div class="ptitle">Ensemble ML / AI Filter</div><div class="psub">Start after 200+ closed trades. Run backtest first. Trains XGBoost + RandomForest + LogisticRegression with walk-forward validation.</div></div></div>
 <div class="box bw"><div class="bi">⚠</div><div>200 trades minimum before training. v7 generates more trades across 4 modules — you may reach 200 faster. However do not train until you have at least 50 trades from each active module (TREND and RANGE are the most common).</div></div>
-<div class="box bo"><div class="bi">✓</div><div><strong>Bot v6 is already ready.</strong> All 3 ML models run in placeholder mode until trained. Once pkl files exist in goldbot folder, ensemble activates automatically on restart.</div></div>
+<div class="box bo"><div class="bi">✓</div><div><strong>The bot is ready to run.</strong> All 3 ML models run in placeholder mode until trained. Once pkl files exist in goldbot folder, ensemble activates automatically on restart.</div></div>
 
 <!-- STEP 0 — BACKTEST FIRST -->
 <div class="step"><div class="sh"><div class="sn g">0</div><div class="stitle">Step 0 — Run Backtest First (Before Training ML)</div></div>
@@ -2158,16 +2079,15 @@ df['target'] = np.where(df['close'].shift(-5) > df['close'], 1, 0)
 </div></div>
 
 <!-- STEP 1 — prepare_data.py -->
-<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Create prepare_data.py — with rsi_at_entry (v6 new feature)</div></div>
+<div class="step"><div class="sh"><div class="sn">1</div><div class="stitle">Create prepare_data.py</div></div>
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>prepare_data.py</code> inside your goldbot folder. FEATURES list now includes <code>rsi_at_entry</code> to match bot.py's build_ml_features().</p>
 <div class="cw"><div class="cl">prepare_data.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-prepare_data.py — Phase 3 Feature Engineering (v6)
+prepare_data.py — Phase 3 Feature Engineering
 MUST match build_ml_features() in bot.py EXACTLY.
 Features: sl_distance, rr_quality, atr_used, sl_atr_ratio, lot,
           hour, day_of_week, session_enc, signal_enc, atr_tier,
-          regime_enc, rsi_at_entry  ← rsi_at_entry is NEW in v6
-"""
+          regime_enc, rsi_at_entry  ← """
 import pandas as pd, numpy as np, logging, sys
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger(__name__)
@@ -2196,15 +2116,15 @@ df["day_of_week"] = df["datetime"].dt.dayofweek
 df["session_enc"] = df["session"].map({"London":0,"LDN_NY_Overlap":1,"NY":2,"Asian":3}).fillna(3)
 df["signal_enc"]  = (df["signal"] == "BUY").astype(int)
 df["sl_atr_ratio"]= (df["sl_distance"] / df["atr_used"].replace(0,np.nan)).round(3)
-# v6: rr_quality comes from actual sl_distance (dynamic, not hardcoded 2.0)
+# rr_quality calculated from actual sl_distance per trade
 df["rr_quality"]  = df["rr_ref"].fillna(2.0)
 df["atr_tier"]    = pd.qcut(df["atr_used"], q=3, labels=[0,1,2], duplicates="drop").astype(float)
 regime_map        = {"TREND_BULL":0,"TREND_BEAR":1,"RANGE":2,"VOLATILE_SQUEEZE":3,"VOLATILE_NEWS":3,"UNKNOWN":4}
 df["regime_enc"]  = df.get("regime", pd.Series(["UNKNOWN"]*len(df))).map(regime_map).fillna(4)
-# v6: rsi_at_entry — use 50.0 as default if column missing (older trades)
+# rsi_at_entry — default 50.0 if column is missing
 if "rsi_at_entry" not in df.columns or df["rsi_at_entry"].isna().all():
     df["rsi_at_entry"] = 50.0
-    log.warning("rsi_at_entry not in CSV (old trades) — defaulting to 50.0")
+    log.warning("rsi_at_entry column missing — defaulting to 50.0")
 else:
     df["rsi_at_entry"] = df["rsi_at_entry"].fillna(50.0)
 
@@ -2228,11 +2148,11 @@ python prepare_data.py</pre></div>
 </div></div>
 
 <!-- STEP 2 — train_model.py with TimeSeriesSplit -->
-<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Create train_model.py — with Walk-Forward TimeSeriesSplit (v6)</div></div>
+<div class="step"><div class="sh"><div class="sn">2</div><div class="stitle">Create train_model.py</div></div>
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">Create <code>train_model.py</code> inside your goldbot folder. Uses TimeSeriesSplit instead of random train/test split — prevents data leakage on time-series trading data.</p>
 <div class="cw"><div class="cl">train_model.py <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-train_model.py — Phase 3 Ensemble Training (v6)
+train_model.py — Phase 3 Ensemble Training
 Walk-forward validation using TimeSeriesSplit — no data leakage.
 Trains XGBoost + RandomForest + LogisticRegression.
 Saves ml_xgb.pkl, ml_rf.pkl, ml_lr.pkl.
@@ -2258,10 +2178,9 @@ except FileNotFoundError:
 if len(X) &lt; 100:
     log.error(f"Only {len(X)} samples — need 200+"); sys.exit(1)
 
-# v6: TimeSeriesSplit — correct for time-ordered trading data
-# Prevents the data leakage that random train_test_split causes
+# TimeSeriesSplit for walk-forward validation — prevents data leakage
 tscv = TimeSeriesSplit(n_splits=5)
-log.info("Using TimeSeriesSplit (5 folds) — walk-forward validation")
+log.info("Using TimeSeriesSplit (5 folds) for walk-forward validation")
 
 results = {}
 
@@ -2356,12 +2275,12 @@ python train_model.py</pre></div>
 </div></div>
 
 <!-- STEP 3 — backtest.py full rewrite -->
-<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Create backtest.py — Full Signal-Replicated Engine (v6 rewrite)</div></div>
+<div class="step"><div class="sh"><div class="sn">3</div><div class="stitle">Create backtest.py — Full Signal-Replicated Engine</div></div>
 <div class="sb">
-<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Complete rewrite. Uses the <strong>exact same signal functions</strong> as the live bot — including all v6 fixes. Tiered exits simulated. Spread and slippage modelled. Walk-forward regime breakdown included.</p>
-<div class="cw"><div class="cl">backtest.py — complete v6 rewrite <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
-backtest.py — Gold Bot v6 Backtesting Engine
-Uses EXACT same signal logic as live bot (including all v6 fixes).
+<p style="font-size:13px;color:#aaa;margin-bottom:12px;">Complete rewrite. Uses the <strong>exact same signal functions</strong> as the live bot. Tiered exits simulated. Spread and slippage modelled. Walk-forward regime breakdown included.</p>
+<div class="cw"><div class="cl">backtest.py — complete code <button class="cb" onclick="cp(this)">COPY</button></div><pre>"""
+backtest.py — Gold Bot v7 Backtesting Engine
+Uses exact same signal logic as live bot.
 Tiered exits simulated candle-by-candle.
 Spread + slippage modelled conservatively.
 Walk-forward regime breakdown included.
@@ -2376,15 +2295,15 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 log = logging.getLogger(__name__)
 
 # ── CONFIG ────────────────────────────────────────────────
-MT5_LOGIN        = 12345678        # ← same as bot.py
-MT5_PASSWORD     = "yourpassword"  # ← same as bot.py
-MT5_SERVER       = "Exness-MT5Trial"
+MT5_LOGIN        = 12345678        
+MT5_PASSWORD     = "yourpassword"  # ← UPDATE: your Exness password
+MT5_SERVER       = "Exness-MT5Trial"  # ← UPDATE: your Exness server name
 SYMBOL           = "XAUUSD"
-INITIAL_BALANCE  = 10000
-RISK_PCT         = 1.0
+INITIAL_BALANCE  = 10000          # ← UPDATE: your actual starting demo account balance
+RISK_PCT         = 1.0            # ← UPDATE: match your bot.py TRADING_MODE risk_pct (NORMAL=1.0, CONSERVATIVE=0.5)
 ATR_MULTIPLIER_SL = 1.5
 ATR_MULTIPLIER_TP = 3.0
-BACKTEST_DAYS    = 180
+BACKTEST_DAYS    = 180            # ← UPDATE: how many days of history to test (180 = 6 months recommended)
 SESSION_START_UTC = 6
 SESSION_END_UTC   = 18
 TIMEFRAME_ENTRY  = mt5.TIMEFRAME_M15
@@ -2592,7 +2511,7 @@ def print_metrics(trades_df,equity_curve,initial_balance):
         if r==0: cl+=1;mcl=max(mcl,cl)
         else: cl=0
     print("\n"+"="*55)
-    print("  GOLD BOT v6 — BACKTEST RESULTS")
+    print("  GOLD BOT v7 — BACKTEST RESULTS")
     print("="*55)
     print(f"  Period tested        : {BACKTEST_DAYS} days")
     print(f"  Total trades         : {total}")
@@ -2623,8 +2542,8 @@ def print_metrics(trades_df,equity_curve,initial_balance):
     print("\n  Full results saved to backtest_results.csv ✅")
 
 if __name__=="__main__":
-    print("Gold Bot v6 — Backtest Engine")
-    print("Using exact same signal logic as live bot (all v6 fixes applied)")
+    print("Gold Bot v7 — Backtest Engine")
+    print("Uses exact same signal logic as live bot. Spread + slippage modelled. Tiered exits simulated.")
     print("Spread + slippage modelled. Tiered exits simulated candle-by-candle.")
     print()
     trades_df,equity_curve=run_backtest()
@@ -2719,7 +2638,7 @@ python bot.py</pre></div>
 <div class="sb">
 <p style="font-size:13px;color:#aaa;margin-bottom:12px;">From your <strong>home laptop</strong> (not the VPS), run:</p>
 <div class="cw"><div class="cl">CMD — from your HOME laptop <button class="cb" onclick="cp(this)">COPY</button></div><pre>curl http://YOUR_VPS_IP:5000/health</pre></div>
-<div class="box bo"><div class="bi">✓</div><div>JSON response showing <code>"mt5_connected": true</code> and <code>"version": "v6"</code> confirms the bot is running on the VPS 24/7. Your laptop can now be turned off.</div></div>
+<div class="box bo"><div class="bi">✓</div><div>JSON response showing <code>"mt5_connected": true</code> and <code>"version": "v7"</code> confirms the bot is running on the VPS 24/7. Your laptop can now be turned off.</div></div>
 </div></div>
 </div>
 </div>
@@ -2809,7 +2728,7 @@ python bot.py</pre></div>
 <!-- MODULE 02 -->
 <div class="step"><div class="sh"><div class="sn">02</div><div class="stitle">MODULE 02 — RANGE (Range Boundary SMC)</div></div>
 <div class="sb">
-<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> ADX &lt; 20 AND a structural range is confirmed on the 1H chart. A structural range means: at least 8 candles bouncing within a 60–200 point band, with all closes within 10% tolerance of the range boundaries. This completely replaces v6's broken RSI-only range strategy.</p>
+<p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>When it activates:</strong> ADX &lt; 20 AND a structural range is confirmed on the 1H chart. A structural range means: at least 8 candles bouncing within a 60–200 point band, with all closes within 10% tolerance of the range boundaries. </p>
 
 <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.8"><strong>Session:</strong> 07:00–15:00 UTC only. Range trading during Asian session (00:00–06:00) and NY late session produces unreliable follow-through due to thin liquidity.</p>
 
@@ -2879,13 +2798,76 @@ python bot.py</pre></div>
 <div class="box bo"><div class="bi">✓</div><div><strong>Key difference from v6:</strong> The old VOLATILE regime (ATR spike &gt; 1.5× average) now maps to VOLATILE_NEWS and activates MODULE 04 instead of blocking all trading. The new VOLATILE_SQUEEZE regime is a separate classification for low-volatility compression conditions. In v6, both of these would simply have been blocked. In v7, both have actionable strategies.</div></div>
 </div></div>
 
+
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">Strategy Development History</div></div>
+<div class="sb">
+<p style="font-size:13px;color:#aaa;margin-bottom:18px;line-height:1.8">The tables below document the evolution of this system across versions — from the original build (v4→v5) through to the current release. They are reference material only and do not affect how you set up or run the bot.</p>
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v5 vs v4</div></div>
+<div class="sb"><table>
+<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
+<tr><td>ML Features Mismatch</td><td>bot.py used different features than prepare_data.py — model would crash</td><td>Unified: both use exact same 11 features including regime_enc</td></tr>
+<tr><td>ADX Calculation</td><td>Regime detection used ADX but it was never calculated</td><td>calc_adx() added — proper smoothing</td></tr>
+<tr><td>Ensemble Models</td><td>Only XGBoost trained — RF and LR files missing</td><td>train_model.py now trains all 3, saves all 3</td></tr>
+<tr><td>Partial Close Floor</td><td>small lots × 0.5 = below broker minimum → order rejected</td><td>Checked against info.volume_min before attempting</td></tr>
+<tr><td>SL Modify TP Bug</td><td>_modify_sl sent tp=0 which some brokers reject</td><td>Never sends TP in SLTP request</td></tr>
+<tr><td>Self-Learning</td><td>Mentioned but not implemented</td><td>Regime win rate tracked, regimes &lt;35% auto-blocked</td></tr>
+<tr><td>Backtest Engine</td><td>Missing entirely</td><td>backtest.py added</td></tr>
+<tr><td>Dynamic Spread</td><td>Fixed 30pt threshold regardless of regime</td><td>TREND=30, RANGE=20, VOLATILE=15</td></tr>
+<tr><td>Tiered Exits</td><td>50% at 1R only</td><td>30% at 1R → 30% at 2R → 40% trail</td></tr>
+<tr><td>Trading Mode</td><td>Not implemented</td><td>CONSERVATIVE / NORMAL / AGGRESSIVE with different settings</td></tr>
+<tr><td>Regime Detection</td><td>Not implemented</td><td>Full ADX + EMA + ATR regime classification</td></tr>
+<tr><td>Regime-Adaptive Strategy</td><td>Same logic for all conditions</td><td>SMC for trends, RSI for ranges (AGGRESSIVE only)</td></tr>
+</table></div></div>
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v6 vs v5</div></div>
+<div class="sb"><table>
+<tr><th>Fix</th><th>What was wrong</th><th>What was fixed</th></tr>
+<tr><td>ADX Wilder Smoothing</td><td>ewm(span=) formula produced inflated ADX values — regime called TREND too early</td><td>Changed to ewm(com=period-1) — correct Wilder RMA formula</td></tr>
+<tr><td>rr_quality ML Feature</td><td>Hardcoded constant 2.0 every trade — useless ML input</td><td>Now calculated from real sl_dist and tp_dist — dynamic per trade</td></tr>
+<tr><td>rsi_at_entry ML Feature</td><td>RSI at entry moment never captured</td><td>Added as new ML feature in build_ml_features() and prepare_data.py</td></tr>
+<tr><td>News Filter Fail-Safe</td><td>API failure silently allowed trades — even during NFP</td><td>Cache added — uses last known result if fresh, blocks trade if stale</td></tr>
+<tr><td>Trade State Persistence</td><td>open_trade_state in memory only — lost on crash</td><td>Saved to open_trade_state.json on every update, reloaded on startup</td></tr>
+<tr><td>Regime Blocker Recovery</td><td>Blocked regimes stayed blocked permanently</td><td>14-day cooldown + 10 trial trades before re-evaluation</td></tr>
+<tr><td>Lot Sizing Equity Fix</td><td>Used account.balance — overleverages during open drawdown</td><td>Changed to account.equity — correct basis during live trading</td></tr>
+<tr><td>EMA Slope Threshold</td><td>Hardcoded 0.1 — always true at Gold's price level, filters nothing</td><td>Made ATR-relative (5% of ATR) — meaningful at any price level</td></tr>
+<tr><td>FVG Filled Gap Check</td><td>FVG detected even if price had already re-entered the gap</td><td>Now checks current price is still outside the gap zone</td></tr>
+<tr><td>Liquidity Sweep Body Check</td><td>Single-candle wick triggered sweep signal — including random wicks</td><td>Requires body at least 30% of candle range before confirming sweep</td></tr>
+<tr><td>MSS Body Confirmation</td><td>Closing above 10-bar high triggered MSS — too common in any trend</td><td>Requires candle body at least 40% of range — decisive candles only</td></tr>
+<tr><td>Slippage Tracking</td><td>Only requested price logged — actual fill never captured</td><td>fill_price and slippage_pts columns added to trades_log.csv</td></tr>
+<tr><td>4H Bias Filter</td><td>No higher-timeframe directional filter — traded against 4H trend</td><td>get_4h_bias() added — signals blocked if against 4H EMA direction</td></tr>
+<tr><td>Signal Cooldown</td><td>Bot could re-enter immediately after SL hit</td><td>30-minute cooldown (2 x 15M candles) between any two signals</td></tr>
+<tr><td>Session Overlap Label</td><td>London-NY overlap (12-15 UTC) was unlabelled — logged as plain "NY"</td><td>New session label "LDN_NY_Overlap" — trackable in CSV separately</td></tr>
+<tr><td>Backtest Signal Logic</td><td>backtest.py tested simple trend+RSI — completely different from live bot's sweep+MSS+FVG signal chain</td><td>Full rewrite — backtest now uses exact same functions as live bot including all v6 signal fixes</td></tr>
+<tr><td>Walk-Forward Validation</td><td>train_test_split used — single period, potential data leakage</td><td>TimeSeriesSplit with 5 folds — proper time-ordered cross-validation, no leakage</td></tr>
+</table></div></div>
+<div class="step"><div class="sh"><div class="sn">→</div><div class="stitle">What Changed in v7 vs v6</div></div>
+<div class="sb"><table>
+<tr><th>Change</th><th>v6 Behaviour</th><th>v7 Behaviour</th></tr>
+<tr><td>Strategy Architecture</td><td>Single TREND strategy only; RANGE used broken RSI-only logic</td><td>Four independent modules — TREND, RANGE, VOLATILE SQUEEZE, POST-NEWS — each gated by regime detector</td></tr>
+<tr><td>MODULE 01 — TREND</td><td>Single entry type: FVG only. Sweep body filter 30%.</td><td>Three entry types in priority order: FVG → Order Block → Fibonacci OTE. Sweep body filter raised to 38%.</td></tr>
+<tr><td>Silver Bullet Windows</td><td>Not implemented</td><td>ADX threshold relaxed from 28 to 24 during 10–11 UTC and 14–15 UTC — ICT Silver Bullet windows with higher edge</td></tr>
+<tr><td>SESSION_END_UTC for TREND</td><td>18:00 UTC (full London+NY)</td><td>16:00 UTC — removes low-conviction 16:30–18:00 NY late session from TREND module</td></tr>
+<tr><td>MODULE 02 — RANGE</td><td>RSI-only (rsi&lt;30 buy, rsi&gt;70 sell) — unreliable, no structure confirmation</td><td>Full Range Boundary SMC: confirmed 8+ candle structural range (60–200 pts wide) + RSI divergence + Bollinger Band extreme touch + rejection candle body filter 40%</td></tr>
+<tr><td>MODULE 03 — VOLATILE SQUEEZE</td><td>Not implemented. VOLATILE regime was a complete block.</td><td>Bollinger Squeeze breakout: ATR at 20-period low + BB width at 3-month low + breakout candle body ≥45% + 4H alignment. 2-hour news blackout built in.</td></tr>
+<tr><td>MODULE 04 — POST-NEWS</td><td>Not implemented. VOLATILE_NEWS regime did not exist.</td><td>Post-News ICT Entry: waits 60 min after ATR spike, checks consolidation ≤35% of spike, requires sweep + FVG in spike direction. One trade per session maximum.</td></tr>
+<tr><td>Regime Detector</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE, UNKNOWN. Takes (df_15m, df_1h).</td><td>Returns: TREND_BULL, TREND_BEAR, RANGE, VOLATILE_SQUEEZE, VOLATILE_NEWS, UNKNOWN. Takes (df_1h) only. Uses is_bb_squeeze() and ATR spike detection for new volatile sub-regimes.</td></tr>
+<tr><td>Spread Limits</td><td>VOLATILE: 15 pts</td><td>VOLATILE_SQUEEZE: 18 pts, VOLATILE_NEWS: 20 pts — separate limits per module</td></tr>
+<tr><td>max_trades per mode</td><td>CONSERVATIVE: 2, NORMAL: 3, AGGRESSIVE: 5</td><td>CONSERVATIVE: 3, NORMAL: 5, AGGRESSIVE: 8 — increased to accommodate multi-module trade frequency</td></tr>
+<tr><td>range_allowed flag</td><td>False in CONSERVATIVE and NORMAL modes</td><td>True in all modes — RANGE module is now properly implemented and safe to use</td></tr>
+<tr><td>Order Block Detection</td><td>Not implemented</td><td>detect_order_block() added — finds institutional opposing candle before MSS, verifies current price is inside OB zone</td></tr>
+<tr><td>Fibonacci OTE Entry</td><td>Not implemented</td><td>detect_fib_ote() added — checks 61.8% retracement of MSS candle range as Optimal Trade Entry</td></tr>
+<tr><td>RSI Divergence</td><td>Not implemented</td><td>detect_rsi_divergence() added — used by RANGE module as confluence confirmation filter</td></tr>
+<tr><td>Post-news guard</td><td>Not implemented</td><td>post_news_traded_this_session flag — resets at SESSION_START_UTC, limits post-news module to 1 trade per day</td></tr>
+<tr><td>Order comment field</td><td>"GoldBot_v6"</td><td>"GoldBot_v7_{regime}" — shows active module in MT5 trade history</td></tr>
+</table></div></div>
+</div></div>
+
 </div><!-- end wrap -->
 </div><!-- end mods page -->
 
 <!-- BOT RATING -->
 <div class="page" id="rate">
 <div class="wrap">
-<div class="ph"><div><div class="ptitle">Bot Rating — Honest Assessment (v7)</div><div class="psub">What it does well, where the limits are, how it compares. v7 adds four independent modules — each rated individually.</div></div></div>
+<div class="ph"><div><div class="ptitle">Bot Rating — Honest Assessment</div><div class="psub">What it does well, where the limits are, how it compares. v7 adds four independent modules — each rated individually.</div></div></div>
 
 <div class="rgrid">
 <div class="rcard"><div class="rl">OVERALL</div><div class="rs sa">9.3 / 10</div><div class="rn">Four-module institutional-grade system — TREND + RANGE + SQUEEZE + POST-NEWS</div><div class="rb"><div class="rf" style="width:93%;background:#2ECC71"></div></div></div>
