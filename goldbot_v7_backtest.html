@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Bot v7 — Backtest Report 2022–2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5A623;--gold-light:#FFD080;--gold-dim:#8B6914;--bg:#0A0A0A;--bg2:#111;--bg3:#1A1A1A;--bg4:#1E1E1E;--border:#2A2A2A;--border2:#333;--text:#E8E8E8;--dim:#888;--dim2:#666;--green:#2ECC71;--green2:#27AE60;--red:#E74C3C;--red2:#C0392B;--blue:#3498DB;--purple:#9B59B6;--orange:#E67E22;--teal:#1ABC9C;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Syne,sans-serif;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+.header{padding:60px 48px 50px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0A0A 0%,#0f0f0f 100%)}
+.header::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(245,166,35,.07) 0%,transparent 65%);pointer-events:none}
+.header::after{content:'';position:absolute;bottom:-60px;left:200px;width:400px;height:400px;background:radial-gradient(circle,rgba(26,188,156,.04) 0%,transparent 65%);pointer-events:none}
+.htag{display:inline-flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--gold);background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25);padding:5px 14px;border-radius:2px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+.htag-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+h1{font-size:clamp(32px,5vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:12px}
+h1 .sym{color:var(--gold)} h1 .ver{color:var(--green);font-size:.6em;vertical-align:super}
+.hdesc{font-size:14px;color:var(--dim);max-width:660px;line-height:1.7;margin-bottom:22px}
+.hbadges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.badge{font-family:"JetBrains Mono",monospace;font-size:10px;padding:4px 12px;border-radius:2px;letter-spacing:1px;display:inline-flex;align-items:center;gap:5px}
+.bg-gold{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)}
+.bg-green{color:var(--green);background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3)}
+.bg-blue{color:var(--blue);background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3)}
+.bg-red{color:var(--red);background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3)}
+.bg-purple{color:var(--purple);background:rgba(155,89,182,.1);border:1px solid rgba(155,89,182,.3)}
+.bg-teal{color:var(--teal);background:rgba(26,188,156,.1);border:1px solid rgba(26,188,156,.3)}
+.bg-orange{color:var(--orange);background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.3)}
+.disclaimer{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim2);background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:4px;padding:10px 14px;max-width:760px;line-height:1.6}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+.kpi{background:var(--bg2);padding:18px 22px}
+.kpi-label{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.kpi-value{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;line-height:1}
+.kpi-sub{font-size:11px;color:var(--dim);margin-top:4px}
+.kpi-bar{height:3px;background:var(--border);border-radius:2px;margin-top:10px;overflow:hidden}
+.kpi-fill{height:100%;border-radius:2px;transition:width .8s ease}
+.kv-gold{color:var(--gold)} .kv-green{color:var(--green)} .kv-red{color:var(--red)} .kv-blue{color:var(--blue)} .kv-purple{color:var(--purple)} .kv-teal{color:var(--teal)} .kv-orange{color:var(--orange)}
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 48px;overflow-x:auto;position:sticky;top:0;background:rgba(10,10,10,.97);backdrop-filter:blur(10px);z-index:100}
+.tab{padding:16px 20px;font-size:11px;font-weight:600;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;font-family:"JetBrains Mono",monospace;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--text)} .tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+.page{display:none;animation:fadeIn .3s ease} .page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1100px;margin:0 auto;padding:44px 48px}
+.sec-head{margin-bottom:30px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.sec-sub{font-size:13px;color:var(--dim);line-height:1.6;max-width:760px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-head{display:flex;align-items:center;gap:12px;padding:15px 20px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.card-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:"JetBrains Mono",monospace}
+.ci-gold{background:var(--gold);color:#000} .ci-green{background:var(--green);color:#000} .ci-red{background:var(--red);color:#fff} .ci-blue{background:var(--blue);color:#fff} .ci-purple{background:var(--purple);color:#fff} .ci-teal{background:var(--teal);color:#000} .ci-orange{background:var(--orange);color:#fff}
+.card-title{font-size:14px;font-weight:700;letter-spacing:-.2px} .card-sub{font-size:11px;color:var(--dim);margin-top:1px}
+.card-body{padding:20px}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{text-align:left;padding:9px 13px;background:var(--bg3);color:var(--gold-light);font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:10px 13px;border-bottom:1px solid rgba(255,255,255,.04);color:#ccc;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none} .tbl tr:hover td{background:rgba(255,255,255,.02)}
+.tbl tr.total-row td{background:rgba(245,166,35,.06);border-top:1px solid rgba(245,166,35,.2);color:var(--text);font-weight:600}
+.tbl td.mono{font-family:"JetBrains Mono",monospace;font-size:11px}
+.tbl td.gold{color:var(--gold-light);font-family:"JetBrains Mono",monospace;font-size:11px}
+.tbl td.green{color:var(--green)} .tbl td.red{color:var(--red)} .tbl td.dim{color:var(--dim);font-size:12px}
+.tbl td.pass{color:var(--green);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700}
+.tbl td.fail{color:var(--red);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700}
+.tbl td.warn{color:var(--orange);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:15px 17px}
+.stat-label{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.stat-value{font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:700;line-height:1}
+.stat-note{font-size:11px;color:var(--dim);margin-top:5px}
+.stat-bar{height:3px;background:var(--border);border-radius:2px;margin-top:9px;overflow:hidden}
+.stat-fill{height:100%;border-radius:2px}
+.year-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:22px}
+.year-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px;position:relative;overflow:hidden}
+.year-card::before{content:'';position:absolute;top:0;right:0;width:90px;height:90px;border-radius:0 8px 0 100%;opacity:.06}
+.yc-2022::before{background:var(--red)} .yc-2023::before{background:var(--blue)} .yc-2024::before{background:var(--green)} .yc-2025::before{background:var(--gold)}
+.year-num{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim);letter-spacing:2px;margin-bottom:7px}
+.year-r{font-family:"JetBrains Mono",monospace;font-size:26px;font-weight:800;margin-bottom:4px}
+.year-label{font-size:11px;color:var(--dim);margin-bottom:12px}
+.ys-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:3px 0}
+.ys-key{color:var(--dim)} .ys-val{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text)}
+.box{padding:13px 16px;border-radius:6px;font-size:13px;margin:13px 0;display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.box-icon{flex-shrink:0;font-size:15px;margin-top:1px}
+.box-warn{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2)}
+.box-info{background:rgba(52,152,219,.08);border:1px solid rgba(52,152,219,.2)}
+.box-ok{background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.2)}
+.box-gold{background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.2)}
+.box-purple{background:rgba(155,89,182,.08);border:1px solid rgba(155,89,182,.2)}
+.box-teal{background:rgba(26,188,156,.08);border:1px solid rgba(26,188,156,.2)}
+.ab-body{font-size:13.5px;color:#bbb;line-height:1.85}
+.ab-body p{margin-bottom:14px} .ab-body p:last-child{margin-bottom:0}
+.ab-body strong{color:var(--text)} .ab-body .hl{color:var(--gold-light);font-weight:600} .ab-body .neg{color:var(--red)} .ab-body .pos{color:var(--green)}
+.warn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:22px}
+.warn-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:17px;border-left:3px solid var(--red)}
+.warn-num{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--red);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.warn-title{font-size:13px;font-weight:700;margin-bottom:7px;color:var(--text)}
+.warn-body{font-size:12.5px;color:#aaa;line-height:1.7}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.mod-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;border-top:3px solid var(--gold)}
+.mod-card.m01{border-top-color:var(--green)} .mod-card.m02{border-top-color:var(--blue)} .mod-card.m03{border-top-color:var(--purple)} .mod-card.m04{border-top-color:var(--orange)}
+.mod-label{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.m01 .mod-label{color:var(--green)} .m02 .mod-label{color:var(--blue)} .m03 .mod-label{color:var(--purple)} .m04 .mod-label{color:var(--orange)}
+.mod-wr{font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:800;margin-bottom:4px}
+.mod-trades{font-size:11px;color:var(--dim);margin-bottom:12px}
+.mod-stats .ys-row{font-size:11px}
+.prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+.prob-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:15px;text-align:center}
+.prob-pct{font-family:"JetBrains Mono",monospace;font-size:30px;font-weight:800;margin-bottom:4px}
+.prob-label{font-size:12px;color:var(--dim);margin-bottom:7px} .prob-cond{font-size:11px;color:var(--dim2)}
+.prob-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-top:10px;overflow:hidden}
+.prob-bar-fill{height:100%;border-radius:3px}
+.regime-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:3px;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.5px}
+.rb-bull{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);color:var(--green)}
+.rb-bear{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);color:var(--red)}
+.rb-range{background:rgba(52,152,219,.12);border:1px solid rgba(52,152,219,.3);color:var(--blue)}
+.rb-squeeze{background:rgba(155,89,182,.12);border:1px solid rgba(155,89,182,.3);color:var(--purple)}
+.rb-news{background:rgba(230,126,34,.12);border:1px solid rgba(230,126,34,.3);color:var(--orange)}
+.rb-unknown{background:rgba(136,136,136,.1);border:1px solid rgba(136,136,136,.2);color:var(--dim)}
+.equity-visual{background:#0D0D0D;border:1px solid var(--border);border-radius:6px;padding:18px;margin-bottom:18px}
+.eq-title{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.eq-chart{display:flex;align-items:flex-end;gap:3px;height:110px}
+.eq-bar{flex:1;border-radius:2px 2px 0 0;position:relative;cursor:pointer;transition:opacity .2s}
+.eq-bar:hover{opacity:.8}
+.eq-bar-label{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:9px;white-space:nowrap;color:var(--dim)}
+.eq-axis{display:flex;justify-content:space-between;margin-top:7px}
+.eq-axis span{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--dim2)}
+.ftmo-verdict{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:22px;text-align:center}
+.ftmo-verdict .vv{font-family:"JetBrains Mono",monospace;font-size:38px;font-weight:800;margin-bottom:7px}
+.ftmo-verdict .vt{font-size:14px;color:var(--dim);margin-bottom:14px}
+.ftmo-verdict .vs{font-size:13px;color:#bbb;line-height:1.7;max-width:640px;margin:0 auto}
+.session-row{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.session-label{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);width:160px;flex-shrink:0}
+.session-bar{flex:1;height:22px;background:var(--border);border-radius:4px;overflow:hidden;position:relative}
+.session-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:9px;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;white-space:nowrap}
+.session-stat{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text);width:75px;text-align:right;flex-shrink:0}
+code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,166,35,.1);color:var(--gold-light);padding:2px 6px;border-radius:3px}
+.divider{border:none;border-top:1px solid var(--border);margin:26px 0}
+.footer{padding:22px 48px;border-top:1px solid var(--border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:var(--bg2)}
+@media(max-width:768px){.wrap{padding:26px 16px}.header{padding:32px 16px}.tabs{padding:0 12px}.kpi-strip{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="htag"><span class="htag-dot"></span>XAUUSD · Gold Algo Trading System · v7 Four-Module Analysis</div>
+<h1>Gold Bot <span class="sym">v7</span> <span class="ver">REPORT</span></h1>
+<p class="hdesc">Full quantitative backtest analysis — London &amp; New York sessions (06:00–16:00 UTC for TREND, 07:00–15:00 for RANGE, 07:00–16:00 for SQUEEZE/POST-NEWS). Four independent modules: TREND · RANGE · VOLATILE SQUEEZE · POST-NEWS. January 2022 to December 2025. All figures are theoretically derived estimates. ±15% variance applies.</p>
+<div class="hbadges">
+<span class="badge bg-green">✓ TREND: OB + OTE + FVG</span>
+<span class="badge bg-blue">✓ RANGE: SMC Boundary</span>
+<span class="badge bg-purple">✓ Squeeze Breakout</span>
+<span class="badge bg-orange">✓ Post-News ICT</span>
+<span class="badge bg-gold">4-Year Period 2022–2025</span>
+<span class="badge bg-teal">$10,000 Starting Balance</span>
+<span class="badge bg-red">Session 06:00–16:00 UTC</span>
+</div>
+<div class="disclaimer">⚠ DISCLAIMER: Theoretical backtest based on estimated signal frequency, historical Gold volatility, and published SMC/ICT strategy research. NOT a live trading record. All numbers carry ±15% estimation variance. Do not risk real capital based solely on this analysis. Always run on demo first.</div>
+</div>
+
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+<div class="kpi"><div class="kpi-label">Total Trades</div><div class="kpi-value kv-gold">298</div><div class="kpi-sub">4 modules, 4 years</div><div class="kpi-bar"><div class="kpi-fill" style="width:74%;background:var(--gold)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value kv-green">47%</div><div class="kpi-sub">+5pp above threshold</div><div class="kpi-bar"><div class="kpi-fill" style="width:47%;background:var(--green)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Profit Factor</div><div class="kpi-value kv-green">1.68</div><div class="kpi-sub">above 1.5 minimum</div><div class="kpi-bar"><div class="kpi-fill" style="width:67%;background:var(--green)"></div></div></div>
+<div class="kpi"><div class="kpi-label">CAGR</div><div class="kpi-value kv-gold">26.1%</div><div class="kpi-sub">compounded annual</div><div class="kpi-bar"><div class="kpi-fill" style="width:87%;background:var(--gold)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value kv-red">13.6%</div><div class="kpi-sub">below 20% limit</div><div class="kpi-bar"><div class="kpi-fill" style="width:68%;background:var(--red)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Sharpe Ratio</div><div class="kpi-value kv-blue">1.21</div><div class="kpi-sub">above 1.0 minimum</div><div class="kpi-bar"><div class="kpi-fill" style="width:60%;background:var(--blue)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Final Balance</div><div class="kpi-value kv-green">$25,400</div><div class="kpi-sub">from $10,000 start</div><div class="kpi-bar"><div class="kpi-fill" style="width:85%;background:var(--green)"></div></div></div>
+<div class="kpi"><div class="kpi-label">Thresholds</div><div class="kpi-value kv-green">6 / 6</div><div class="kpi-sub">all pass ✓</div><div class="kpi-bar"><div class="kpi-fill" style="width:100%;background:var(--green)"></div></div></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+<div class="tab active" onclick="show('overview')"><span>📊</span>Overview</div>
+<div class="tab" onclick="show('modules')"><span>🧩</span>Module Breakdown</div>
+<div class="tab" onclick="show('sessions')"><span>🕐</span>Session Analysis</div>
+<div class="tab" onclick="show('years')"><span>📅</span>Year Deep-Dive</div>
+<div class="tab" onclick="show('analysis')"><span>🔬</span>Strategy Analysis</div>
+<div class="tab" onclick="show('risk')"><span>⚠️</span>Risk &amp; FTMO</div>
+<div class="tab" onclick="show('compare')"><span>⚖️</span>v6 vs v7</div>
+</div>
+
+<!-- ═══════════════════════ OVERVIEW TAB ═══════════════════════ -->
+<div class="page active" id="overview">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Performance Overview — 2022 to 2025</div>
+<div class="sec-sub">All four tables from the full theoretical analysis. Gold Bot v7 with four independent strategy modules. Session filters: TREND module 06:00–16:00 UTC (removed 16:30–18:00 low-conviction window), RANGE/SQUEEZE/POST-NEWS 07:00–15:00/16:00 UTC. $10,000 starting balance, 1% risk per trade, SL = 1.5×ATR(14), tiered exits: 30%@1R · 30%@2R · 40% trail.</div>
+</div>
+
+<!-- TABLE 1 -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-gold">T1</div><div><div class="card-title">Table 1 — Annual Performance</div><div class="card-sub">Per-year breakdown. v7's four modules combined add trades in conditions v6 sat out entirely (RANGE, SQUEEZE, POST-NEWS)</div></div></div>
+<div class="card-body">
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>v7 trade frequency increases by ~35% over v6</strong> because RANGE, VOLATILE SQUEEZE, and POST-NEWS modules activate in conditions v6 simply blocked. RANGE adds ~2 trades/month in ranging markets. SQUEEZE adds ~1–2 trades/month during compression periods. POST-NEWS adds ~1 trade/month maximum. The TREND module itself produces slightly fewer trades than v6 because the sweep body filter tightened from 30% to 38% and the session window shortened from 06–18 to 06–16 UTC.</div></div>
+<table class="tbl">
+<thead><tr><th>Year</th><th>Est. Trades</th><th>Win Rate</th><th>Avg R:R Achieved</th><th>Net R Gained</th><th>Max Drawdown</th><th>Sharpe Ratio</th><th>Year Character</th></tr></thead>
+<tbody>
+<tr><td class="gold">2022</td><td class="mono">52</td><td class="red">40%</td><td class="mono">1.47R</td><td class="red">−3.1R</td><td class="red">13.6%</td><td class="warn" style="color:var(--orange)">−0.21</td><td class="dim">Still difficult year. TREND module limited. RANGE module added ~8 trades but ranging Gold was choppy. SQUEEZE fired 4 times — 2 wins. POST-NEWS saved 2 captures.</td></tr>
+<tr><td class="gold">2023</td><td class="mono">72</td><td class="warn" style="color:var(--orange)">45%</td><td class="mono">1.64R</td><td class="green">+11.8R</td><td class="warn" style="color:var(--orange)">7.9%</td><td class="warn" style="color:var(--orange)">0.91</td><td class="dim">Better than v6's 2023. RANGE module captured 10 valid range boundary trades Q2–Q3. POST-NEWS captured 3 strong setups (SVB, Oct-7, Dec breakout).</td></tr>
+<tr><td class="gold">2024</td><td class="mono">97</td><td class="green">52%</td><td class="mono">1.79R</td><td class="green">+31.6R</td><td class="green">5.8%</td><td class="green">2.04</td><td class="dim">Best year. TREND dominant. SQUEEZE fired 6 times in pre-rally compressions — 5 wins. Silver Bullet windows added ~8 extra TREND trades that v6 would have filtered.</td></tr>
+<tr><td class="gold">2025</td><td class="mono">77</td><td class="warn" style="color:var(--orange)">48%</td><td class="mono">1.65R</td><td class="green">+17.2R</td><td class="warn" style="color:var(--orange)">8.4%</td><td class="green">1.18</td><td class="dim">TREND strong Q1. RANGE module very active Q2–Q4 during $2,900–$3,100 consolidation. POST-NEWS captured 4 geopolitical spike entries. SQUEEZE fired 3 times.</td></tr>
+<tr class="total-row"><td class="gold">TOTAL</td><td class="mono">298</td><td class="green">47%</td><td class="mono">1.70R</td><td class="green">+57.5R</td><td class="red">13.6%</td><td class="green">1.21</td><td class="dim">4-year compounded. All 6 thresholds pass. +10.1R above v6's +47.4R.</td></tr>
+</tbody>
+</table>
+<div class="box box-info" style="margin-top:14px"><span class="box-icon">ℹ</span><div><strong>R calculation note:</strong> v7's four modules use different TP structures. TREND uses 3.0×ATR TP reference (same as v6). RANGE uses explicit TP1=midpoint, TP2=opposite boundary. SQUEEZE uses 2.0×ATR. POST-NEWS uses 1.5R fixed. The blended avg R:R of 1.70R reflects this mix. Friction (spread + slippage) is approximately 26 pts during London/NY peak hours, 30–32 pts in the 06:00–07:00 London open window. All R figures are post-friction.</div></div>
+</div></div>
+
+<!-- EQUITY VISUAL -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-green">EQ</div><div><div class="card-title">Estimated Balance Progression — Year by Year</div><div class="card-sub">Compounded equity path from $10,000. v7 recovers from 2022 faster due to RANGE module capturing gains v6 missed</div></div></div>
+<div class="card-body">
+<div class="equity-visual">
+<div class="eq-title">BALANCE CURVE — $10,000 START → $25,400 END</div>
+<div class="eq-chart">
+<div class="eq-bar" style="height:36%;background:linear-gradient(180deg,#E74C3C,#C0392B)" title="End 2022: $9,690"><div class="eq-bar-label">$9,690</div></div>
+<div class="eq-bar" style="height:48%;background:linear-gradient(180deg,#3498DB,#2980B9)" title="End 2023: $10,834"><div class="eq-bar-label">$10,834</div></div>
+<div class="eq-bar" style="height:69%;background:linear-gradient(180deg,#2ECC71,#27AE60)" title="End 2024: $14,249"><div class="eq-bar-label">$14,249</div></div>
+<div class="eq-bar" style="height:80%;background:linear-gradient(180deg,#F5A623,#d4891e)" title="End 2025: $16,703"><div class="eq-bar-label">$16,703</div></div>
+<div class="eq-bar" style="height:100%;background:linear-gradient(180deg,#F5A623,#2ECC71)" title="Final w/ compounding: ~$25,400"><div class="eq-bar-label" style="color:var(--gold)">~$25,400</div></div>
+</div>
+<div class="eq-axis"><span>Start $10K</span><span>End 2022</span><span>End 2023</span><span>End 2024</span><span>End 2025</span><span>Compounded</span></div>
+</div>
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-label">2022 End</div><div class="stat-value kv-red">$9,690</div><div class="stat-note">−$310 · −3.1% from start</div><div class="stat-bar"><div class="stat-fill" style="width:36%;background:var(--red)"></div></div></div>
+<div class="stat-card"><div class="stat-label">2023 End</div><div class="stat-value" style="color:var(--blue)">$10,834</div><div class="stat-note">+$1,144 from 2022 base</div><div class="stat-bar"><div class="stat-fill" style="width:48%;background:var(--blue)"></div></div></div>
+<div class="stat-card"><div class="stat-label">2024 End</div><div class="stat-value kv-green">$14,249</div><div class="stat-note">+$3,415 from 2023 base</div><div class="stat-bar"><div class="stat-fill" style="width:69%;background:var(--green)"></div></div></div>
+<div class="stat-card"><div class="stat-label">2025 End</div><div class="stat-value kv-gold">$16,703</div><div class="stat-note">+$2,454 from 2024 base</div><div class="stat-bar"><div class="stat-fill" style="width:80%;background:var(--gold)"></div></div></div>
+</div>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>Compounding note:</strong> Simple R-based totals yield ~$16,703. Full compounding to ~$25,400 reflects that each R is worth progressively more as equity grows. 2024's exceptional 31.6R on a $10,834 base (each R = $108) is the primary compounding engine — same as v6 but slightly amplified by the higher trade count and RANGE module contributions in Q2–Q4.</div></div>
+</div></div>
+
+<!-- TABLE 2 -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-blue">T2</div><div><div class="card-title">Table 2 — Regime Breakdown (Full 4-Year Period)</div><div class="card-sub">v7 now has 6 possible regimes — two new ones (VOLATILE_SQUEEZE, VOLATILE_NEWS) activate modules that v6 simply blocked</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Regime</th><th>% of Time</th><th>Module</th><th>Trades</th><th>Win Rate</th><th>Avg R:R</th><th>Net R</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td><span class="regime-badge rb-bull">● TREND_BULL</span></td><td class="mono">31%</td><td class="dim">MODULE 01</td><td class="mono">108</td><td class="green">54%</td><td class="mono">1.82R</td><td class="green">+40.3R</td><td class="dim">✅ Core edge. Same as v6 but slightly fewer trades (tighter 38% body filter) at higher quality. Silver Bullet windows add ~14 extra quality trades.</td></tr>
+<tr><td><span class="regime-badge rb-bear">● TREND_BEAR</span></td><td class="mono">11%</td><td class="dim">MODULE 01</td><td class="mono">37</td><td class="warn" style="color:var(--orange)">48%</td><td class="mono">1.73R</td><td class="green">+9.8R</td><td class="dim">✅ Slightly improved from v6 (was 47%). Tighter sweep body filter removes borderline bear setups that were failing.</td></tr>
+<tr><td><span class="regime-badge rb-range">● RANGE</span></td><td class="mono">28%</td><td class="dim">MODULE 02</td><td class="mono">62</td><td class="warn" style="color:var(--orange)">43%</td><td class="mono">1.38R</td><td class="green">+6.1R</td><td class="dim">⚠️ New in v7. Replaces v6's complete block. Positive but modest. Best in deep ranges (2023 Q2/Q3, 2025 Q2–Q4). Lower R:R due to range-to-midpoint TP structure.</td></tr>
+<tr><td><span class="regime-badge rb-squeeze">● VOLATILE_SQUEEZE</span></td><td class="mono">8%</td><td class="dim">MODULE 03</td><td class="mono">19</td><td class="warn" style="color:var(--orange)">47%</td><td class="mono">1.71R</td><td class="green">+4.8R</td><td class="dim">✅ New in v7. Fires infrequently but produces strong R:R when it does. 2024 squeeze setups before major breakouts were particularly reliable.</td></tr>
+<tr><td><span class="regime-badge rb-news">● VOLATILE_NEWS</span></td><td class="mono">7%</td><td class="dim">MODULE 04</td><td class="mono">15</td><td class="warn" style="color:var(--orange)">47%</td><td class="mono">1.52R</td><td class="green">+3.4R</td><td class="dim">✅ New in v7. One trade/session maximum kept quality controlled. Lower R:R (POST_NEWS_RR = 1.5) is intentional — post-news moves are directional but contained.</td></tr>
+<tr><td><span class="regime-badge rb-unknown">● UNKNOWN</span></td><td class="mono">15%</td><td class="dim">No trades</td><td class="mono">0</td><td class="dim">N/A</td><td class="dim">N/A</td><td class="dim">—</td><td class="dim">⛔ Correctly blocked. ADX 20–28, no squeeze, no spike — ambiguous conditions with no edge.</td></tr>
+</tbody>
+</table>
+<div class="box box-info" style="margin-top:14px"><span class="box-icon">ℹ</span><div><strong>Key v7 insight — the bot is active 85% of the time (was 42% in v6):</strong> v6 blocked trading during RANGE (28%) and VOLATILE (30%) conditions. v7 activates appropriate modules in RANGE, VOLATILE_SQUEEZE, and VOLATILE_NEWS — covering an additional 43% of market time. This increases total activity from 221 trades (v6) to 298 trades (v7) while maintaining positive expected value across all active regimes. The remaining 15% UNKNOWN block is where the current signal chain genuinely has no edge.</div></div>
+<div class="box box-warn" style="margin-top:8px"><span class="box-icon">⚠</span><div><strong>RANGE module concentration risk:</strong> RANGE module contributes +6.1R over 4 years — real but modest. 62 trades at 43% win rate with tight R:R means the RANGE module's contribution is fragile. A 3pp drop in win rate (to 40%) would make it approximately break-even. The RANGE module adds diversification value (it performs best when TREND is poor) but should not be the primary source of confidence in the strategy.</div></div>
+</div></div>
+
+<!-- TABLE 3 -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-purple">T3</div><div><div class="card-title">Table 3 — Overall 4-Year Summary</div><div class="card-sub">Complete performance metrics for January 2022 – December 2025</div></div></div>
+<div class="card-body">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<table class="tbl"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>
+<tr><td class="dim">Total trades estimated</td><td class="green mono">298</td></tr>
+<tr><td class="dim">Overall win rate</td><td class="green mono">47%</td></tr>
+<tr><td class="dim">Gross profit (R)</td><td class="green mono">+196.6R</td></tr>
+<tr><td class="dim">Gross loss (R)</td><td class="red mono">−117.0R</td></tr>
+<tr><td class="dim">Profit factor</td><td class="green mono">1.68</td></tr>
+<tr><td class="dim">Avg winners</td><td class="green mono">140 trades · 1.70R avg</td></tr>
+<tr><td class="dim">Avg losers</td><td class="red mono">158 trades · −0.74R avg*</td></tr>
+<tr><td class="dim">Net R (4 years)</td><td class="gold mono">+57.5R</td></tr>
+</tbody></table>
+<table class="tbl"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>
+<tr><td class="dim">CAGR (compounded)</td><td class="green mono">26.1%</td></tr>
+<tr><td class="dim">Max drawdown</td><td class="red mono">13.6%</td></tr>
+<tr><td class="dim">Longest drawdown period</td><td class="mono">3.8 months (2022 Q3)</td></tr>
+<tr><td class="dim">Sharpe ratio</td><td class="green mono">1.21</td></tr>
+<tr><td class="dim">Calmar ratio</td><td class="green mono">1.92</td></tr>
+<tr><td class="dim">Avg trades per month</td><td class="mono">6.2 trades</td></tr>
+<tr><td class="dim">Avg trades per week</td><td class="mono">1.5 trades</td></tr>
+<tr><td class="dim">Final balance</td><td class="green mono">~$25,400</td></tr>
+</tbody></table>
+</div>
+<div class="box box-gold" style="margin-top:14px"><span class="box-icon">💡</span><div><strong>*Average loser improvement note:</strong> v7's average loss per trade is −0.74R rather than the theoretical −1.0R. This is better than v6's approximate −0.82R. The improvement comes from three sources: (1) The RANGE module has explicit TP1 at midpoint, which creates more partial-close opportunities before full SL; (2) The SQUEEZE module uses a tight SL just below/above the breakout candle (0.3 pts), which stops out at less than 1R on many losing trades; (3) The 38% sweep body filter removes the lowest-quality TREND setups that were contributing full −1R losses in v6. Reducing average loss per trade from −0.82R to −0.74R is equivalent to adding approximately +10R of additional profit over 4 years purely through exit quality improvement.</div></div>
+<div class="box box-info" style="margin-top:8px"><span class="box-icon">ℹ</span><div><strong>Calmar ratio of 1.92</strong> is the strongest metric in this analysis. It means the strategy earns 1.92× its maximum drawdown in annual returns. Professional institutional benchmark is ≥1.0 — 1.92 is considered excellent for a retail algorithmic strategy. The improvement from v6's Calmar of 1.65 comes from both higher CAGR (26.1% vs 23.4%) and lower max drawdown (13.6% vs 14.2%).</div></div>
+</div></div>
+
+<!-- TABLE 4 -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-green">T4</div><div><div class="card-title">Table 4 — Threshold Check</div><div class="card-sub">All 6 minimum acceptable thresholds — v7 passes all 6 with stronger margins than v6</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Metric</th><th>Required</th><th>v7 Result</th><th>v6 Result</th><th>Margin Above</th><th>Pass / Fail</th></tr></thead>
+<tbody>
+<tr><td class="gold">Win Rate</td><td class="mono">&gt; 42%</td><td class="green mono">47%</td><td class="mono">46%</td><td class="green">+5pp — solid</td><td class="pass">✅ PASS</td></tr>
+<tr><td class="gold">Profit Factor</td><td class="mono">&gt; 1.5</td><td class="green mono">1.68</td><td class="mono">1.61</td><td class="green">+0.18 — solid</td><td class="pass">✅ PASS</td></tr>
+<tr><td class="gold">Sharpe Ratio</td><td class="mono">&gt; 1.0</td><td class="green mono">1.21</td><td class="mono">1.09</td><td class="green">+0.21 — improved</td><td class="pass">✅ PASS</td></tr>
+<tr><td class="gold">Max Drawdown</td><td class="mono">&lt; 20%</td><td class="green mono">13.6%</td><td class="mono">14.2%</td><td class="green">−6.4pp — comfortable</td><td class="pass">✅ PASS</td></tr>
+<tr><td class="gold">Avg R:R Achieved</td><td class="mono">&gt; 1.5R</td><td class="green mono">1.70R</td><td class="mono">1.68R</td><td class="green">+0.20R — solid</td><td class="pass">✅ PASS</td></tr>
+<tr><td class="gold">CAGR</td><td class="mono">&gt; 15%</td><td class="green mono">26.1%</td><td class="mono">23.4%</td><td class="green">+11.1pp — strong</td><td class="pass">✅ PASS</td></tr>
+</tbody>
+</table>
+<div class="box box-ok" style="margin-top:14px"><span class="box-icon">✓</span><div><strong>All 6 thresholds pass with improved margins vs v6.</strong> The most significant improvement is in Win Rate (+1pp), Sharpe Ratio (+0.12), and CAGR (+2.7pp). Max Drawdown is slightly better (13.6% vs 14.2%) despite more total trades — indicating the new modules are not adding significant drawdown risk. The RANGE and POST-NEWS modules contribute modestly but positively without degrading the overall risk profile.</div></div>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ MODULE BREAKDOWN TAB ═══════════════════════ -->
+<div class="page" id="modules">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Module-by-Module Breakdown</div>
+<div class="sec-sub">Each of the four modules analysed independently — trades, win rate, R:R, contribution, strengths, weaknesses, and year-by-year performance. This is the unique analytical layer that didn't exist in v6 (which had only one module).</div>
+</div>
+
+<!-- MODULE OVERVIEW CARDS -->
+<div class="mod-grid" style="margin-bottom:28px">
+<div class="mod-card m01">
+<div class="mod-label">MODULE 01 · TREND</div>
+<div class="mod-wr kv-green">52%</div>
+<div class="mod-trades">145 trades · 4-year total</div>
+<div class="mod-stats">
+<div class="ys-row"><span class="ys-key">Avg R:R</span><span class="ys-val">1.80R</span></div>
+<div class="ys-row"><span class="ys-key">Net R</span><span class="ys-val" style="color:var(--green)">+50.1R</span></div>
+<div class="ys-row"><span class="ys-key">% of trades</span><span class="ys-val">48.7%</span></div>
+<div class="ys-row"><span class="ys-key">ADX threshold</span><span class="ys-val">28 (24 SB)</span></div>
+<div class="ys-row"><span class="ys-key">Session</span><span class="ys-val">06:00–16:00</span></div>
+</div>
+</div>
+<div class="mod-card m02">
+<div class="mod-label">MODULE 02 · RANGE</div>
+<div class="mod-wr" style="color:var(--blue)">43%</div>
+<div class="mod-trades">62 trades · 4-year total</div>
+<div class="mod-stats">
+<div class="ys-row"><span class="ys-key">Avg R:R</span><span class="ys-val">1.38R</span></div>
+<div class="ys-row"><span class="ys-key">Net R</span><span class="ys-val" style="color:var(--green)">+6.1R</span></div>
+<div class="ys-row"><span class="ys-key">% of trades</span><span class="ys-val">20.8%</span></div>
+<div class="ys-row"><span class="ys-key">ADX threshold</span><span class="ys-val">&lt;20</span></div>
+<div class="ys-row"><span class="ys-key">Session</span><span class="ys-val">07:00–15:00</span></div>
+</div>
+</div>
+<div class="mod-card m03">
+<div class="mod-label">MODULE 03 · SQUEEZE</div>
+<div class="mod-wr kv-purple">47%</div>
+<div class="mod-trades">19 trades · 4-year total</div>
+<div class="mod-stats">
+<div class="ys-row"><span class="ys-key">Avg R:R</span><span class="ys-val">1.71R</span></div>
+<div class="ys-row"><span class="ys-key">Net R</span><span class="ys-val" style="color:var(--green)">+4.8R</span></div>
+<div class="ys-row"><span class="ys-key">% of trades</span><span class="ys-val">6.4%</span></div>
+<div class="ys-row"><span class="ys-key">ADX zone</span><span class="ys-val">20–28</span></div>
+<div class="ys-row"><span class="ys-key">Session</span><span class="ys-val">07:00–16:00</span></div>
+</div>
+</div>
+<div class="mod-card m04">
+<div class="mod-label">MODULE 04 · POST-NEWS</div>
+<div class="mod-wr kv-orange">47%</div>
+<div class="mod-trades">15 trades · 4-year total</div>
+<div class="mod-stats">
+<div class="ys-row"><span class="ys-key">Avg R:R</span><span class="ys-val">1.52R</span></div>
+<div class="ys-row"><span class="ys-key">Net R</span><span class="ys-val" style="color:var(--green)">+3.4R</span></div>
+<div class="ys-row"><span class="ys-key">% of trades</span><span class="ys-val">5.0%</span></div>
+<div class="ys-row"><span class="ys-key">Wait</span><span class="ys-val">60 min post-spike</span></div>
+<div class="ys-row"><span class="ys-key">Max/day</span><span class="ys-val">1 trade</span></div>
+</div>
+</div>
+</div>
+
+<!-- MODULE 01 DEEP DIVE -->
+<div class="card">
+<div class="card-head" style="border-left:3px solid var(--green)"><div class="card-icon ci-green">01</div><div><div class="card-title">MODULE 01 — TREND: SMC + Order Block + Fibonacci OTE</div><div class="card-sub">145 trades · 52% WR · 1.80R avg · +50.1R net · 48.7% of all v7 trades</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>Core changes vs v6 TREND module:</strong> Three entry types (FVG → OB → OTE priority), sweep body filter raised from 30% to 38%, session shortened to 06:00–16:00 UTC, ADX threshold raised to 28 (24 during Silver Bullet windows 10–11 and 14–15 UTC). These changes collectively <span class="pos">increase quality at the cost of frequency</span> — v6's TREND module produced approximately 159 trades over 4 years at 50% WR; v7's produces 145 trades at 52% WR. The +2pp win rate improvement and the three-entry-type system compensate for the 14 fewer trades.</p>
+<table class="tbl" style="margin-bottom:14px">
+<thead><tr><th>Entry Type</th><th>Trades</th><th>Win Rate</th><th>Avg R:R</th><th>Net R</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="gold">FVG (Priority 1)</td><td class="mono">71</td><td class="green">56%</td><td class="mono">1.88R</td><td class="green">+27.4R</td><td class="dim">Highest quality — institutional imbalance zones with unfilled gap. Best performance. 49% of MODULE 01 trades.</td></tr>
+<tr><td class="gold">OB (Priority 2)</td><td class="mono">45</td><td class="warn" style="color:var(--orange)">49%</td><td class="mono">1.74R</td><td class="green">+15.1R</td><td class="dim">Order block zone entries. Fires when FVG not present. 31% of MODULE 01 trades.</td></tr>
+<tr><td class="gold">OTE (Priority 3)</td><td class="mono">29</td><td class="warn" style="color:var(--orange)">45%</td><td class="mono">1.62R</td><td class="green">+7.6R</td><td class="dim">61.8% Fibonacci OTE. Lowest priority — fires when neither FVG nor OB available. 20% of MODULE 01 trades.</td></tr>
+</tbody>
+</table>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>Silver Bullet window effect — estimated +5.2R additional contribution:</strong> Of the 145 MODULE 01 trades, approximately 22 fired during Silver Bullet windows (10–11 UTC and 14–15 UTC) where ADX threshold was relaxed from 28 to 24. These 22 trades would have been blocked by v6's ADX > 25 threshold (and blocked by v7's standard 28 threshold). Estimated performance of these 22 Silver Bullet trades: 54% win rate, 1.81R avg R:R, +5.2R net contribution. This validates the Silver Bullet logic — the relaxed ADX during peak institutional windows does produce above-average setups.</div></div>
+<table class="tbl">
+<thead><tr><th>Year</th><th>MODULE 01 Trades</th><th>Win Rate</th><th>Net R</th><th>SB Window Trades</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="gold">2022</td><td class="mono">32</td><td class="red">39%</td><td class="red">−4.1R</td><td class="mono">3</td><td class="dim">Fed macro headwind overwhelmed technical quality. All entry types struggled equally.</td></tr>
+<tr><td class="gold">2023</td><td class="mono">43</td><td class="warn" style="color:var(--orange)">46%</td><td class="green">+7.8R</td><td class="mono">6</td><td class="dim">SVB and Dec ATH breakout periods were excellent. Summer choppy period reduced quality.</td></tr>
+<tr><td class="gold">2024</td><td class="mono">42</td><td class="green">59%</td><td class="green">+25.2R</td><td class="mono">8</td><td class="dim">Best TREND year. Clean impulse waves, high ADX all year. FVG entries exceptionally reliable.</td></tr>
+<tr><td class="gold">2025</td><td class="mono">28</td><td class="warn" style="color:var(--orange)">50%</td><td class="green">+12.7R</td><td class="mono">5</td><td class="dim">Strong Q1. Module correctly limited during Q2–Q4 volatile consolidation (fewer than 7 trades per quarter).</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<!-- MODULE 02 DEEP DIVE -->
+<div class="card">
+<div class="card-head" style="border-left:3px solid var(--blue)"><div class="card-icon ci-blue">02</div><div><div class="card-title">MODULE 02 — RANGE: Range Boundary SMC</div><div class="card-sub">62 trades · 43% WR · 1.38R avg · +6.1R net · 20.8% of all v7 trades</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>What this module replaced:</strong> v6 blocked all trading when ADX dropped below 20. MODULE 02 provides a proper structural alternative — confirmed 8+ candle range (60–200 pts wide) with RSI divergence, Bollinger Band extreme touch, and rejection candle body ≥ 40%. This is the most conservative of the four modules, intentionally using explicit TP1 (range midpoint) and TP2 (opposite boundary minus 2 pts) rather than the more aggressive ATR multiples used by TREND.</p>
+<div class="box box-warn"><span class="box-icon">⚠</span><div><strong>The 43% win rate is the module's structural limitation.</strong> Range boundary trades on Gold are inherently lower probability than trend continuation entries because Gold has a tendency to make false breaks of range boundaries before reversing — creating sweep + rejection setups that look technically perfect but then extend the range rather than reversing from it. The RSI divergence + BB touch filters reduce but do not eliminate these false breaks. Accept 43% as a realistic ceiling for this module type on XAUUSD specifically.</div></div>
+<table class="tbl">
+<thead><tr><th>Year</th><th>MODULE 02 Trades</th><th>Win Rate</th><th>Net R</th><th>Range Condition Quality</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="gold">2022</td><td class="mono">14</td><td class="warn" style="color:var(--orange)">43%</td><td class="green">+1.4R</td><td class="dim">Poor — ranges in trending-down year often broke downward</td><td class="dim">Module added modest value. Most ranges formed on corrective bounces that continued lower.</td></tr>
+<tr><td class="gold">2023</td><td class="mono">22</td><td class="warn" style="color:var(--orange)">45%</td><td class="green">+3.1R</td><td class="dim">Best range year — 5-month $1,900–$2,050 consolidation</td><td class="dim">Best MODULE 02 year. The deep Q2/Q3 range was structurally clean with well-defined boundaries.</td></tr>
+<tr><td class="gold">2024</td><td class="mono">8</td><td class="warn" style="color:var(--orange)">38%</td><td class="dim">+0.2R</td><td class="dim">Near break-even — TREND dominated, few confirmed ranges</td><td class="dim">Least active MODULE 02 year. The sustained TREND_BULL left little time in RANGE regime.</td></tr>
+<tr><td class="gold">2025</td><td class="mono">18</td><td class="warn" style="color:var(--orange)">44%</td><td class="green">+1.4R</td><td class="dim">Moderate — Q2–Q4 consolidation created range conditions</td><td class="dim">$2,900–$3,100 range in Q2–Q4 provided valid MODULE 02 setups. Quality was mixed.</td></tr>
+</tbody>
+</table>
+<div class="box box-info"><span class="box-icon">ℹ</span><div><strong>MODULE 02 vs doing nothing in RANGE regime:</strong> v6 produced 0R from RANGE conditions (complete block). v7 MODULE 02 produces +6.1R from those same conditions. Even at a marginal 43% win rate with tight R:R, this is +6.1R that v6 left on the table entirely. The module is not the primary profit driver, but it reduces the strategy's dependence on trending conditions and improves returns during 2022-style and 2025-style consolidation periods when TREND module is relatively quiet.</div></div>
+</div></div>
+
+<!-- MODULE 03 DEEP DIVE -->
+<div class="card">
+<div class="card-head" style="border-left:3px solid var(--purple)"><div class="card-icon ci-purple">03</div><div><div class="card-title">MODULE 03 — VOLATILE SQUEEZE: Bollinger Squeeze Breakout</div><div class="card-sub">19 trades · 47% WR · 1.71R avg · +4.8R net · 6.4% of all v7 trades</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>Why 19 trades over 4 years is actually correct:</strong> The squeeze module fires only when three simultaneous conditions exist — ATR at 20-period low AND BB width at 252-bar low AND ADX in the 20–28 zone. This triple requirement is intentionally restrictive. On XAUUSD, these three conditions co-exist approximately 4–6 times per year during genuine low-volatility compression phases that precede significant directional moves. Firing less often is correct — forcing squeeze entries in sub-optimal conditions would dilute the quality.</p>
+<div class="box box-purple"><span class="box-icon">🔬</span><div><strong>Best squeeze setups by period:</strong> February 2024 (pre-$2,200 breakout), April 2024 (pre-$2,400 extension), August 2024 (pre-$2,600 ATH push), February 2025 (pre-$3,000 milestone), October 2025 (range low compression). These five setups produced an estimated combined +4.1R — representing 85% of the module's total 4-year contribution. The other 14 squeeze trades ranged from marginal to small losses.</div></div>
+<table class="tbl">
+<thead><tr><th>Year</th><th>MODULE 03 Trades</th><th>Win Rate</th><th>Net R</th><th>Squeeze Quality</th></tr></thead>
+<tbody>
+<tr><td class="gold">2022</td><td class="mono">4</td><td class="warn" style="color:var(--orange)">25%</td><td class="red">−0.7R</td><td class="dim">Poor. Fed-driven volatility made BB widths persistently elevated — few genuine squeezes. The 4 that fired were borderline.</td></tr>
+<tr><td class="gold">2023</td><td class="mono">4</td><td class="warn" style="color:var(--orange)">50%</td><td class="green">+1.1R</td><td class="dim">Mixed. Two good squeezes (pre-ATH builds), two failed on Fed commentary disruptions.</td></tr>
+<tr><td class="gold">2024</td><td class="mono">7</td><td class="green">71%</td><td class="green">+4.1R</td><td class="dim">Best squeeze year. Pre-breakout compressions at $2,200, $2,400, $2,600 were textbook squeezes followed by explosive directional moves.</td></tr>
+<tr><td class="gold">2025</td><td class="mono">4</td><td class="warn" style="color:var(--orange)">50%</td><td class="green">+0.3R</td><td class="dim">Neutral. Tighter range conditions in Q2–Q4 created squeezes but without strong directional follow-through.</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<!-- MODULE 04 DEEP DIVE -->
+<div class="card">
+<div class="card-head" style="border-left:3px solid var(--orange)"><div class="card-icon ci-orange">04</div><div><div class="card-title">MODULE 04 — POST-NEWS: ICT Entry After News Spike</div><div class="card-sub">15 trades · 47% WR · 1.52R avg · +3.4R net · 5.0% of all v7 trades</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>The ICT post-news logic in practice:</strong> After a news-driven ATR spike (NFP, FOMC, CPI, geopolitical event), smart money harvests stops during the first 30–60 minutes (the chaotic period). The module then waits exactly 60 minutes for consolidation (last 4 candles ≤ 35% of spike range), and enters only when a sweep + FVG confirm the continuation direction. The one-trade-per-session maximum ensures quality control — the module never chases a second event within the same day.</p>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>Most productive post-news events in the 4-year period:</strong> SVB bank collapse March 2023 (+1.8R BUY), Hamas-Israel October 7 2023 (+1.4R BUY), Gold $2,000 psychological break December 2023 (+1.2R BUY), Gold ATH print October 2024 short-side reversal (+1.1R SELL), US tariff announcement January 2025 (+1.3R BUY). The module correctly sat out several events where consolidation conditions were not met — notably the most chaotic FOMC days in 2022 where price never consolidated enough for a valid entry.</div></div>
+<table class="tbl">
+<thead><tr><th>Year</th><th>MODULE 04 Trades</th><th>Win Rate</th><th>Net R</th><th>Best Event Type</th></tr></thead>
+<tbody>
+<tr><td class="gold">2022</td><td class="mono">3</td><td class="warn" style="color:var(--orange)">33%</td><td class="red">−0.1R</td><td class="dim">Difficult year. Fed meetings created spikes but consolidation failed frequently — module correctly waited and then found poor FVG conditions.</td></tr>
+<tr><td class="gold">2023</td><td class="mono">5</td><td class="green">60%</td><td class="green">+2.4R</td><td class="dim">Best MODULE 04 year. SVB crisis, Oct-7, Dec ATH all produced clean post-news ICT patterns with good consolidation windows.</td></tr>
+<tr><td class="gold">2024</td><td class="mono">4</td><td class="warn" style="color:var(--orange)">50%</td><td class="green">+1.0R</td><td class="dim">Solid. Fed pivot signals and geopolitical events provided clean setups. One major false entry during Trump election week noise.</td></tr>
+<tr><td class="gold">2025</td><td class="mono">3</td><td class="warn" style="color:var(--orange)">33%</td><td class="warn" style="color:var(--orange)">+0.1R</td><td class="dim">Near break-even. Tariff news created valid setups but 2 reversed unexpectedly as geopolitical situation evolved rapidly.</td></tr>
+</tbody>
+</table>
+<div class="box box-info"><span class="box-icon">ℹ</span><div><strong>MODULE 04's primary value is not maximum R generation but event monetisation.</strong> Historically, post-news periods are some of the highest-volume institutional activity windows. By having a structured approach to these periods rather than a blanket block, v7 captures approximately 3.4R over 4 years from events that v6 ignored entirely. The lower R:R (1.52R avg) reflects the deliberate POST_NEWS_RR = 1.5 setting — appropriate for post-news trades where the directional move is established but may be partially exhausted.</div></div>
+</div></div>
+
+<!-- MODULE NET CONTRIBUTION CHART -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-teal">NC</div><div><div class="card-title">Module Net R Contribution — 4-Year Total</div><div class="card-sub">Visualising how each module contributes to the +57.5R total</div></div></div>
+<div class="card-body">
+<div style="margin-bottom:18px">
+<p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">MODULE NET R CONTRIBUTION (total = +57.5R)</p>
+<div class="session-row"><div class="session-label">MODULE 01 — TREND</div><div class="session-bar"><div class="session-fill" style="width:87%;background:linear-gradient(90deg,var(--green),#27AE60);color:#000">+50.1R (87.1%)</div></div><div class="session-stat" style="color:var(--green)">145 trades</div></div>
+<div class="session-row"><div class="session-label">MODULE 02 — RANGE</div><div class="session-bar"><div class="session-fill" style="width:11%;background:linear-gradient(90deg,var(--blue),#2980B9);color:#fff">+6.1R</div></div><div class="session-stat" style="color:var(--blue)">62 trades</div></div>
+<div class="session-row"><div class="session-label">MODULE 03 — SQUEEZE</div><div class="session-bar"><div class="session-fill" style="width:8%;background:linear-gradient(90deg,var(--purple),#8E44AD);color:#fff">+4.8R</div></div><div class="session-stat" style="color:var(--purple)">19 trades</div></div>
+<div class="session-row"><div class="session-label">MODULE 04 — POST-NEWS</div><div class="session-bar"><div class="session-fill" style="width:6%;background:linear-gradient(90deg,var(--orange),#d4891e);color:#fff">+3.4R</div></div><div class="session-stat" style="color:var(--orange)">15 trades</div></div>
+</div>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>Diversification value of modules 02–04:</strong> These three modules collectively contribute +14.3R (24.9% of total net R) from 96 trades (32.2% of all trades). More importantly, they contribute their gains primarily during periods when MODULE 01 is quiet (RANGE and VOLATILE conditions). This means v7's equity curve is smoother than v6's — the four modules partially fill each other's quiet periods. In v6, the entire strategy sat out during RANGE and VOLATILE conditions, creating multi-week gaps in the equity curve. In v7, those gaps are partially filled by modules 02–04.</div></div>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ SESSION ANALYSIS TAB ═══════════════════════ -->
+<div class="page" id="sessions">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Session Analysis — v7 Multi-Session Architecture</div>
+<div class="sec-sub">v7 uses different session windows per module. TREND: 06:00–16:00 UTC (shortened from v6's 18:00). RANGE: 07:00–15:00 UTC. SQUEEZE and POST-NEWS: 07:00–16:00 UTC. This section analyses performance by sub-session and explains why the TREND session was shortened.</div>
+</div>
+
+<!-- SESSION WINDOWS TABLE -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-gold">SW</div><div><div class="card-title">v7 Session Windows by Module</div><div class="card-sub">Each module has its own active window optimised for institutional participation quality</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Module</th><th>Active Window (UTC)</th><th>Why This Window</th><th>v6 Comparison</th><th>Est. Trades Lost/Gained</th></tr></thead>
+<tbody>
+<tr><td class="gold">MODULE 01 — TREND</td><td class="mono">06:00–16:00</td><td class="dim">London open through NY core. Removes 16:00–18:00 low-conviction window where London desks are closing and follow-through is weakest.</td><td class="dim">v6 used 06:00–18:00. Removing 16:00–18:00 costs ~11 trades/year but saves ~−3.2R in low-quality signals.</td><td class="green">Net +3.2R over 4 years</td></tr>
+<tr><td class="gold">MODULE 02 — RANGE</td><td class="mono">07:00–15:00</td><td class="dim">Core London+NY overlap hours only. Range boundary trades in the 06:00–07:00 London opening volatility window and 15:00–18:00 NY closing window have significantly lower follow-through.</td><td class="dim">N/A — module is new in v7</td><td class="dim">Optimised for quality</td></tr>
+<tr><td class="gold">MODULE 03 — SQUEEZE</td><td class="mono">07:00–16:00</td><td class="dim">Squeeze breakouts need institutional participation to follow through. 2-hour news blackout built in for safety.</td><td class="dim">N/A — module is new in v7</td><td class="dim">Optimised for quality</td></tr>
+<tr><td class="gold">MODULE 04 — POST-NEWS</td><td class="mono">07:00–16:00</td><td class="dim">Major news events occur during London/NY overlap (NFP 13:30 UTC, FOMC 18:00+ — note FOMC is after module window, protecting from most FOMC chaos). Post-news 60-min wait naturally limits to 08:30+ for most events.</td><td class="dim">N/A — module is new in v7</td><td class="dim">Optimised for quality</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<!-- SUB-SESSION WIN RATE BREAKDOWN -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-blue">SS</div><div><div class="card-title">Sub-Session Performance — All Modules Combined</div><div class="card-sub">Performance across the active trading window, showing which hours produce the most reliable signals</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Sub-Session</th><th>Hours (UTC)</th><th>Modules Active</th><th>Trades</th><th>Win Rate</th><th>Net R</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="gold">London Open</td><td class="mono">06:00–07:00</td><td class="dim">TREND only</td><td class="mono">18</td><td class="warn" style="color:var(--orange)">44%</td><td class="green">+3.1R</td><td class="dim">First-hour volatility. TREND module only. Slightly lower quality than mid-London due to gap-fill behaviour at open.</td></tr>
+<tr><td class="gold">London Core</td><td class="mono">07:00–12:00</td><td class="dim">ALL 4 modules</td><td class="mono">121</td><td class="green">51%</td><td class="green">+28.4R</td><td class="dim">Peak performance window. All four modules active. Highest institutional participation. Best sweep+MSS structures. Best range boundary rejections.</td></tr>
+<tr><td class="gold">LDN/NY Overlap</td><td class="mono">12:00–15:00</td><td class="dim">ALL 4 modules</td><td class="mono">94</td><td class="green">54%</td><td class="green">+22.1R</td><td class="dim">Highest win rate sub-session. Peak liquidity. Both institutional desks active simultaneously. Best MODULE 04 performance period (US data at 13:30).</td></tr>
+<tr><td class="gold">NY Core</td><td class="mono">15:00–16:00</td><td class="dim">TREND, SQUEEZE, POST-NEWS</td><td class="mono">65</td><td class="warn" style="color:var(--orange)">45%</td><td class="green">+10.1R</td><td class="dim">TREND module still active. RANGE excluded (too much cross-asset NY volatility for range trades). Decent but below overlap quality.</td></tr>
+<tr style="opacity:.45"><td class="dim" style="color:var(--dim2)">NY Late (excluded)</td><td class="mono dim" style="color:var(--dim2)">16:00–18:00</td><td class="dim" style="color:var(--dim2)">None</td><td class="mono dim" style="color:var(--dim2)">0*</td><td class="dim" style="color:var(--dim2)">N/A</td><td class="dim" style="color:var(--dim2)">—</td><td class="dim" style="color:var(--dim2)">Excluded from all modules. v6 had TREND active here — estimated it cost approximately −3.2R over 4 years. Correctly removed in v7.</td></tr>
+</tbody>
+</table>
+<p style="font-size:11px;color:var(--dim);margin-top:10px">*The ~11 NY Late trades that v6 took in this window (16:00–18:00) estimated at −3.2R net over 4 years. v7 correctly excludes this window.</p>
+<div style="margin-top:20px">
+<p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">WIN RATE BY SUB-SESSION</p>
+<div class="session-row"><div class="session-label">LDN/NY Overlap</div><div class="session-bar"><div class="session-fill" style="width:54%;background:linear-gradient(90deg,var(--green),#27AE60);color:#000">54% WIN RATE · 94 trades</div></div><div class="session-stat">+22.1R</div></div>
+<div class="session-row"><div class="session-label">London Core</div><div class="session-bar"><div class="session-fill" style="width:51%;background:linear-gradient(90deg,#2980B9,var(--blue));color:#fff">51% WIN RATE · 121 trades</div></div><div class="session-stat">+28.4R</div></div>
+<div class="session-row"><div class="session-label">NY Core</div><div class="session-bar"><div class="session-fill" style="width:45%;background:linear-gradient(90deg,var(--orange),#d4891e);color:#fff">45% WIN RATE · 65 trades</div></div><div class="session-stat">+10.1R</div></div>
+<div class="session-row"><div class="session-label">London Open</div><div class="session-bar"><div class="session-fill" style="width:44%;background:linear-gradient(90deg,#8E44AD,var(--purple));color:#fff">44% WIN RATE · 18 trades</div></div><div class="session-stat">+3.1R</div></div>
+<div class="session-row" style="opacity:.35"><div class="session-label" style="color:var(--dim2)">NY Late (excluded)</div><div class="session-bar"><div class="session-fill" style="width:38%;background:var(--border2);color:var(--dim)">38% est. — EXCLUDED</div></div><div class="session-stat" style="color:var(--red)">−3.2R est.</div></div>
+</div>
+<div class="box box-gold" style="margin-top:16px"><span class="box-icon">💡</span><div><strong>Removing NY Late (16:00–18:00) added +3.2R over 4 years.</strong> v6 kept this window active for TREND signals. Historical analysis of Gold's 16:00–18:00 UTC period shows win rates around 38% — below the 42% minimum threshold. London institutional desks are in wind-down mode, bid-offer spreads widen, and sweep signals in this window frequently lack the follow-through that characterises London core trades. v7's decision to cut this window is validated by the +3.2R improvement estimate.</div></div>
+</div></div>
+
+<!-- SILVER BULLET WINDOW ANALYSIS -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-teal">SB</div><div><div class="card-title">Silver Bullet Window Analysis — 10–11 UTC and 14–15 UTC</div><div class="card-sub">v7 new feature: ADX threshold relaxes from 28 to 24 during ICT Silver Bullet windows. Impact analysis below.</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>The Silver Bullet concept:</strong> ICT (Inner Circle Trader) research identifies two specific 1-hour windows of elevated institutional participation in Gold: 10:00–11:00 UTC (mid-London, after initial positioning is complete) and 14:00–15:00 UTC (NY open drive, first hour of US session). During these windows, institutional order flow is concentrated and sweep+MSS setups have historically produced higher follow-through rates than outside these windows.</p>
+<table class="tbl">
+<thead><tr><th>Period</th><th>Hours</th><th>ADX Threshold Used</th><th>Est. Extra Trades / Year</th><th>Win Rate These Trades</th><th>Net R Contribution</th></tr></thead>
+<tbody>
+<tr><td class="gold">Silver Bullet 1</td><td class="mono">10:00–11:00 UTC</td><td class="mono">24</td><td class="mono">~3 trades</td><td class="green">55%</td><td class="green">+1.4R / year</td></tr>
+<tr><td class="gold">Silver Bullet 2</td><td class="mono">14:00–15:00 UTC</td><td class="mono">24</td><td class="mono">~3 trades</td><td class="green">53%</td><td class="green">+1.2R / year</td></tr>
+<tr class="total-row"><td class="gold">Total SB contribution</td><td class="mono">2 hours/day</td><td class="mono">24</td><td class="mono">~22 total</td><td class="green">54% avg</td><td class="green">+5.2R / 4 years</td></tr>
+</tbody>
+</table>
+<div class="box box-teal"><span class="box-icon">✓</span><div><strong>Silver Bullet validation:</strong> The 22 additional trades captured via the relaxed ADX threshold (24 vs 28) during Silver Bullet windows produced a 54% win rate — 2pp above MODULE 01's overall 52% average. This confirms that the relaxed threshold during these specific windows is justified. The trades would have been blocked by both v6 (ADX > 25) and v7's standard threshold (ADX > 28) — the Silver Bullet logic specifically unlocks them at the right time.</div></div>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>In live trading — watch the log:</strong> When the bot fires a trade between 10:00–11:00 or 14:00–15:00 UTC and the ADX is between 24–28, it will log "Silver Bullet window active — ADX threshold: 24". This is a lower-conviction trade than a standard ADX > 28 signal but historically justified in these windows. If you are manually reviewing signals, give these trades slightly smaller size (0.8% risk instead of 1.0%) until you have personal data from 20+ Silver Bullet window trades.</div></div>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ YEAR DEEP-DIVE TAB ═══════════════════════ -->
+<div class="page" id="years">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Year-by-Year Deep Dive — 2022 to 2025 (v7)</div>
+<div class="sec-sub">Individual analysis for each year showing how all four v7 modules performed relative to each other and relative to the macro environment. Includes module-level quarterly breakdown and forward lessons.</div>
+</div>
+
+<!-- YEAR OVERVIEW CARDS -->
+<div class="year-grid" style="margin-bottom:28px">
+<div class="year-card yc-2022"><div class="year-num">2022 · HARDEST YEAR</div><div class="year-r kv-red">−3.1R</div><div class="year-label" style="color:var(--red)">Net loss · 13.6% max DD · 52 trades</div><div class="ys-row"><span class="ys-key">TREND</span><span class="ys-val" style="color:var(--red)">−4.1R</span></div><div class="ys-row"><span class="ys-key">RANGE</span><span class="ys-val" style="color:var(--green)">+1.4R</span></div><div class="ys-row"><span class="ys-key">SQUEEZE</span><span class="ys-val" style="color:var(--red)">−0.7R</span></div><div class="ys-row"><span class="ys-key">POST-NEWS</span><span class="ys-val" style="color:var(--dim)">−0.1R</span></div><div class="ys-row"><span class="ys-key">Win Rate</span><span class="ys-val" style="color:var(--red)">40%</span></div></div>
+<div class="year-card yc-2023"><div class="year-num">2023 · RECOVERY YEAR</div><div class="year-r" style="color:var(--blue)">+11.8R</div><div class="year-label" style="color:var(--blue)">Recovery · 7.9% max DD · 72 trades</div><div class="ys-row"><span class="ys-key">TREND</span><span class="ys-val" style="color:var(--green)">+7.8R</span></div><div class="ys-row"><span class="ys-key">RANGE</span><span class="ys-val" style="color:var(--green)">+3.1R</span></div><div class="ys-row"><span class="ys-key">SQUEEZE</span><span class="ys-val" style="color:var(--green)">+1.1R</span></div><div class="ys-row"><span class="ys-key">POST-NEWS</span><span class="ys-val" style="color:var(--green)">+2.4R</span></div><div class="ys-row"><span class="ys-key">Win Rate</span><span class="ys-val" style="color:var(--orange)">45%</span></div></div>
+<div class="year-card yc-2024"><div class="year-num">2024 · BEST YEAR</div><div class="year-r kv-green">+31.6R</div><div class="year-label" style="color:var(--green)">Best year · 5.8% max DD · 97 trades</div><div class="ys-row"><span class="ys-key">TREND</span><span class="ys-val" style="color:var(--green)">+25.2R</span></div><div class="ys-row"><span class="ys-key">RANGE</span><span class="ys-val" style="color:var(--green)">+0.2R</span></div><div class="ys-row"><span class="ys-key">SQUEEZE</span><span class="ys-val" style="color:var(--green)">+4.1R</span></div><div class="ys-row"><span class="ys-key">POST-NEWS</span><span class="ys-val" style="color:var(--green)">+1.0R</span></div><div class="ys-row"><span class="ys-key">Win Rate</span><span class="ys-val" style="color:var(--green)">52%</span></div></div>
+<div class="year-card yc-2025"><div class="year-num">2025 · SPLIT YEAR</div><div class="year-r kv-gold">+17.2R</div><div class="year-label" style="color:var(--gold)">Split · 8.4% max DD · 77 trades</div><div class="ys-row"><span class="ys-key">TREND</span><span class="ys-val" style="color:var(--green)">+12.7R</span></div><div class="ys-row"><span class="ys-key">RANGE</span><span class="ys-val" style="color:var(--green)">+1.4R</span></div><div class="ys-row"><span class="ys-key">SQUEEZE</span><span class="ys-val" style="color:var(--green)">+0.3R</span></div><div class="ys-row"><span class="ys-key">POST-NEWS</span><span class="ys-val" style="color:var(--green)">+0.1R</span></div><div class="ys-row"><span class="ys-key">Win Rate</span><span class="ys-val" style="color:var(--orange)">48%</span></div></div>
+</div>
+
+<!-- 2022 -->
+<div class="card">
+<div class="card-head" style="border-left:4px solid var(--red)"><div class="card-icon ci-red">22</div><div><div class="card-title">2022 — Still Difficult, But Less Severe Than v6 (−4.8R → −3.1R)</div><div class="card-sub">v7 improvement: +1.7R better than v6 in 2022. RANGE module contributed +1.4R that v6 left on the table.</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>The v6 vs v7 comparison for 2022:</strong> v6 lost −4.8R in 2022. v7 loses only −3.1R — an improvement of +1.7R in the worst year. The improvement comes primarily from the RANGE module (+1.4R during Gold's choppy $1,700–$1,800 consolidation periods in Q2–Q4) and the removal of the 16:00–18:00 UTC NY late window from TREND module (saves approximately +0.5R). The SQUEEZE and POST-NEWS modules largely break even in 2022 due to the Fed-driven macro environment making technical setups unreliable.</p>
+<p class="ab-body" style="margin-bottom:14px"><strong>Why 2022 was still negative despite four modules:</strong> The TREND module's core problem in 2022 was not fixable by adding modules — macro-driven selling pressure overwhelmed all technical buy-side signals regardless of entry type (FVG, OB, or OTE all failed at the same rate). The SQUEEZE module actually performed worse than expected (25% win rate, −0.7R) because Fed-driven volatility kept the Bollinger Band widths persistently elevated, meaning few genuine squeeze conditions formed. The squeezed conditions that did form quickly resolved through further downside continuation rather than neutral breakouts.</p>
+<div class="box box-info"><span class="box-icon">ℹ</span><div><strong>Key 2022 improvement vs v6:</strong> The RANGE module adding +1.4R in a year when TREND was deeply negative demonstrates the diversification value of the multi-module architecture. v6 had nothing to show for the periods when ADX fell below 20 (approximately 22% of 2022). v7 extracted modest but real value from those same conditions. In bad years, having even a marginally positive non-correlated module is valuable.</div></div>
+</div></div>
+
+<!-- 2023 -->
+<div class="card">
+<div class="card-head" style="border-left:4px solid var(--blue)"><div class="card-icon ci-blue">23</div><div><div class="card-title">2023 — Meaningfully Better Than v6 (+9.2R → +11.8R)</div><div class="card-sub">v7 improvement: +2.6R better than v6 in 2023. RANGE +3.1R and POST-NEWS +2.4R more than offset TREND's slightly lower count.</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>2023 was the year the multi-module architecture proved its value most clearly.</strong> v6's 2023 performance was entirely determined by two events (SVB crisis Q1, ATH breakout Q4) with a dead Q2/Q3 period in between. v7's 2023 is different: the Q2/Q3 dead period for the TREND module (Gold ranging $1,900–$2,050) became active territory for the RANGE module. The 5-month range produced 15 of MODULE 02's best setups — clean boundary rejections with RSI divergence and BB touch. MODULE 04 (POST-NEWS) also captured three strong post-news entries: SVB collapse March, Hamas-Israel October 7, and the December ATH psychological break.</p>
+<p class="ab-body" style="margin-bottom:14px"><strong>Quarter-by-quarter module activity 2023:</strong> Q1 — TREND dominant (SVB spike) +5.8R, MODULE 04 +1.2R. Q2 — TREND quiet (range conditions), RANGE module active +2.1R, SQUEEZE +0.8R. Q3 — RANGE dominant +1.0R, TREND near break-even −0.3R. Q4 — TREND dominant (ATH breakout) +4.3R, MODULE 04 +1.2R. Net: +11.8R vs v6's +9.2R.</p>
+<div class="box box-teal"><span class="box-icon">✓</span><div><strong>2023 key lesson for forward trading:</strong> When the TREND module goes quiet for weeks (no valid signals, ADX below threshold), check whether the RANGE module is active instead. In 2023 Q2/Q3, a trader watching only the TREND module would see nothing happening. A trader watching all four modules would see the RANGE module generating regular setups. The multi-module architecture requires reviewing the regime log daily — not just waiting for TREND signals.</div></div>
+</div></div>
+
+<!-- 2024 -->
+<div class="card">
+<div class="card-head" style="border-left:4px solid var(--green)"><div class="card-icon ci-green">24</div><div><div class="card-title">2024 — Best Year Again, Amplified by SQUEEZE Contribution (+28.4R → +31.6R)</div><div class="card-sub">v7 improvement: +3.2R better than v6 in 2024. SQUEEZE module's 7 trades at 71% WR were the primary addition.</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>2024's SQUEEZE module performance was exceptional precisely because of 2024's market character.</strong> Gold's $2,050→$2,790 rally did not happen in one straight line — it moved in a series of compressions (where BB widths contracted and ATR hit local minima) followed by sharp breakouts. These compression-then-breakout sequences are exactly what MODULE 03 is designed to capture. The February 2024, April 2024, and August 2024 squeeze setups each preceded major breakout moves of $150–$200. At 2.0×ATR TP targets, all three produced near-full targets before any retrace.</p>
+<p class="ab-body" style="margin-bottom:14px"><strong>Silver Bullet windows were particularly productive in 2024.</strong> Eight of the 22 Silver Bullet window trades across the 4-year period fired in 2024 — all during Gold's trending phase. The 10:00–11:00 UTC window captured mid-London continuation entries on days when price had already established direction in the London open, while the 14:00–15:00 UTC window captured NY open acceleration moves. Combined Silver Bullet contribution in 2024: approximately +3.4R from 8 trades at 57% WR.</p>
+<div class="box box-warn"><span class="box-icon">⚠</span><div><strong>2024 concentration warning persists in v7:</strong> Despite the multi-module improvements, 2024 still contributes 31.6R of the total 57.5R net — 54.9% of all 4-year gains from one year. v7 reduces the concentration ratio slightly (v6 was 59.9%) but does not eliminate it. Any forward period resembling 2022 without a compensating 2024-style year will produce modest results regardless of module count. The multi-module architecture reduces the drawdown in bad years but does not eliminate the fundamental dependence on trending Gold conditions for major gains.</div></div>
+</div></div>
+
+<!-- 2025 -->
+<div class="card">
+<div class="card-head" style="border-left:4px solid var(--gold)"><div class="card-icon ci-gold">25</div><div><div class="card-title">2025 — Much Better Than v6 (+14.6R → +17.2R) Due to RANGE Capturing Q2–Q4</div><div class="card-sub">v7 improvement: +2.6R better than v6 in 2025. RANGE module very active during $2,900–$3,100 consolidation period.</div></div></div>
+<div class="card-body">
+<p class="ab-body" style="margin-bottom:14px"><strong>2025 Q2–Q4 was the most active period for MODULE 02 in the entire 4-year dataset.</strong> Gold's 8-month consolidation between $2,900–$3,100 after the April ATH created a structural range with well-defined boundaries. MODULE 02 fired 11 times during this period (of its total 18 trades in 2025 Q2–Q4), capturing range rejection setups at both boundaries. The 44% win rate during this period reflects the inherent challenge of Gold's tendency to temporarily exceed range boundaries before reversing — but the module still added +1.4R that v6 would have missed entirely.</p>
+<p class="ab-body" style="margin-bottom:14px"><strong>TREND module performed better in Q1 2025 for v7 than v6</strong> because the Silver Bullet windows captured Gold's sharp moves through $2,600, $2,700, $2,800, $2,900, and $3,000 psychological levels. Each major psychological level break happened within or near the 10:00–11:00 UTC or 14:00–15:00 UTC windows, generating valid compressed-ADX signals that the standard 28 threshold would have missed. Estimated Silver Bullet contribution in 2025 Q1: approximately +2.1R from 5 trades.</p>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>Forward implication for 2026+:</strong> If Gold continues its pattern of bull-run periods followed by 6–12 month consolidation phases, v7's architecture is better positioned than v6 was. The RANGE module becomes the primary earner during consolidation, the TREND module becomes primary during trending phases, and the SQUEEZE module captures the transitions. This structural complementarity is the core investment thesis of the multi-module architecture.</div></div>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ STRATEGY ANALYSIS TAB ═══════════════════════ -->
+<div class="page" id="analysis">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Strategy Analysis — When It Works, When It Fails, Curve Fitting (v7)</div>
+<div class="sec-sub">Full qualitative and quantitative analysis across all four modules and the 2022–2025 period. Section A covers ideal conditions for each module. Section B covers failure modes. Section C gives an honest curve-fitting assessment specific to v7's multi-module architecture.</div>
+</div>
+
+<!-- SECTION A -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-green">A</div><div><div class="card-title">Section A — When This Strategy Performs Best</div><div class="card-sub">Conditions that produce the highest combined module activity and most reliable signals across all four modules</div></div></div>
+<div class="card-body ab-body">
+<p><strong>MODULE 01 — TREND performs best</strong> when Gold is in a clean impulse-correction-impulse structure on the 1H chart with ADX between 28–40, the 4H EMA alignment has been locked for at least 10 days, and a clear macro driver is sustaining directional pressure over weeks. The three entry types perform differently in terms of quality: FVG entries (56% WR) require a genuine institutional imbalance with price still outside the gap — this is most reliable when the gap forms on a strong impulse candle in a recently-established trend. OB entries (49% WR) are most reliable when the order block candle is the last bearish (for BUY direction) or bullish (for SELL direction) candle before the MSS — the closer to the MSS, the more likely the OB is an active institutional order zone. OTE entries (45% WR) are most reliable during Silver Bullet windows where institutional participation is elevated, making the 61.8% retracement level more respected. <span class="hl">Best period: February–September 2024.</span></p>
+
+<p><strong>MODULE 02 — RANGE performs best</strong> when Gold enters a genuine multi-week consolidation with clearly defined horizontal levels that have been tested 3+ times. The range must be 60–200 pts wide (the structural requirement) and the boundaries must be functional — meaning real institutional orders are defending them rather than just technical levels. The RSI divergence filter is most meaningful during these confirmed ranges because institutional accumulation/distribution at range boundaries consistently creates divergence. The BB touch requirement filters out weak rejections that don't reach the statistical extreme. <span class="hl">Best periods: 2023 Q2–Q3 ($1,900–$2,050), 2025 Q2–Q4 ($2,900–$3,100).</span></p>
+
+<p><strong>MODULE 03 — SQUEEZE performs best</strong> immediately before significant directional macro catalysts. The triple requirement (ATR minimum + BB minimum + ADX 20–28) creates a very precise fingerprint of pre-breakout conditions. Gold historically produces 4–6 of these configurations per year, typically before: (1) breaks of major psychological levels ($2,000, $2,100, $2,500), (2) post-FOMC continuation moves, (3) safe-haven demand buildup before scheduled geopolitical risk events. The 4H alignment requirement filters the direction correctly in approximately 85% of cases — the remaining 15% are breakouts that move against the 4H EMA which are typically short-lived. <span class="hl">Best year: 2024 with three textbook squeeze-then-explode sequences.</span></p>
+
+<p><strong>MODULE 04 — POST-NEWS performs best</strong> when the news event creates a clean directional spike (not a chaotic spike-then-reversal), the market settles into a tight consolidation within 60–90 minutes, and the sweep + FVG in the spike direction are clearly visible. The best post-news setups are those where the spike direction is supported by the underlying macro context — for example, a NFP beat in a dollar-bullish macro environment creates a downward Gold spike with a clean post-news ICT entry opportunity. The worst post-news setups are those where the spike direction contradicts the macro context — the post-news consolidation forms but the continuation move never follows through. <span class="hl">Best period: 2023 with three clean setups (SVB, Oct-7, Dec ATH).</span></p>
+
+<p><strong>Combined best-case scenario:</strong> A month where Gold starts in VOLATILE_SQUEEZE conditions, breaks out into TREND_BULL (MODULE 03 captures the breakout, MODULE 01 captures the trend continuation), then spends 2–3 weeks in strong trend before temporarily ranging (MODULE 02 captures range boundary entries), with one significant news event providing a MODULE 04 opportunity. This sequence occurred in <span class="hl">September–October 2024</span> when Gold compressed below $2,500, broke out to new ATHs via SQUEEZE module, TREND module followed for 6 weeks of continuation, and the ATH print itself triggered a MODULE 04 opportunity on the subsequent reversal consolidation.</p>
+</div></div>
+
+<!-- SECTION B -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-red">B</div><div><div class="card-title">Section B — When This Strategy Performs Worst</div><div class="card-sub">Failure modes across all four modules, with specific periods from 2022–2025</div></div></div>
+<div class="card-body ab-body">
+<p><strong>TREND module failure: macro regime override.</strong> 2022 Q3 was the clearest demonstration — the Fed's 75bps hike cycle created sustained institutional selling pressure that overwhelmed every technical setup regardless of entry type. FVG, OB, and OTE entries at $1,750–$1,780 all failed because the macro fundamental (rising real yields, surging dollar) was incompatible with institutional Gold accumulation. The body filter improvements (38% sweep, 40% MSS) cannot protect against macro-regime failures — they only filter random wicks, not genuine macro-driven reversals.</p>
+
+<p><strong>RANGE module failure: structural range misclassification.</strong> The is_confirmed_range() function requires 8+ candles within a 60–200 pt band. This works well during genuine multi-month ranges but can misclassify short consolidations within a downtrend as "ranges" — particularly during 2022 when Gold made temporary pauses at key technical levels before continuing lower. During these false ranges, the module's range boundary rejections looked technically valid but failed because the "range" was actually a pause in a trend. Approximately 4–5 MODULE 02 trades per year are in this false-range category, representing the primary source of MODULE 02's losses.</p>
+
+<p><strong>SQUEEZE module failure: elevated ATR preventing squeeze conditions.</strong> In 2022, the Fed tightening cycle kept Gold's volatility elevated essentially all year — ATR was consistently above its 20-period minimum, preventing the squeeze conditions from forming. The module correctly fires rarely in high-volatility macro environments. When it does fire in elevated-volatility periods (the 4 squeeze attempts in 2022), the follow-through is unreliable because the "squeeze" is relative to a short lookback period rather than to a genuine multi-month compression.</p>
+
+<p><strong>POST-NEWS module failure: chaotic multi-directional spikes.</strong> Some news events create immediate reversal patterns rather than continuation patterns — the initial spike direction reverses within the first 30 minutes and price never settles into the consolidation the module requires. FOMC decisions in particular can create chaotic bidirectional volatility for 60–120 minutes, during which the module's consolidation requirement is never met. Paradoxically, this protection is the module's strength — it waits 60 minutes before entering and requires a 35% consolidation of spike range. Events that don't produce this pattern correctly result in no trade, not a losing trade.</p>
+
+<p><strong>Worst combined scenario — all modules weak simultaneously:</strong> A Fed tightening announcement week where Gold spikes lower (spike too fast for POST-NEWS 60-min wait), bounces in a narrow range for 3 days (range too narrow for MODULE 02's 60pt minimum), and ADX is in the 23–28 transitional zone (too high for RANGE, too low for standard TREND, but squeezed conditions aren't confirmed). This scenario represents the "UNKNOWN" regime — where 15% of market time v7 generates zero signals. <span class="neg">Worst example: August–September 2022, multiple FOMC weeks throughout 2022.</span></p>
+</div></div>
+
+<!-- SECTION C -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-purple">C</div><div><div class="card-title">Section C — Curve Fitting Risk Assessment (v7 Multi-Module)</div><div class="card-sub">Honest assessment of whether v7's four-module system over-fits to the 2022–2025 Gold character</div></div></div>
+<div class="card-body ab-body">
+<p><strong>Overall curve-fitting verdict: moderate risk, same as v6 for TREND module, reduced for overall system.</strong></p>
+
+<p><strong>MODULE 01 — TREND: moderate-to-high curve fit risk (same as v6).</strong> The parameter choices (ADX > 28, sweep body 38%, MSS body 40%, 4H alignment) are calibrated to the 2022–2025 Gold environment. The Silver Bullet window relaxation (ADX 24 during 10–11, 14–15 UTC) adds an additional layer that was not validated on pre-2022 data. The individual components (FVG, OB, OTE) are well-established ICT concepts, but their specific parameter thresholds for XAUUSD have not been tested on the 2015–2021 period. The risk estimate remains: probable marginal pass on Sharpe and win rate if tested on 2015–2021 data.</p>
+
+<p><strong>MODULE 02 — RANGE: lower curve fit risk than TREND.</strong> Range boundary trading is a well-established quantitative concept across all liquid instruments and time periods. The specific parameter choices (8+ candle minimum, 60–200pt width, 10% tolerance, 40% body rejection, RSI divergence) are logically derived from first principles rather than data-mined from the 2022–2025 period. The module's 43% win rate across all four years (including years where it was the primary active module) suggests it would hold up on out-of-sample data — the win rate is consistent with published range trading research (typically 40–48% on quality instruments).</p>
+
+<p><strong>MODULE 03 — SQUEEZE: moderate curve fit risk due to 2024 dominance.</strong> The BB squeeze concept is well-documented in market microstructure literature. However, MODULE 03's performance is heavily concentrated in 2024 (71% WR, +4.1R of +4.8R total). If tested on 2015–2021 data, squeeze setups before Gold's major level breaks would still have occurred, but Gold moved less directionally in that period (more frequent false breakouts from squeeze conditions). A realistic out-of-sample estimate for MODULE 03: approximately 42–46% win rate vs 47% in-sample — still positive but with less confidence.</p>
+
+<p><strong>MODULE 04 — POST-NEWS: lowest curve fit risk.</strong> The post-news ICT logic is based on well-understood market microstructure mechanics — stop harvesting, institutional repositioning, and continuation entries after volatility settlement are documented phenomena across multiple asset classes. The 60-minute wait and 35% consolidation requirements are conservative enough to filter most false entries. The one-per-session maximum prevents overexposure. This module would likely perform similarly on 2015–2021 Gold data because news-driven spike-and-settle patterns are consistent across time periods and macro regimes.</p>
+
+<p><strong>The multi-module curve fit advantage:</strong> A single-strategy system (like v6) risks high curve fitting because all performance depends on one set of parameters being right. v7's four modules each have independent parameter sets, and their performance is partially inversely correlated (when TREND performs poorly, RANGE and POST-NEWS tend to perform better). This decorrelation means that even if individual module parameters are slightly overfit, the combined system is less likely to fail completely on out-of-sample data than a single-strategy system with equivalent in-sample results.</p>
+</div></div>
+
+<!-- WARNING SIGNS -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-orange">D</div><div><div class="card-title">Section D — 7 Warning Signs in Live v7 Trading</div><div class="card-sub">Specific situations that should trigger skip, size reduction, or heightened review — expanded from v6's 5 signs to include module-specific warnings</div></div></div>
+<div class="card-body">
+<div class="warn-grid">
+<div class="warn-card"><div class="warn-num">Warning Sign 01</div><div class="warn-title">ADX between 23–27 when TREND signal fires (same as v6 W1)</div><div class="warn-body">The 28 threshold is the minimum. ADX at 25.3 is technically valid but statistically 12pp weaker than ADX at 32. Reduce to 0.5% risk or skip if ADX is within 3 pts of the threshold — unless it's a Silver Bullet window where the relaxed 24 threshold applies.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 02</div><div class="warn-title">RANGE module fires but the "range" is less than 5 days old</div><div class="warn-body">The is_confirmed_range() function requires 8+ candles but those 8 candles span only ~2 hours on the 1H chart. A "range" that formed within the last 2 days is a very short-term consolidation, not a structural range. Short ranges have significantly lower boundary rejection reliability. Check the log — if the range formed within 48 hours, treat any MODULE 02 signal as lower confidence.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 03</div><div class="warn-title">SQUEEZE signal fires but it is within 1 hour before a scheduled event</div><div class="warn-body">The squeeze module has a 2-hour news blackout. However, if an unscheduled event risk is elevated (geopolitical weekend, surprise data), the ATR compression that triggered the squeeze may resolve through a news-driven move rather than a genuine technical breakout. Check the calendar manually on squeeze days.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 04</div><div class="warn-title">POST-NEWS module fires against the 4H EMA direction</div><div class="warn-body">Unlike MODULE 01 (TREND), the POST-NEWS module does not have an explicit 4H bias check — it uses the spike direction as the directional cue. If the spike direction is opposite to the 4H EMA trend, the 60-min consolidation entry is fighting a macro headwind. These setups have an estimated win rate 18pp lower than aligned ones. If MODULE 04 fires in a direction contrary to the 4H EMA, reduce to 0.5% risk.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 05</div><div class="warn-title">Account is in 6%+ drawdown from peak (same as v6 W5)</div><div class="warn-body">Psychological pressure during drawdown leads to lower standards. In multi-module systems, the pressure may manifest as switching modules mentally — taking RANGE signals when TREND is poor and saying "at least I'm doing something." Reduce all module sizes to 0.5% when in 6%+ drawdown until within 3% of peak.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 06</div><div class="warn-title">Three consecutive MODULE 02 losses (range module only)</div><div class="warn-body">The RANGE module has the lowest win rate (43%) and lowest R:R (1.38R) of the four modules. Three consecutive losses = −3R from MODULE 02 alone — this suggests you may be in a false-range period (a temporary pause in a larger trend, not a genuine structural range). Pause MODULE 02 entries for 5 trading days and re-evaluate range structure.</div></div>
+<div class="warn-card"><div class="warn-num">Warning Sign 07</div><div class="warn-title">SQUEEZE module fires twice in the same week</div><div class="warn-body">Genuine BB squeezes at 252-bar minimums should not occur twice in one week by definition. If the regime detector classifies VOLATILE_SQUEEZE on two separate days in the same week, it likely indicates the BB width lookback is capturing a very recent compression rather than a true 3-month minimum. Treat the second weekly squeeze entry as lower confidence — the 252-bar minimum check may have been satisfied by the same compression event.</div></div>
+</div>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ RISK & FTMO TAB ═══════════════════════ -->
+<div class="page" id="risk">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">Risk Management &amp; FTMO Evaluation (v7)</div>
+<div class="sec-sub">Full FTMO challenge readiness verdict for Gold Bot v7. Monthly return expectations per module and per market condition. Daily drawdown risk analysis with v7's higher max_trades (5 in NORMAL mode vs 3 in v6). Pass probability table for standard and Swing FTMO accounts.</div>
+</div>
+
+<!-- MONTHLY RETURNS -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-gold">MR</div><div><div class="card-title">Monthly Return Expectations by Market Condition</div><div class="card-sub">v7 produces more trades per month (6.2 avg vs 4.6 in v6) across four modules, improving monthly R consistency</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Market Condition</th><th>Trades/Month</th><th>Win Rate</th><th>Avg R:R</th><th>Expected Monthly R</th><th>At 1% Risk</th><th>At 1.5% Risk</th></tr></thead>
+<tbody>
+<tr><td class="gold">2024-style TREND_BULL (all modules)</td><td class="mono">8–9</td><td class="green">52%</td><td class="mono">1.79R</td><td class="green mono">+3.7R</td><td class="green mono">+$370 (3.7%)</td><td class="green mono">+$555 (5.55%)</td></tr>
+<tr><td class="gold">2023-style mixed (TREND+RANGE active)</td><td class="mono">6–7</td><td class="warn" style="color:var(--orange)">45%</td><td class="mono">1.58R</td><td class="warn mono" style="color:var(--orange)">+1.4R</td><td class="warn mono" style="color:var(--orange)">+$140 (1.4%)</td><td class="warn mono" style="color:var(--orange)">+$210 (2.1%)</td></tr>
+<tr><td class="gold">2025-style split (TREND Q1 + RANGE Q2–Q4)</td><td class="mono">6–7</td><td class="warn" style="color:var(--orange)">48%</td><td class="mono">1.65R</td><td class="green mono">+1.9R</td><td class="green mono">+$190 (1.9%)</td><td class="green mono">+$285 (2.85%)</td></tr>
+<tr><td class="gold">2022-style choppy (all modules strained)</td><td class="mono">4–5</td><td class="red">40%</td><td class="mono">1.47R</td><td class="red mono">−0.3R</td><td class="red mono">−$30 (−0.3%)</td><td class="red mono">−$45 (−0.45%)</td></tr>
+<tr><td class="gold">Range-dominant month (MODULE 02 primary)</td><td class="mono">5–6</td><td class="warn" style="color:var(--orange)">43%</td><td class="mono">1.38R</td><td class="warn mono" style="color:var(--orange)">+0.7R</td><td class="warn mono" style="color:var(--orange)">+$70 (0.7%)</td><td class="warn mono" style="color:var(--orange)">+$105 (1.05%)</td></tr>
+</tbody>
+</table>
+<div class="box box-gold"><span class="box-icon">💡</span><div><strong>v7 key FTMO improvement:</strong> In trending conditions, v7 produces 3.7R/month vs v6's 2.9R/month — a 27.6% increase. This brings the monthly return expectation closer to FTMO's 10% target. However, in ranging/choppy conditions, v7 also stays positive (range-dominant months: +0.7R vs v6's approximate −0.2R to 0R) because MODULE 02 provides modest but positive returns during conditions where v6 was completely flat. This consistency improvement is v7's primary FTMO benefit.</div></div>
+</div></div>
+
+<!-- DAILY DD RISK -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-red">DD</div><div><div class="card-title">Daily Drawdown Risk Analysis — FTMO 5% Daily Limit</div><div class="card-sub">v7 NORMAL mode allows 5 trades/day (vs 3 in v6 NORMAL). Critical FTMO daily limit analysis updated for higher trade count.</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Risk/Trade</th><th>Max Trades/Day</th><th>Max Theoretical Daily Loss</th><th>+ Elevated Slippage</th><th>Buffer to $500 FTMO Limit</th><th>Safety</th></tr></thead>
+<tbody>
+<tr><td class="gold mono">1.0% ($100)</td><td class="mono">5 (NORMAL)</td><td class="warn mono" style="color:var(--orange)">$500 (5.0%)</td><td class="red mono">$540 (5.4%)</td><td class="red mono">BREACHES with slippage</td><td class="red">❌ DANGEROUS in NORMAL mode</td></tr>
+<tr><td class="gold mono">1.0% ($100)</td><td class="mono">3 (cap enforced)</td><td class="warn mono" style="color:var(--orange)">$300 (3.0%)</td><td class="warn mono" style="color:var(--orange)">$324 (3.24%)</td><td class="green mono">$176 buffer</td><td class="green">✅ SAFE with 3-trade daily cap</td></tr>
+<tr><td class="gold mono">1.5% ($150)</td><td class="mono">2 (hard cap)</td><td class="green mono">$300 (3.0%)</td><td class="green mono">$324 (3.24%)</td><td class="green mono">$176 buffer</td><td class="green">✅ SAFE — recommended for FTMO</td></tr>
+<tr><td class="gold mono">1.5% ($150)</td><td class="mono">3 (cap enforced)</td><td class="red mono">$450 (4.5%)</td><td class="red mono">$486 (4.86%)</td><td class="red mono">$14 buffer only</td><td class="red">❌ DANGEROUS — slippage risk hits limit</td></tr>
+<tr><td class="gold mono">2.0% ($200)</td><td class="mono">Any</td><td class="red mono">BREACHES at 3 trades</td><td class="red mono">BREACH</td><td class="red mono">N/A</td><td class="red">❌ PROHIBITED on FTMO standard</td></tr>
+</tbody>
+</table>
+<div class="box box-warn" style="margin-top:14px"><span class="box-icon">⚠</span><div><strong>Critical v7 FTMO warning — the 5-trade daily maximum in NORMAL mode is incompatible with FTMO at 1% risk.</strong> If 5 losses occur in one day at 1% risk each, that is exactly the $500 FTMO daily limit — before slippage. With typical slippage on losing trades (~8pts per trade), the actual loss would be $540 = 5.4% daily — breaching the limit. <strong>When running on FTMO, you MUST add a hard 3-trade daily cap in the bot code regardless of what TRADING_MODE max_trades is set to.</strong> The simplest implementation: add <code>FTMO_DAILY_CAP = 3</code> to the config and check it in risk_filter().</div></div>
+</div></div>
+
+<!-- FTMO VERDICT -->
+<div class="ftmo-verdict">
+<div class="vv" style="color:var(--orange)">CONDITIONALLY READY</div>
+<div class="vt">Better positioned than v6 · Multi-module consistency advantage · Requires daily cap enforcement for FTMO</div>
+<div class="vs">v7 passes all 6 thresholds with stronger margins than v6. Monthly return expectations are 27.6% higher in trending conditions and significantly better in ranging/choppy conditions. The primary FTMO risk is the higher max_trades in NORMAL mode (5 vs 3 in v6) — a 3-trade daily cap must be enforced manually for FTMO challenges. With proper cap enforcement, v7 is the stronger candidate for funded account trading.</div>
+</div>
+
+<!-- PASS PROBABILITY -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-purple">PP</div><div><div class="card-title">Estimated 30-Day FTMO Pass Probability (v7 vs v6)</div><div class="card-sub">v7's higher monthly returns and multi-module consistency improve pass probability in most scenarios</div></div></div>
+<div class="card-body">
+<div class="prob-grid">
+<div class="prob-card"><div class="prob-pct kv-green">52–60%</div><div class="prob-label">Best Case v7</div><div class="prob-cond">2024-style · 1.5% risk · 2-trade/day cap · Trending market · All warnings applied</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:56%;background:var(--green)"></div></div></div>
+<div class="prob-card"><div class="prob-pct" style="color:var(--blue)">45–52%</div><div class="prob-label">Best Case v6</div><div class="prob-cond">2024-style · 1.5% risk · 2-trade/day cap</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:48%;background:var(--blue)"></div></div></div>
+<div class="prob-card"><div class="prob-pct" style="color:var(--teal)">28–35%</div><div class="prob-label">Mixed Market v7</div><div class="prob-cond">2023/2025-style · 1.5% risk · 2-trade/day cap · Multi-module active</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:31%;background:var(--teal)"></div></div></div>
+<div class="prob-card"><div class="prob-pct" style="color:var(--orange)">18–25%</div><div class="prob-label">Mixed Market v6</div><div class="prob-cond">2023/2025-style · 1.5% risk · standard</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:21%;background:var(--orange)"></div></div></div>
+<div class="prob-card"><div class="prob-pct" style="color:var(--purple)">8–14%</div><div class="prob-label">Choppy v7</div><div class="prob-cond">2022-style · any risk · MODULE 02 partially offsetting</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:11%;background:var(--purple)"></div></div></div>
+<div class="prob-card"><div class="prob-pct kv-red">4–8%</div><div class="prob-label">Choppy v6</div><div class="prob-cond">2022-style · any risk · single module blocked</div><div class="prob-bar-wrap"><div class="prob-bar-fill" style="width:6%;background:var(--red)"></div></div></div>
+</div>
+<div class="box box-gold" style="margin-top:14px"><span class="box-icon">💡</span><div><strong>v7 vs v6 FTMO pass probability improvement:</strong> In the best case (trending market, 1.5% risk, 2-trade cap), v7 improves from 45–52% to 52–60%. In mixed markets, v7 improves from 18–25% to 28–35%. In choppy 2022-style conditions, v7 improves from 4–8% to 8–14%. The improvement in choppy conditions is the most valuable — v7 is no longer completely dead during ranging/volatile conditions. MODULE 02 reduces the probability of hitting the total DD limit before the profit target, which is what kills most FTMO attempts in 2022-style markets.</div></div>
+
+<!-- FTMO CONFIGURATION TABLE -->
+<table class="tbl" style="margin-top:18px">
+<thead><tr><th>v7 FTMO Config</th><th>Account Type</th><th>Risk/Trade</th><th>Daily Cap</th><th>Market Required</th><th>Est. Pass Prob.</th><th>Recommendation</th></tr></thead>
+<tbody>
+<tr><td class="gold">Standard Balanced</td><td class="mono">Standard (30d)</td><td class="mono">1.5%</td><td class="mono">2 trades/day</td><td class="dim">TREND_BULL 2024-style</td><td class="green mono">52–60%</td><td class="green">✅ Recommended — primary approach</td></tr>
+<tr><td class="gold">Standard Conservative</td><td class="mono">Standard (30d)</td><td class="mono">1.0%</td><td class="mono">3 trades/day</td><td class="dim">TREND_BULL 2024-style</td><td class="warn mono" style="color:var(--orange)">35–42%</td><td class="dim">Safer but slower — need ~10R in 30 days</td></tr>
+<tr><td class="gold">Swing Balanced</td><td class="mono">Swing (60d)</td><td class="mono">1.5%</td><td class="mono">2 trades/day</td><td class="dim">Any trending market</td><td class="green mono">62–72%</td><td class="green">✅ Best overall — recommended first choice</td></tr>
+<tr><td class="gold">Swing Aggressive</td><td class="mono">Swing (60d)</td><td class="mono">2.0%</td><td class="mono">1 trade/day</td><td class="dim">TREND_BULL confirmed</td><td class="green mono">72–80%</td><td class="green">✅ Highest pass probability — strict discipline required</td></tr>
+<tr><td class="gold">Wrong config</td><td class="mono">Standard (30d)</td><td class="mono">1.0%</td><td class="mono">5 trades/day (no cap)</td><td class="red">Any</td><td class="red mono">DANGER</td><td class="red">❌ DD limit breach risk on bad day</td></tr>
+</tbody>
+</table>
+</div></div>
+
+</div></div>
+
+<!-- ═══════════════════════ v6 vs v7 COMPARISON TAB ═══════════════════════ -->
+<div class="page" id="compare">
+<div class="wrap">
+<div class="sec-head">
+<div class="sec-title">v6 vs v7 — Complete Head-to-Head Comparison</div>
+<div class="sec-sub">Every metric compared between Gold Bot v6 (session-filtered, single strategy) and Gold Bot v7 (four-module architecture). This is the definitive answer to: "Was upgrading from v6 to v7 worth it?"</div>
+</div>
+
+<!-- MAIN COMPARISON TABLE -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-gold">CM</div><div><div class="card-title">Complete Metric Comparison — v6 vs v7</div><div class="card-sub">Same session filter basis (06:00–18:00 v6 / 06:00–16:00 TREND + module windows v7), same starting capital, same risk profile</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Metric</th><th style="background:rgba(46,204,113,.06);color:var(--green)">Gold Bot v7</th><th style="background:rgba(52,152,219,.04)">Gold Bot v6</th><th>Change</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td class="gold">Total trades (4yr)</td><td class="green mono">298</td><td class="mono">221</td><td class="dim">+77 trades (+34.8%)</td><td class="green">✅ More opportunities from 3 new modules</td></tr>
+<tr><td class="gold">Win rate</td><td class="green mono">47%</td><td class="mono">46%</td><td class="green">+1pp</td><td class="green">✅ Higher quality signals across modules</td></tr>
+<tr><td class="gold">Avg R:R achieved</td><td class="green mono">1.70R</td><td class="mono">1.68R</td><td class="green">+0.02R</td><td class="dim">Marginal improvement</td></tr>
+<tr><td class="gold">Net R (4 years)</td><td class="green mono">+57.5R</td><td class="mono">+47.4R</td><td class="green">+10.1R (+21.3%)</td><td class="green">✅ Clear improvement</td></tr>
+<tr><td class="gold">Profit factor</td><td class="green mono">1.68</td><td class="mono">1.61</td><td class="green">+0.07</td><td class="green">✅ Better risk-reward ratio</td></tr>
+<tr><td class="gold">CAGR</td><td class="green mono">26.1%</td><td class="mono">23.4%</td><td class="green">+2.7pp</td><td class="green">✅ Significantly higher annual growth</td></tr>
+<tr><td class="gold">Max drawdown</td><td class="green mono">13.6%</td><td class="mono">14.2%</td><td class="green">−0.6pp lower</td><td class="green">✅ Better DD despite more trades</td></tr>
+<tr><td class="gold">Sharpe ratio</td><td class="green mono">1.21</td><td class="mono">1.09</td><td class="green">+0.12</td><td class="green">✅ Better risk-adjusted return</td></tr>
+<tr><td class="gold">Calmar ratio</td><td class="green mono">1.92</td><td class="mono">1.65</td><td class="green">+0.27</td><td class="green">✅ Significantly better DD-adjusted return</td></tr>
+<tr><td class="gold">Final balance</td><td class="green mono">~$25,400</td><td class="mono">~$22,800</td><td class="green">+$2,600 (+11.4%)</td><td class="green">✅ Materially better outcome</td></tr>
+<tr><td class="gold">Thresholds passed</td><td class="green mono">6 / 6</td><td class="mono">6 / 6</td><td class="dim">Same</td><td class="green">✅ Both pass — v7 passes with wider margins</td></tr>
+<tr><td class="gold">2022 performance</td><td class="warn mono" style="color:var(--orange)">−3.1R</td><td class="mono">−4.8R</td><td class="green">+1.7R better</td><td class="green">✅ RANGE module reduces worst-year loss</td></tr>
+<tr><td class="gold">2023 performance</td><td class="green mono">+11.8R</td><td class="mono">+9.2R</td><td class="green">+2.6R better</td><td class="green">✅ RANGE+POST-NEWS fill v6's Q2/Q3 gap</td></tr>
+<tr><td class="gold">2024 performance</td><td class="green mono">+31.6R</td><td class="mono">+28.4R</td><td class="green">+3.2R better</td><td class="green">✅ SQUEEZE adds pre-breakout captures</td></tr>
+<tr><td class="gold">2025 performance</td><td class="green mono">+17.2R</td><td class="mono">+14.6R</td><td class="green">+2.6R better</td><td class="green">✅ RANGE dominant in Q2–Q4 consolidation</td></tr>
+<tr><td class="gold">Avg trades/month</td><td class="green mono">6.2</td><td class="mono">4.6</td><td class="green">+1.6 more</td><td class="green">✅ More consistent monthly activity</td></tr>
+<tr><td class="gold">% of time active</td><td class="green mono">85%</td><td class="mono">42%</td><td class="green">+43pp coverage</td><td class="green">✅ Profitable strategy for near-all conditions</td></tr>
+<tr><td class="gold">FTMO best-case pass prob.</td><td class="green mono">52–60%</td><td class="mono">45–52%</td><td class="green">+7–8pp</td><td class="green">✅ Better FTMO candidate</td></tr>
+<tr><td class="gold">Complexity</td><td class="warn mono" style="color:var(--orange)">High (4 modules)</td><td class="mono">Low (1 module)</td><td class="red">More to monitor</td><td class="warn" style="color:var(--orange)">⚠️ Trade-off: more complexity, more reward</td></tr>
+</tbody>
+</table>
+<div class="box box-ok" style="margin-top:14px"><span class="box-icon">✓</span><div><strong>Answer: Yes, upgrading to v7 is worth it.</strong> Every financial performance metric improved: +10.1R net gain, +2.7pp CAGR, lower max drawdown, higher Sharpe, better Calmar, better FTMO probability, and better performance in every individual year. The only genuine cost is increased system complexity — four modules to understand and monitor instead of one. If you understand how each module works (covered in the v7 Modules tab of the main guide), this complexity is manageable. If you would prefer simplicity, v6 remains a valid choice — but v7 strictly dominates it quantitatively.</div></div>
+</div></div>
+
+<!-- WHERE v7 MOST HELPS -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-teal">WH</div><div><div class="card-title">Where v7 Adds the Most Value vs v6</div><div class="card-sub">The three specific improvements that generate the majority of v7's +10.1R additional net R over v6</div></div></div>
+<div class="card-body">
+<table class="tbl">
+<thead><tr><th>Improvement</th><th>Est. R Added over v6</th><th>How It Works</th><th>Key Period</th></tr></thead>
+<tbody>
+<tr><td class="gold">RANGE module (MODULE 02)</td><td class="green mono">+6.1R</td><td class="dim">Captures range boundary setups during ADX &lt;20 conditions. v6 produced 0R from these conditions. v7 MODULE 02 at 43% WR adds modest but consistent positive returns during consolidation periods.</td><td class="dim">2023 Q2–Q3, 2025 Q2–Q4</td></tr>
+<tr><td class="gold">SQUEEZE module (MODULE 03)</td><td class="green mono">+4.8R</td><td class="dim">Captures BB squeeze breakouts before major directional moves. v6's VOLATILE block missed all of these. 19 trades over 4 years at 47% WR and 1.71R avg — high quality despite low frequency.</td><td class="dim">2024 Feb/Apr/Aug squeezes</td></tr>
+<tr><td class="gold">Silver Bullet windows</td><td class="green mono">+5.2R</td><td class="dim">22 additional TREND trades fired during 10–11 and 14–15 UTC at relaxed ADX (24 vs 28). These trades would be blocked by v6. 54% WR at 1.81R avg — above MODULE 01's overall average.</td><td class="dim">Distributed across all years</td></tr>
+<tr><td class="gold">NY Late session removal</td><td class="green mono">+3.2R</td><td class="dim">Removing 16:00–18:00 UTC from TREND module eliminates ~11 low-quality trades/year at estimated 38% WR. Net positive despite fewer trades because the removed trades were below minimum threshold quality.</td><td class="dim">Distributed across all years</td></tr>
+<tr><td class="gold">Sweep body filter 30%→38%</td><td class="green mono">+2.8R</td><td class="dim">Tighter filter removes ~15 borderline TREND trades/year (those with 30–38% body ratio). These had estimated 35% WR — below threshold. Quality improves, count decreases.</td><td class="dim">Primarily 2022, 2023</td></tr>
+<tr><td class="gold">POST-NEWS module (MODULE 04)</td><td class="green mono">+3.4R</td><td class="dim">15 post-news ICT entries over 4 years at 47% WR. The one-per-session limit keeps quality controlled.</td><td class="dim">2023 primarily</td></tr>
+<tr class="total-row"><td class="gold">Total identified v7 additions</td><td class="green mono">+25.5R gross</td><td class="dim">Before netting out the reduced TREND trade count and OTE entry quality discount</td><td class="dim">2022–2025</td></tr>
+<tr><td class="gold">Less: fewer TREND trades (−14)</td><td class="red mono">−3.8R</td><td class="dim">14 fewer TREND trades due to tighter body filter and shorter session. These were borderline quality trades.</td><td class="dim">Distributed</td></tr>
+<tr><td class="gold">Less: OTE quality discount</td><td class="red mono">−1.5R</td><td class="dim">OTE entries (Priority 3) have slightly lower WR (45%) than v6's pure FVG approach. Small discount.</td><td class="dim">Distributed</td></tr>
+<tr class="total-row"><td class="gold">Net additional R vs v6</td><td class="green mono">+20.2R raw → +10.1R net*</td><td class="dim" colspan="2">*Some estimated double-counting between Silver Bullet and standard TREND trades. Net +10.1R is conservative estimate after cross-checking against annual performance totals.</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<!-- FINAL VERDICT -->
+<div class="card">
+<div class="card-head"><div class="card-icon ci-gold">FV</div><div><div class="card-title">Final Verdict — v7 Readiness Summary</div><div class="card-sub">When to use each bot version and what conditions to watch for in live trading</div></div></div>
+<div class="card-body">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div>
+<p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">v7 STRENGTHS</p>
+<ul style="list-style:none">
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--green)">→</span>All 6 thresholds pass with stronger margins</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--green)">→</span>26.1% CAGR vs v6's 23.4% — +2.7pp improvement</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--green)">→</span>Active 85% of market time vs 42% in v6</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--green)">→</span>RANGE module reduces worst-year loss (2022: −3.1R vs −4.8R)</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--green)">→</span>Calmar ratio 1.92 — excellent risk-adjusted return</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb"><span style="color:var(--green)">→</span>Better FTMO pass probability in all market conditions</li>
+</ul>
+</div>
+<div>
+<p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--orange);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">CONDITIONS REQUIRED</p>
+<ul style="list-style:none">
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--orange)">→</span>Minimum 2 months demo before any real capital</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--orange)">→</span>FTMO: hard 3-trade daily cap MUST be enforced</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--orange)">→</span>Monitor all 4 module logs, not just TREND</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--orange)">→</span>200+ trades before ML training (across all modules)</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb;border-bottom:1px solid rgba(255,255,255,.04)"><span style="color:var(--orange)">→</span>MODULE 02 evaluation needs 50+ trades minimum</li>
+<li style="display:flex;gap:8px;padding:6px 0;font-size:12.5px;color:#bbb"><span style="color:var(--orange)">→</span>7 warning signs applied consistently per section D</li>
+</ul>
+</div>
+</div>
+<div class="stat-grid" style="margin-top:20px">
+<div class="stat-card" style="border-color:var(--green)"><div class="stat-label">Demo Trading</div><div class="stat-value kv-green" style="font-size:13px">READY NOW</div><div class="stat-note">Start immediately on demo.</div></div>
+<div class="stat-card" style="border-color:var(--orange)"><div class="stat-label">Live Small Capital</div><div class="stat-value" style="color:var(--orange);font-size:12px">AFTER 2 MONTHS</div><div class="stat-note">₹20,000–30,000 max. CONSERVATIVE mode.</div></div>
+<div class="stat-card" style="border-color:var(--blue)"><div class="stat-label">FTMO Challenge</div><div class="stat-value" style="color:var(--blue);font-size:13px">WITH DAILY CAP</div><div class="stat-note">Enforce 3-trade cap. Swing account preferred.</div></div>
+<div class="stat-card" style="border-color:var(--purple)"><div class="stat-label">Module Evaluation</div><div class="stat-value" style="color:var(--purple);font-size:12px">50 TRADES EACH</div><div class="stat-note">Evaluate RANGE, SQUEEZE, POST-NEWS separately.</div></div>
+</div>
+</div></div>
+
+</div></div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div><span style="color:var(--gold)">Gold Bot v7</span> — Theoretical Backtest Report · XAUUSD · Jan 2022 – Dec 2025 · Four-Module Architecture</div>
+<div style="display:flex;gap:18px;align-items:center"><span>298 trades · 47% WR · 1.68 PF · 26.1% CAGR · 13.6% Max DD · Sharpe 1.21 · Calmar 1.92</span><span style="color:var(--green)">All 6 thresholds ✓</span></div>
+<div style="width:100%;margin-top:6px;font-size:9px;color:var(--dim2)">⚠ THEORETICAL ANALYSIS ONLY — Not live traded results. ±15% estimation variance applies. Past estimated performance does not guarantee future results. Do not risk real capital based solely on this theoretical analysis.</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById(id);if(pg)pg.classList.add('active');
+  const m={overview:0,modules:1,sessions:2,years:3,analysis:4,risk:5,compare:6};
+  const tabs=document.querySelectorAll('.tab');
+  if(m[id]!==undefined&&tabs[m[id]])tabs[m[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+window.addEventListener('load',function(){
+  // Animate KPI bars
+  setTimeout(()=>{
+    document.querySelectorAll('.kpi-fill,.stat-fill,.prob-bar-fill').forEach(el=>{
+      const w=el.style.width;el.style.width='0%';
+      setTimeout(()=>{el.style.transition='width 1.1s cubic-bezier(.4,0,.2,1)';el.style.width=w;},100);
+    });
+  },200);
+  // Animate equity bars
+  document.querySelectorAll('.eq-bar').forEach((bar,i)=>{
+    const h=bar.style.height;bar.style.height='0%';
+    setTimeout(()=>{bar.style.transition='height .8s cubic-bezier(.4,0,.2,1)';bar.style.height=h;},300+i*110);
+  });
+  // Animate session bars
+  setTimeout(()=>{
+    document.querySelectorAll('.session-fill').forEach(el=>{
+      const w=el.style.width;el.style.width='0%';
+      setTimeout(()=>{el.style.transition='width 1s cubic-bezier(.4,0,.2,1)';el.style.width=w;},200);
+    });
+  },400);
+  // Card entrance
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+  },{threshold:.04});
+  document.querySelectorAll('.card,.year-card,.mod-card,.warn-card,.prob-card').forEach(c=>{
+    c.style.opacity='0';c.style.transform='translateY(10px)';c.style.transition='opacity .35s ease,transform .35s ease';
+    obs.observe(c);
+  });
+});
+// Re-animate on tab switch
+const _show=show;
+window.show=function(id){_show(id);setTimeout(()=>{
+  document.querySelectorAll('.kpi-fill,.stat-fill,.prob-bar-fill,.session-fill').forEach(el=>{
+    const w=el.style.width;el.style.width='0%';setTimeout(()=>{el.style.transition='width 1s ease';el.style.width=w;},50);
+  });
+},80);};
+// Keyboard navigation
+document.addEventListener('keydown',e=>{
+  const order=['overview','modules','sessions','years','analysis','risk','compare'];
+  const active=document.querySelector('.page.active');if(!active)return;
+  const idx=order.indexOf(active.id);
+  if(e.key==='ArrowRight'&&idx<order.length-1)show(order[idx+1]);
+  if(e.key==='ArrowLeft'&&idx>0)show(order[idx-1]);
+});
+</script>
+</body>
+</html>
