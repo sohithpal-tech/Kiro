@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Bot v7 — Beginner's Complete Trading Education Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#F5A623;--gold-light:#FFD080;--gold-dim:#8B6914;
+  --bg:#0A0A0A;--bg2:#111;--bg3:#1A1A1A;
+  --border:#2A2A2A;--text:#E8E8E8;--dim:#888;
+  --green:#2ECC71;--red:#E74C3C;--blue:#3498DB;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Syne,sans-serif;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+</style>
+</head>
+
+<style>
+.header{padding:55px 40px 45px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-80px;right:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(245,166,35,.13) 0%,transparent 70%);pointer-events:none}
+.htag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);padding:4px 12px;border-radius:2px;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(28px,5vw,50px);font-weight:800;line-height:1.1;letter-spacing:-1px}
+h1 span{color:var(--gold)}
+h2{font-size:20px;font-weight:700;margin:32px 0 14px;letter-spacing:-.3px}
+h3{font-size:16px;font-weight:700;margin:24px 0 10px;color:var(--gold-light)}
+h4{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--text)}
+.hsub{margin-top:10px;font-size:14px;color:var(--dim);max-width:560px}
+.hver{display:inline-flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.badge{font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 10px;border-radius:2px;letter-spacing:1px}
+.badge-g{color:var(--green);background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3)}
+.badge-gold{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)}
+.badge-b{color:var(--blue);background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3)}
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 40px;overflow-x:auto;position:sticky;top:0;background:var(--bg);z-index:100;gap:2px}
+.tab{padding:14px 16px;font-size:11px;font-weight:600;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;font-family:"JetBrains Mono",monospace;letter-spacing:.2px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+.page{display:none;padding:48px 0 80px;animation:fi .3s ease}
+.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1020px;margin:0 auto;padding:0 40px}
+</style>
+
+<style>
+.ph{display:flex;align-items:flex-start;gap:18px;margin-bottom:38px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.pnum{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);padding:5px 11px;border-radius:2px;white-space:nowrap;margin-top:3px}
+.ptitle{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.psub{font-size:13px;color:var(--dim);margin-top:5px;line-height:1.7}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;margin:14px 0;transition:border-color .2s}
+.card:hover{border-color:#3a3a3a}
+.card-gold{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.04)}
+.card-green{border-color:rgba(46,204,113,.3);background:rgba(46,204,113,.04)}
+.card-red{border-color:rgba(231,76,60,.3);background:rgba(231,76,60,.04)}
+.card-blue{border-color:rgba(52,152,219,.3);background:rgba(52,152,219,.04)}
+.step{margin-bottom:24px;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .2s}
+.step:hover{border-color:#3a3a3a}
+.sh{display:flex;align-items:center;gap:13px;padding:14px 20px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.sn{min-width:27px;height:27px;background:var(--gold);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:"JetBrains Mono",monospace}
+.sn.r{background:var(--red);color:#fff}
+.sn.b{background:var(--blue);color:#fff}
+.sn.g{background:var(--green);color:#000}
+.sn.p{background:#9B59B6;color:#fff}
+.stitle{font-size:14px;font-weight:700}
+.ssub{font-size:11px;color:var(--dim);margin-top:2px}
+.sb{padding:20px}
+.formula{background:#0D0D0D;border:1px solid rgba(245,166,35,.3);border-radius:6px;padding:18px 20px;margin:14px 0;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2.2;color:var(--gold-light)}
+.formula .fl{color:var(--dim);font-size:11px;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
+.formula .fr{color:#fff;font-size:15px;font-weight:500}
+.formula .fd{color:var(--dim);font-size:11px;margin-top:4px}
+pre{background:#0D0D0D;padding:16px 18px;overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:11.5px;line-height:1.75;color:#D4D4D4}
+code{font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(245,166,35,.1);color:var(--gold-light);padding:2px 6px;border-radius:3px}
+</style>
+
+<style>
+.box{padding:12px 16px;border-radius:6px;font-size:13px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;line-height:1.65}
+.bi{flex-shrink:0;font-size:15px;margin-top:1px}
+.bw{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25)}
+.bi2{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.25)}
+.bo{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25)}
+.bg{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25)}
+.bp{background:rgba(155,89,182,.1);border:1px solid rgba(155,89,182,.3)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:14px 0}
+th{text-align:left;padding:9px 13px;background:var(--bg3);color:var(--gold-light);font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05);color:#ccc;vertical-align:top;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+td:first-child{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold-light)}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.td-win{color:var(--green)!important;font-weight:700}
+.td-loss{color:var(--red)!important;font-weight:700}
+.td-num{font-family:"JetBrains Mono",monospace;font-size:12px}
+ul.il{list-style:none}
+ul.il li{display:flex;gap:9px;padding:7px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start;color:#ccc;line-height:1.6}
+ul.il li:last-child{border-bottom:none}
+ul.il li::before{content:"→";color:var(--gold);font-family:"JetBrains Mono",monospace;flex-shrink:0;margin-top:1px}
+ul.il li strong{color:var(--text)}
+ul.ol-steps{list-style:none;counter-reset:steps}
+ul.ol-steps li{counter-increment:steps;display:flex;gap:12px;padding:9px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start;color:#ccc;line-height:1.6}
+ul.ol-steps li:last-child{border-bottom:none}
+ul.ol-steps li::before{content:counter(steps);min-width:22px;height:22px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:1px}
+.ck{list-style:none}
+.ck li{display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:#ccc;line-height:1.6}
+.ck li:last-child{border-bottom:none}
+.chk{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;margin-top:2px}
+.chk:hover{border-color:var(--gold)}
+.chk.dn{background:var(--gold);border-color:var(--gold)}
+.chk.dn::after{content:"✓";color:#000;font-size:11px;font-weight:700}
+.ck li.st .cl2{text-decoration:line-through;color:var(--dim)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:18px 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
+.big-num{font-family:"JetBrains Mono",monospace;font-size:32px;font-weight:700;color:var(--gold)}
+.big-label{font-size:11px;color:var(--dim);font-family:"JetBrains Mono",monospace;letter-spacing:1px;margin-top:4px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center}
+.divider{height:1px;background:var(--border);margin:28px 0}
+.pill{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;padding:2px 9px;border-radius:10px;letter-spacing:.5px}
+.pill-gold{color:var(--gold);background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3)}
+.pill-green{color:var(--green);background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.3)}
+.pill-red{color:var(--red);background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3)}
+.pill-blue{color:var(--blue);background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.3)}
+.pill-gray{color:var(--dim);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.level-header{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px 8px 0 0;border-bottom:none;margin-top:28px}
+.level-badge{font-family:"JetBrains Mono",monospace;font-size:10px;color:#000;background:var(--gold);padding:4px 12px;border-radius:3px;font-weight:700;letter-spacing:1px}
+.level-title{font-size:16px;font-weight:700}
+.level-time{font-size:11px;color:var(--gold);font-family:"JetBrains Mono",monospace;margin-left:auto}
+.level-body{border:1px solid var(--border);border-radius:0 0 8px 8px;padding:20px}
+.footer{margin-top:60px;padding:24px 40px;border-top:1px solid var(--border);font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--dim);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+@media(max-width:600px){.wrap{padding:0 16px}.header{padding:28px 16px}.tabs{padding:0 10px}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<div class="header">
+  <div class="wrap">
+    <div class="htag">XAUUSD · Gold Bot v7 · Beginner's Guide</div>
+    <h1>Understanding <span>Gold Bot v7</span></h1>
+    <p class="hsub">Everything you need to know — from "what is a pip?" to how the ML system filters trades. Written for someone who has never traded before.</p>
+    <div class="hver">
+      <span class="badge badge-g">8 Chapters</span>
+      <span class="badge badge-gold">Real Numbers Throughout</span>
+      <span class="badge badge-gold">Bot Mechanics Explained</span>
+      <span class="badge badge-b">Beginner → Advanced</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TABS ═══════════════ -->
+<div class="tabs">
+  <div class="tab active" onclick="show('t1')">🏁 Start Here</div>
+  <div class="tab" onclick="show('t2')">📐 Forex Basics</div>
+  <div class="tab" onclick="show('t3')">💰 Profit &amp; Loss</div>
+  <div class="tab" onclick="show('t4')">📊 SL &amp; TP &amp; R</div>
+  <div class="tab" onclick="show('t5')">🔢 Lot Sizing</div>
+  <div class="tab" onclick="show('t6')">🤖 How Bot Trades</div>
+  <div class="tab" onclick="show('t7')">📋 Trades Log &amp; ML</div>
+  <div class="tab" onclick="show('t8')">📚 Learning Path</div>
+</div>
+
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 1 — START HERE                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page active" id="t1">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 01</div>
+    <div>
+      <div class="ptitle">🏁 Start Here — Your Map</div>
+      <div class="psub">This guide is your complete reference for understanding Gold Bot v7 from the ground up. No prior trading knowledge required.</div>
+    </div>
+  </div>
+
+  <div class="box bg"><span class="bi">💡</span><div>You don't need to understand everything at once. Read this guide tab by tab, in order. Each tab builds on the one before it. By the end, you will understand every decision your bot makes — including why it placed a trade, how it sized it, and what the ML system approved.</div></div>
+
+  <h2>What This Guide Covers</h2>
+  <div class="grid3">
+    <div class="card card-gold">
+      <div style="font-size:28px;margin-bottom:10px">📐</div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:6px">Level 1: Fundamentals</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.7">What is XAUUSD, what is a pip, lot, leverage, spread. How profit and loss are calculated. The math behind every dollar your bot earns or loses.</div>
+      <div style="margin-top:12px"><span class="pill pill-gold">Tabs 2 + 3</span></div>
+    </div>
+    <div class="card card-blue">
+      <div style="font-size:28px;margin-bottom:10px">🎯</div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:6px">Level 2: Trade Logic</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.7">Stop Loss, Take Profit, Risk:Reward ratios. What 1R, 1.5R, 2R, 3R actually mean. How lot size is calculated from your account balance and risk settings.</div>
+      <div style="margin-top:12px"><span class="pill pill-blue">Tabs 4 + 5</span></div>
+    </div>
+    <div class="card card-green">
+      <div style="font-size:28px;margin-bottom:10px">🤖</div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:6px">Level 3: Bot Mechanics</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.7">How the bot starts up, how it detects market regimes, how each of the 4 modules works, how trades are placed and managed, how the ML system filters signals.</div>
+      <div style="margin-top:12px"><span class="pill pill-green">Tabs 6 + 7</span></div>
+    </div>
+  </div>
+
+  <h2>How This Guide Connects to Your Bot Files</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">📁</div><div><div class="stitle">Your Bot's Key Files</div><div class="ssub">Each file has a purpose — here's what each one does</div></div></div>
+    <div class="sb">
+      <table>
+        <tr><th>File</th><th>What It Is</th><th>Covered In</th></tr>
+        <tr><td>bot_v7.py</td><td>The main Python trading bot. 1500+ lines. Runs 24/7.</td><td>Tab 6</td></tr>
+        <tr><td>trades_log.csv</td><td>Every trade your bot ever made. One row per trade. Your record book.</td><td>Tab 7</td></tr>
+        <tr><td>regime_stats.json</td><td>The bot's memory. Records win rates per market condition. Self-learning.</td><td>Tab 7</td></tr>
+        <tr><td>open_trade_state.json</td><td>Saves the current open trade so the bot can survive a restart.</td><td>Tab 6</td></tr>
+        <tr><td>ml_xgb.pkl / ml_rf.pkl / ml_lr.pkl</td><td>The 3 trained ML model files. Created after 200+ trades.</td><td>Tab 7</td></tr>
+        <tr><td>goldbot.log</td><td>The bot's diary. Every decision logged with timestamps.</td><td>Tab 6</td></tr>
+        <tr><td>features.csv</td><td>ML training data — one row per trade with all numeric features.</td><td>Tab 7</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h2>Three Learning Levels</h2>
+  <div class="grid2">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span class="pill pill-gold">LEVEL 1</span>
+        <strong>Trading Fundamentals</strong>
+      </div>
+      <ul class="il">
+        <li>What XAUUSD is and how gold trading works</li>
+        <li>Pips, lots, leverage, spread — what these words actually mean</li>
+        <li>How to calculate profit and loss from first principles</li>
+        <li>What Stop Loss and Take Profit are and why they exist</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span class="pill pill-blue">LEVEL 2</span>
+        <strong>Bot Mechanics</strong>
+      </div>
+      <ul class="il">
+        <li>How the bot decides to enter a trade (all 4 modules)</li>
+        <li>How it sizes positions based on your account risk</li>
+        <li>How it manages open trades (tiered exits, trailing stop)</li>
+        <li>What every column in trades_log.csv means</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span class="pill pill-green">LEVEL 3</span>
+        <strong>Strategy Understanding</strong>
+      </div>
+      <ul class="il">
+        <li>Why the bot uses 3 timeframes (15M, 1H, 4H) simultaneously</li>
+        <li>What the ML system is and how it learns from your history</li>
+        <li>How the self-learning regime system adapts over time</li>
+        <li>How to read your bot's performance and improve it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box bo"><span class="bi">✅</span><div><strong>Recommended reading order:</strong> If you're brand new, start at Tab 2 and read every tab in order. If you already know basic forex concepts, you can skip to Tab 4 (SL/TP/R). If you want to understand the bot immediately, go straight to Tab 6 — but come back to the basics later so everything makes sense.</div></div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 2 — FOREX BASICS                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t2">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 02</div>
+    <div>
+      <div class="ptitle">📐 Forex Basics</div>
+      <div class="psub">What is Gold trading? What is a pip, lot, spread, leverage? All explained from scratch with real Gold examples.</div>
+    </div>
+  </div>
+
+  <!-- XAUUSD -->
+  <div class="step">
+    <div class="sh"><div class="sn">1</div><div><div class="stitle">What is XAUUSD?</div><div class="ssub">Decoding the symbol your bot trades</div></div></div>
+    <div class="sb">
+      <div class="grid2">
+        <div class="card card-gold">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--gold);font-weight:700;margin-bottom:8px">XAU</div>
+          <div style="font-size:13px;color:#ccc;line-height:1.7">XAU is the international chemical symbol for <strong>Gold</strong>. It comes from the Latin word <em>Aurum</em>. This is the "base currency" — the thing being bought or sold.</div>
+        </div>
+        <div class="card card-blue">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--blue);font-weight:700;margin-bottom:8px">USD</div>
+          <div style="font-size:13px;color:#ccc;line-height:1.7">USD is the US Dollar. This is the "quote currency" — the currency you use to buy the gold. The price of XAUUSD tells you how many dollars one ounce of gold costs.</div>
+        </div>
+      </div>
+      <div class="box bg"><span class="bi">💡</span><div>When the XAUUSD price shows <strong>$2,400.00</strong>, it means: <strong>1 ounce of Gold costs $2,400 US Dollars.</strong> Your bot is always watching this price, waiting for the right moment to buy or sell.</div></div>
+    </div>
+  </div>
+
+  <!-- CFD -->
+  <div class="step">
+    <div class="sh"><div class="sn">2</div><div><div class="stitle">What is CFD Trading? (You Never Own Real Gold)</div><div class="ssub">Understanding what you're actually doing when you "buy gold"</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">CFD stands for <strong>Contract for Difference</strong>. When your bot "buys gold," it is NOT purchasing physical gold bars. Instead, it's entering a contract with your broker that says: <em>"Pay me the difference in price between when I enter and when I exit."</em></p>
+      <div class="grid2">
+        <div class="card card-green">
+          <div style="font-weight:700;font-size:13px;color:var(--green);margin-bottom:8px">✅ What Actually Happens</div>
+          <ul class="il">
+            <li>Bot enters a BUY at $2,400.00</li>
+            <li>Gold rises to $2,430.00 (+$30)</li>
+            <li>Bot closes the trade</li>
+            <li>Broker pays your account the $30 difference × lot size</li>
+          </ul>
+        </div>
+        <div class="card card-red">
+          <div style="font-weight:700;font-size:13px;color:var(--red);margin-bottom:8px">❌ What Does NOT Happen</div>
+          <ul class="il">
+            <li>No gold is purchased or stored</li>
+            <li>No gold is delivered to you</li>
+            <li>You are not a gold owner</li>
+            <li>No physical settlement occurs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div>CFDs are leveraged products. This means profits AND losses are amplified. A small price move can produce a large dollar profit or loss depending on your lot size. This guide will show you exactly how to calculate this.</div></div>
+    </div>
+  </div>
+
+  <!-- PIP -->
+  <div class="step">
+    <div class="sh"><div class="sn">3</div><div><div class="stitle">What is a Pip? (For Gold Specifically)</div><div class="ssub">The smallest unit of price movement — and it's simpler for Gold than most pairs</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:16px;line-height:1.7">A <strong>pip</strong> is the smallest standardised price movement in trading. For Gold (XAUUSD) on MetaTrader 5:</p>
+      <div class="formula">
+        <div class="fl">📐 Gold Pip Definition</div>
+        <div class="fr">1 pip for XAUUSD = $0.01 (one US cent)</div>
+        <div class="fd">Also called 1 "point". For Gold, pip and point are the same thing.</div>
+      </div>
+      <div class="card">
+        <h4>📏 Real Example: Gold moves from $2,400.00 to $2,401.50</h4>
+        <pre>Starting price:  $2,400.00
+Ending price:    $2,401.50
+──────────────────────────
+Difference:      $1.50
+÷ $0.01 per pip  
+──────────────────────────
+= 150 pips (also called 150 points)</pre>
+      </div>
+      <div class="grid3">
+        <div class="stat-card">
+          <div class="big-num">$0.01</div>
+          <div class="big-label">= 1 pip / 1 point</div>
+        </div>
+        <div class="stat-card">
+          <div class="big-num">$1.00</div>
+          <div class="big-label">= 100 pips</div>
+        </div>
+        <div class="stat-card">
+          <div class="big-num">$10.00</div>
+          <div class="big-label">= 1,000 pips</div>
+        </div>
+      </div>
+      <div class="box bi2"><span class="bi">ℹ️</span><div><strong>Why is Gold different from currency pairs?</strong> For most forex pairs (like EUR/USD), 1 pip = 0.0001. For Gold, 1 pip = 0.01. This is because Gold is priced in whole dollars per ounce. Always use the $0.01 rule when thinking about Gold pips.</div></div>
+    </div>
+  </div>
+
+  <!-- SPREAD -->
+  <div class="step">
+    <div class="sh"><div class="sn">4</div><div><div class="stitle">What is the Spread?</div><div class="ssub">The hidden cost on every trade — paid the moment you open a position</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">When you want to buy Gold, your broker shows you TWO prices at the same time:</p>
+      <div class="grid2">
+        <div class="card card-blue">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--blue);margin-bottom:6px">$2,400.30</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">ASK (Buy Price)</div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.6">The price you pay to BUY Gold. Always the higher of the two prices. You enter a BUY trade at the ask.</div>
+        </div>
+        <div class="card card-red">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--red);margin-bottom:6px">$2,400.00</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">BID (Sell Price)</div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.6">The price you receive when you SELL Gold. Always the lower price. A BUY trade is immediately "worth" the bid price.</div>
+        </div>
+      </div>
+      <div class="formula">
+        <div class="fl">📐 Spread Formula</div>
+        <div class="fr">Spread = Ask − Bid = $2,400.30 − $2,400.00 = $0.30 = 30 pips</div>
+        <div class="fd">This 30-pip gap is IMMEDIATELY deducted from your trade as a cost. You start every trade 30 pips in the negative.</div>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div><strong>Gold Bot v7 checks the spread before every trade.</strong> If the spread exceeds <strong>30 pips</strong> for TREND trades (or 20 pips for RANGE trades), the bot skips that cycle. A high spread during a news event or off-hours means the broker is charging more — your bot refuses to trade in those conditions.</div></div>
+      <table>
+        <tr><th>Spread Size</th><th>Cost on 0.05 Lots</th><th>Bot's Reaction</th></tr>
+        <tr><td>5–15 pips</td><td>$0.25 – $0.75</td><td class="td-win">Normal — trade proceeds</td></tr>
+        <tr><td>15–25 pips</td><td>$0.75 – $1.25</td><td style="color:#E67E22">Elevated — still OK for TREND</td></tr>
+        <tr><td>25–30 pips</td><td>$1.25 – $1.50</td><td style="color:#E67E22">High — borderline, bot may skip RANGE</td></tr>
+        <tr><td>30+ pips</td><td>$1.50+</td><td class="td-loss">TOO HIGH — bot skips this cycle entirely</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- LEVERAGE -->
+  <div class="step">
+    <div class="sh"><div class="sn">5</div><div><div class="stitle">What is Leverage?</div><div class="ssub">How small capital controls large positions — the most important concept to understand</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">Leverage is like borrowing money from your broker to control a larger position. With <strong>1:500 leverage</strong>, every $1 you put up controls $500 worth of gold.</p>
+      <div class="formula">
+        <div class="fl">📐 Leverage Formula</div>
+        <div class="fr">Position Size = Your Margin × Leverage</div>
+        <div class="fd">Example: $100 margin × 500 leverage = $50,000 of gold you control</div>
+      </div>
+      <div class="card">
+        <h4>🔢 Real Example: $10,000 account at 1:500 leverage</h4>
+        <pre>Your account balance:         $10,000
+Your leverage:                1:500
+Maximum gold you could control: $10,000 × 500 = $5,000,000
+
+BUT — Gold Bot v7 only risks 1% per trade:
+  Risk per trade:             $10,000 × 1% = $100
+  Actual position opened:     ~0.05 lots (~$12,000 of gold)
+  Margin used:                ~$24 (tiny fraction of your account)</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div><strong>Leverage is a double-edged sword.</strong> If gold moves 1% against you on a 1:500 leveraged position at maximum size, you would lose 500% of your margin. That's why your bot NEVER uses maximum leverage. It calculates exactly how many lots to trade so that even if the worst happens (SL gets hit), you only lose 1% of your account — not your entire balance.</div></div>
+      <div class="box bi2"><span class="bi">ℹ️</span><div>Brokers like Exness offer up to 1:2000 leverage on Gold. Your bot uses this leverage as a convenience to open small positions without tying up large amounts of margin — NOT to maximise exposure. The risk control comes from lot sizing, not from limiting leverage directly.</div></div>
+    </div>
+  </div>
+
+  <!-- LOT -->
+  <div class="step">
+    <div class="sh"><div class="sn">6</div><div><div class="stitle">What is a Lot? (For Gold)</div><div class="ssub">The unit of trade size — and why your bot trades 0.01 to 0.10 lots</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">A "lot" is a standardised unit of trade size. For Gold (XAUUSD), one lot equals <strong>100 troy ounces of gold</strong>.</p>
+      <table>
+        <tr><th>Lot Size</th><th>Ounces of Gold</th><th>Value at $2,400/oz</th><th>Typical Bot Usage</th></tr>
+        <tr><td>1.00 lot</td><td>100 oz</td><td>$240,000</td><td class="td-loss">Never (too large)</td></tr>
+        <tr><td>0.10 lot (mini)</td><td>10 oz</td><td>$24,000</td><td style="color:#E67E22">Rare (large account)</td></tr>
+        <tr><td>0.05 lot</td><td>5 oz</td><td>$12,000</td><td class="td-win">Typical ($10K account)</td></tr>
+        <tr><td>0.03 lot (micro+)</td><td>3 oz</td><td>$7,200</td><td class="td-win">Common ($5K account)</td></tr>
+        <tr><td>0.01 lot (micro)</td><td>1 oz</td><td>$2,400</td><td class="td-win">Smallest ($1K account)</td></tr>
+      </table>
+      <div class="formula">
+        <div class="fl">📐 Pip Value Formula for Gold</div>
+        <div class="fr">Pip Value = Lot Size × $1.00</div>
+        <div class="fd">1 lot × 1 pip = $1.00 &nbsp;|&nbsp; 0.05 lot × 1 pip = $0.05 &nbsp;|&nbsp; 0.05 lot × 100 pips = $5.00</div>
+      </div>
+      <div class="card">
+        <h4>🔢 How the $1/pip/lot rule works</h4>
+        <pre>1 standard lot = 100 oz of gold
+Gold pip = $0.01 (1 cent)
+Therefore: 1 lot × 1 pip = 100 oz × $0.01 = $1.00 per pip
+
+0.05 lots × 200 pip move = 0.05 × $1 × 200 = $10.00 profit/loss
+0.10 lots × 200 pip move = 0.10 × $1 × 200 = $20.00 profit/loss</pre>
+      </div>
+      <div class="box bg"><span class="bi">💡</span><div><strong>Simple rule to remember:</strong> Multiply your lot size by the pip move and by $1. That's your profit or loss in USD. <code>P&L = Lots × Pips × $1</code></div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 3 — PROFIT & LOSS                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t3">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 03</div>
+    <div>
+      <div class="ptitle">💰 Profit &amp; Loss Calculation</div>
+      <div class="psub">How every dollar is made or lost. Worked examples using real Gold prices and bot lot sizes.</div>
+    </div>
+  </div>
+
+  <!-- Master formula -->
+  <div class="formula">
+    <div class="fl">📐 The Master P&amp;L Formula (for Gold on MT5)</div>
+    <div class="fr">P&L (USD) = (Exit Price − Entry Price) × Lots × 100</div>
+    <div class="fd">The 100 comes from: 1 lot = 100 oz, pip = $0.01, so pip value = 100 × $0.01 = $1 per lot. For a BUY: positive = profit. For a SELL: positive means price went down (also profit).</div>
+  </div>
+
+  <div class="box bi2"><span class="bi">ℹ️</span><div>The formula your bot uses in code: <code>(fill_price - entry_price) * lots * 100</code> for a BUY trade. For a SELL trade it's <code>(entry_price - fill_price) * lots * 100</code>. The 100 factor combines: 100 oz per lot × $0.01 pip value = $1 effective pip value per lot.</div></div>
+
+  <!-- Example 1 WIN -->
+  <div class="step">
+    <div class="sh"><div class="sn g">W</div><div><div class="stitle">Example 1 — Winning BUY Trade</div><div class="ssub">Bot buys Gold, price rises, target hit</div></div></div>
+    <div class="sb">
+      <div class="card card-green">
+        <pre style="color:#2ECC71">TRADE DETAILS:
+  Direction:    BUY
+  Lot Size:     0.05 lots
+  Entry Price:  $2,400.00
+  Exit Price:   $2,430.00 (Take Profit hit)
+
+CALCULATION:
+  Price Move:   $2,430.00 − $2,400.00 = $30.00
+  In Pips:      $30.00 ÷ $0.01 = 3,000 pips
+  
+  P&L = (2430.00 − 2400.00) × 0.05 × 100
+  P&L = 30.00 × 0.05 × 100
+  P&L = 30.00 × 5
+  P&L = +$150.00 PROFIT</pre>
+      </div>
+      <div class="box bo"><span class="bi">✅</span><div>A $30 move in gold with 0.05 lots = <strong>$150 profit</strong>. The spread was approximately $0.30 (30 pips), which costs about $1.50, so net profit ≈ $148.50. Your bot logs the actual fill prices so slippage and spread are automatically accounted for.</div></div>
+    </div>
+  </div>
+
+  <!-- Example 2 LOSS -->
+  <div class="step">
+    <div class="sh"><div class="sn r">L</div><div><div class="stitle">Example 2 — Losing BUY Trade (Stop Loss Hit)</div><div class="ssub">Bot buys Gold, price drops, SL activates</div></div></div>
+    <div class="sb">
+      <div class="card card-red">
+        <pre style="color:#E74C3C">TRADE DETAILS:
+  Direction:    BUY
+  Lot Size:     0.05 lots
+  Entry Price:  $2,400.00
+  Stop Loss:    $2,385.00 (SL placed 15 pts below)
+  Exit Price:   $2,385.00 (Stop Loss hit)
+
+CALCULATION:
+  Price Move:   $2,385.00 − $2,400.00 = −$15.00 (adverse)
+  In Pips:      $15.00 ÷ $0.01 = 1,500 pips against us
+  
+  P&L = (2385.00 − 2400.00) × 0.05 × 100
+  P&L = −15.00 × 0.05 × 100
+  P&L = −15.00 × 5
+  P&L = −$75.00 LOSS</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div>A $15 move against you with 0.05 lots = <strong>$75 loss</strong>. This is by design — the bot calculated the lot size so that a full SL hit equals approximately 1% of your $10,000 account ($100 maximum risk). The actual loss of $75 means the SL distance was set at 15 points (less than the maximum risk allowed).</div></div>
+    </div>
+  </div>
+
+  <!-- Example 3 PARTIAL CLOSE -->
+  <div class="step">
+    <div class="sh"><div class="sn b">P</div><div><div class="stitle">Example 3 — Partial Exit Trade (Tiered Close)</div><div class="ssub">How the bot's real exit strategy works — 3 stages</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">Gold Bot v7 doesn't close the entire position at once. It closes in stages (tiers). This locks in some profit early while letting part of the position run for bigger gains.</p>
+      <div class="card">
+        <pre>TRADE DETAILS:
+  Direction:    BUY
+  Total Lots:   0.10 lots
+  Entry Price:  $2,400.00
+  SL:           $2,382.00 (SL distance = 18 pips)
+  1R target:    $2,418.00 (entry + 18 = 1× SL distance)
+  2R target:    $2,436.00 (entry + 36 = 2× SL distance)
+
+──── TIER 1: Price reaches $2,418.00 (+$18) ────
+  Close 30% = 0.03 lots
+  P&L = (2418 − 2400) × 0.03 × 100 = 18 × 3 = +$54.00
+  SL moved to breakeven ($2,400.00)
+
+──── TIER 2: Price reaches $2,436.00 (+$36) ────
+  Close another 30% = 0.03 lots
+  P&L = (2436 − 2400) × 0.03 × 100 = 36 × 3 = +$108.00
+
+──── TIER 3: Remaining 40% = 0.04 lots ────
+  Trailing stop follows at ATR × 1.5 below current price
+  Assume trade eventually closes at $2,450.00 (+$50)
+  P&L = (2450 − 2400) × 0.04 × 100 = 50 × 4 = +$200.00
+
+──── TOTAL ────────────────────────────────────────
+  Tier 1:  +$54.00
+  Tier 2:  +$108.00
+  Tier 3:  +$200.00
+  TOTAL:   +$362.00 on a 0.10 lot trade</pre>
+      </div>
+      <div class="box bg"><span class="bi">💡</span><div>If the bot had closed the whole 0.10 lots at $2,450 in one shot: (2450−2400) × 0.10 × 100 = $500. The tiered approach got $362 — less than maximum, but with much higher probability of success because parts of the trade were secured early before the price could reverse.</div></div>
+    </div>
+  </div>
+
+  <!-- Slippage -->
+  <div class="step">
+    <div class="sh"><div class="sn">🔀</div><div><div class="stitle">What is Slippage?</div><div class="ssub">Why you sometimes get a different price than you asked for</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">Slippage happens when the market moves between the moment your bot sends the order and the moment the broker executes it. This is usually milliseconds — but in fast-moving markets, the price can shift.</p>
+      <div class="card">
+        <pre>Bot sends BUY order at:   $2,400.00  (requested price)
+Broker executes at:       $2,400.40  (actual fill price)
+                          ─────────────────────────────
+Slippage:                 +$0.40 = 40 pips ADVERSE slippage
+
+Cost on 0.05 lots:
+  40 pips × 0.05 lots × $1 = $2.00 extra cost</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div>The bot records slippage in the <code>slippage_pts</code> column of trades_log.csv. If you consistently see slippage above 5 points, this indicates a slow broker or poor execution quality. Consider switching brokers or checking your VPS latency to the MT5 server.</div></div>
+      <table>
+        <tr><th>Slippage Level</th><th>What It Means</th><th>Action</th></tr>
+        <tr><td>0–2 pips</td><td>Excellent execution</td><td class="td-win">No action needed</td></tr>
+        <tr><td>2–5 pips</td><td>Normal for Gold</td><td class="td-win">Acceptable</td></tr>
+        <tr><td>5–10 pips</td><td>Elevated — check VPS</td><td style="color:#E67E22">Investigate</td></tr>
+        <tr><td>10+ pips</td><td>Poor execution — broker issue</td><td class="td-loss">Consider changing broker</td></div></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Commission vs Spread -->
+  <div class="step">
+    <div class="sh"><div class="sn">💸</div><div><div class="stitle">Commission vs Spread — What You Actually Pay</div><div class="ssub">Two different cost structures depending on your broker</div></div></div>
+    <div class="sb">
+      <div class="grid2">
+        <div class="card">
+          <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:var(--gold)">Spread-Based Broker</div>
+          <ul class="il">
+            <li>The spread (bid/ask gap) IS the cost</li>
+            <li>No separate commission charged</li>
+            <li>Typical Gold spread: 15–35 pips normally</li>
+            <li>Common with "standard" or "cent" accounts</li>
+            <li>Cost is hidden inside the price itself</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:var(--blue)">Commission + Raw Spread Broker</div>
+          <ul class="il">
+            <li>Very tight spread (1–5 pips for Gold)</li>
+            <li>Broker charges a separate fee per lot</li>
+            <li>Typical commission: $3–7 per side per lot</li>
+            <li>Common with "Pro" or "ECN" accounts</li>
+            <li>Total cost = tiny spread + commission fee</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box bi2"><span class="bi">ℹ️</span><div>For a bot that trades 3–8 times per day, the difference between broker types matters. A commission account at $5/lot round trip on 0.05 lots = $0.25 — much cheaper than a 30-pip spread account at $1.50. The bot's spread filter protects you by refusing to trade when spreads are abnormally wide.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 4 — SL & TP & R                                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t4">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 04</div>
+    <div>
+      <div class="ptitle">📊 Stop Loss, Take Profit &amp; R Multiples</div>
+      <div class="psub">The most important concepts in risk management. What 1R, 1.5R, 2R, 3R means — and how your bot uses them.</div>
+    </div>
+  </div>
+
+  <!-- SL -->
+  <div class="step">
+    <div class="sh"><div class="sn r">SL</div><div><div class="stitle">What is a Stop Loss (SL)?</div><div class="ssub">Your automatic safety net — closes the trade before losses become catastrophic</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">A <strong>Stop Loss</strong> is a price level you set in advance. If the market reaches that price against your position, your trade is automatically closed. It's like saying "if this goes wrong by this much, get me out automatically."</p>
+      <div class="card card-red">
+        <h4 style="color:var(--red)">🔴 Example: BUY trade with Stop Loss</h4>
+        <pre>Entry (BUY):      $2,400.00
+Stop Loss:        $2,382.00  ← automatic close if price drops here
+                 ─────────────────────────────────────
+SL Distance:      $18.00 (1,800 pips / 18 "points" in Gold price)
+
+If SL is hit, loss = (2400.00 - 2382.00) × lots × 100
+With 0.05 lots:   18.00 × 0.05 × 100 = $90.00 maximum loss</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div><strong>NEVER trade without a Stop Loss.</strong> Gold can move $50+ in minutes during news events. Without a SL, a single bad trade can wipe out weeks of profits. Gold Bot v7 ALWAYS sets a SL before entering any position. There are no exceptions.</div></div>
+
+      <h3>How the Bot Calculates Stop Loss (ATR Method)</h3>
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">Your bot doesn't pick random SL levels. It uses the <strong>ATR (Average True Range)</strong> — a measure of how much Gold typically moves per candle — multiplied by 1.5 to give the trade room to breathe without being too risky.</p>
+      <div class="formula">
+        <div class="fl">📐 Bot's Stop Loss Formula</div>
+        <div class="fr">SL (BUY) = Entry Price − (ATR × 1.5)</div>
+        <div class="fr">SL (SELL) = Entry Price + (ATR × 1.5)</div>
+        <div class="fd">ATR is calculated over 14 periods on the 15-minute chart. The ×1.5 multiplier gives the trade enough room so normal volatility doesn't accidentally hit your stop.</div>
+      </div>
+      <div class="card">
+        <h4>🔢 Worked Example: ATR = $12.00</h4>
+        <pre>Current Gold price:    $2,400.00
+ATR (14-period 15M):   $12.00 (Gold moves avg $12 per 15min candle)
+SL multiplier:         1.5
+
+SL Distance = $12.00 × 1.5 = $18.00
+SL Price    = $2,400.00 − $18.00 = $2,382.00
+
+This means: Gold needs to drop $18 from your entry before the bot accepts
+it has gone wrong and exits. Normal candle wobble of $12 won't touch your SL.</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- TP -->
+  <div class="step">
+    <div class="sh"><div class="sn g">TP</div><div><div class="stitle">What is a Take Profit (TP)?</div><div class="ssub">Your profit target — locks in gains when price reaches your goal</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">A <strong>Take Profit</strong> is the opposite of a Stop Loss. It's a price level where your trade automatically closes to lock in profit. Once the price hits your TP level, the trade closes immediately — no hesitation, no second-guessing.</p>
+      <div class="card card-green">
+        <h4 style="color:var(--green)">🟢 Example: BUY trade with Take Profit</h4>
+        <pre>Entry (BUY):      $2,400.00
+Take Profit:      $2,454.00  ← trade closes automatically here
+Stop Loss:        $2,382.00
+                 ─────────────────────────────────────
+Risk:             $18.00 (SL distance)
+Reward:           $54.00 (TP distance)
+Risk:Reward:      1:3 (risking $18 to make $54)</pre>
+      </div>
+      <p style="font-size:13px;color:#ccc;margin-top:16px;margin-bottom:14px;line-height:1.7">Your bot sets a <strong>TP reference</strong> at 3× the SL distance (ATR × 3.0 = ATR × 1.5 × 2). However — the bot doesn't always close at this TP. It uses a tiered exit instead (30% + 30% + trail). The TP reference is a guide, not a hard close.</p>
+      <div class="formula">
+        <div class="fl">📐 Bot's Take Profit Reference Formula</div>
+        <div class="fr">TP Ref (BUY) = Entry Price + (ATR × 3.0)</div>
+        <div class="fd">This is the theoretical 3R target. In practice, the bot partially closes at 1R and 2R, then trails the rest.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R MULTIPLES -->
+  <div class="step">
+    <div class="sh"><div class="sn">📊</div><div><div class="stitle">What Does "R" Mean? (The Most Important Concept)</div><div class="ssub">R is the universal language of trading risk management</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7"><strong>R = Risk</strong>. Specifically, 1R equals the dollar amount you risked on a trade (the distance from entry to your Stop Loss, in dollar terms). Every trade result can be expressed as a multiple of this initial risk.</p>
+      <div class="formula">
+        <div class="fl">📐 Definition of 1R</div>
+        <div class="fr">1R = |Entry Price − Stop Loss Price| × Lots × 100</div>
+        <div class="fd">Example: Entry $2,400, SL $2,382, 0.05 lots → 1R = 18 × 0.05 × 100 = $90</div>
+      </div>
+      <h3>R Multiple Examples — Using Entry $2,400, SL $2,382 (18 pips of risk)</h3>
+      <table>
+        <tr><th>R Multiple</th><th>Price Target</th><th>Pip Move</th><th>Profit on 0.05 Lots</th><th>Interpretation</th></tr>
+        <tr><td>−1R (Loss)</td><td>$2,382.00</td><td>−18 pips</td><td class="td-loss">−$90</td><td>SL hit — full loss of risk amount</td></tr>
+        <tr><td>0R (Break Even)</td><td>$2,400.00</td><td>0 pips</td><td>$0</td><td>No profit, no loss</td></tr>
+        <tr><td>+1R</td><td>$2,418.00</td><td>+18 pips</td><td class="td-win">+$90</td><td>Profit = exactly your risk amount</td></tr>
+        <tr><td>+1.5R</td><td>$2,427.00</td><td>+27 pips</td><td class="td-win">+$135</td><td>Post-news module target</td></tr>
+        <tr><td>+2R</td><td>$2,436.00</td><td>+36 pips</td><td class="td-win">+$180</td><td>Second tier close target</td></tr>
+        <tr><td>+3R</td><td>$2,454.00</td><td>+54 pips</td><td class="td-win">+$270</td><td>Full TP reference target</td></tr>
+      </table>
+      <div class="box bg"><span class="bi">💡</span><div><strong>Why think in R instead of dollars?</strong> R normalises performance across different lot sizes and account sizes. A trade that makes 2R is a 2R win whether your account is $1,000 or $100,000. If your average win is 1.5R and your average loss is −1R, you're profitable as long as you win more than 40% of trades (1.5 × 0.40 = 0.60 > 0.40 = loss rate × 1.0).</div></div>
+    </div>
+  </div>
+
+  <!-- WHY 1.25R APPEARS -->
+  <div class="step">
+    <div class="sh"><div class="sn b">1.25</div><div><div class="stitle">Why Does 1.25R Appear in the Trade Log?</div><div class="ssub">Understanding blended R — the weighted average of a tiered exit</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">The R number in your trades_log.csv is a <strong>blended R</strong> — the weighted average of all the partial closes combined. Because the bot exits in 3 tiers, the blended R is always somewhere between the first tier target and the trailing stop exit.</p>
+      <div class="card">
+        <h4>🔢 How Blended R is Calculated</h4>
+        <pre>Position: 0.10 lots total
+Entry: $2,400 | SL: $2,382 | 1R distance = 18 pips
+
+TIER 1: Close 30% at +1R
+  Weight: 30%
+  R earned: 1.0R
+  Contribution: 0.30 × 1.0 = 0.30R
+
+TIER 2: Close 30% at +2R
+  Weight: 30%  
+  R earned: 2.0R
+  Contribution: 0.30 × 2.0 = 0.60R
+
+TIER 3: Trail 40% — closes at +1.5R (e.g., trailing stop captured)
+  Weight: 40%
+  R earned: 1.5R
+  Contribution: 0.40 × 1.5 = 0.60R
+
+BLENDED R = 0.30 + 0.60 + 0.60 = 1.50R
+
+If TIER 3 trailed and closed early at +1.0R:
+  0.40 × 1.0 = 0.40R
+  Blended R = 0.30 + 0.60 + 0.40 = 1.30R
+
+If TIER 3 ran to full 3R:
+  0.40 × 3.0 = 1.20R
+  Blended R = 0.30 + 0.60 + 1.20 = 2.10R</pre>
+      </div>
+      <div class="box bg"><span class="bi">💡</span><div>A blended R of <strong>1.25R–1.5R</strong> is typical for trades where the trailing stop on the final 40% is captured somewhere between 1R and 2R. This is the bot's most common win scenario — not a full home-run, but consistently positive results that compound over many trades.</div></div>
+    </div>
+  </div>
+
+  <!-- TIERED EXIT VISUAL -->
+  <div class="step">
+    <div class="sh"><div class="sn">🎯</div><div><div class="stitle">The Bot's Complete Tiered Exit Structure</div><div class="ssub">How the bot manages an open trade — step by step</div></div></div>
+    <div class="sb">
+      <div class="card">
+        <pre>BOT TRADE MANAGEMENT — Every 15-minute cycle
+
+Phase 0: Trade just opened
+  • SL set at entry − (ATR × 1.5) = −1R
+  • TP reference at entry + (ATR × 3.0) = +3R
+  • Monitoring: is price above/below key levels?
+
+Phase 1: Price moves +1R from entry (18 pips)
+  ✅ Close 30% of position → lock in $90 on 0.10 lots
+  ✅ Move SL to BREAKEVEN (entry price)
+  → Now worst case: you keep the $90 profit from tier 1, lose nothing on rest
+
+Phase 2: Price moves +2R from entry (36 pips)
+  ✅ Close another 30% of position → lock in $180 on remaining 70%
+  → Now 40% of position is still open (the "runner")
+  → SL still at breakeven (you cannot lose money now)
+
+Phase 3: Trailing Stop on final 40%
+  ✅ Trail stop follows at: current_price − (ATR × 1.5)
+  ✅ As price rises, stop rises with it
+  → Trade closes when price reverses and hits the trailing stop
+  → The longer the trend runs, the higher your profit on this final piece</pre>
+      </div>
+      <div class="box bo"><span class="bi">✅</span><div><strong>The key insight:</strong> After Phase 1 completes, the worst possible outcome for the entire trade is +$90 (you've already banked the tier 1 close, and SL is at breakeven). The remaining tiers are essentially "free money" — the risk is already eliminated.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 5 — LOT SIZING                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t5">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 05</div>
+    <div>
+      <div class="ptitle">🔢 Lot Sizing — How the Bot Calculates Position Size</div>
+      <div class="psub">Every trade is sized to risk exactly 1% of your account. Here's the exact formula — with worked examples.</div>
+    </div>
+  </div>
+
+  <div class="box bg"><span class="bi">💡</span><div>Position sizing is the most important risk management tool you have. The goal is simple: no matter how large or small your account, no single trade should ever risk more than 1% of your equity. This is what separates professional traders from gamblers.</div></div>
+
+  <!-- Master Formula -->
+  <div class="step">
+    <div class="sh"><div class="sn">📐</div><div><div class="stitle">The Complete Lot Size Formula</div><div class="ssub">Used by the bot in NORMAL mode (1% risk)</div></div></div>
+    <div class="sb">
+      <div class="formula">
+        <div class="fl">📐 Step 1: Calculate Risk Amount</div>
+        <div class="fr">Risk Amount = Account Equity × Risk %</div>
+        <div class="fd">NORMAL mode = 1.0% → $10,000 × 0.01 = $100 maximum risk per trade</div>
+      </div>
+      <div class="formula">
+        <div class="fl">📐 Step 2: Calculate SL Distance in Points</div>
+        <div class="fr">SL Distance = |Entry Price − SL Price|</div>
+        <div class="fd">Example: Entry $2,400, SL $2,382 → SL Distance = $18.00 = 1,800 pips (18 "price points")</div>
+      </div>
+      <div class="formula">
+        <div class="fl">📐 Step 3: Calculate Lot Size</div>
+        <div class="fr">Lot Size = Risk Amount ÷ (SL Distance × $1)</div>
+        <div class="fd">The $1 per pip per lot is the pip value for Gold. SL Distance here is in price points ($), so we use the raw dollar distance.</div>
+      </div>
+      <div class="card">
+        <h4>🔢 Full Worked Example</h4>
+        <pre>Account Equity:    $10,000
+Risk Percentage:   1.0% (NORMAL mode)
+Risk Amount:       $10,000 × 0.01 = $100
+
+Entry Price:       $2,400.00
+ATR (14-period):   $12.00
+SL = Entry − ATR×1.5 = $2,400 − $18 = $2,382.00
+SL Distance:       $18.00
+
+Pip Value per lot: $1.00 (for Gold XAUUSD)
+
+Raw Lot Size = $100 ÷ ($18.00 × $1.00)
+             = $100 ÷ $18.00
+             = 5.555... lots
+
+Round to broker minimum step (0.01):
+             → 5.55 lots (maximum)
+
+BUT: Bot also caps at volume_max (broker limit)
+     and enforces volume_min (0.01 lots minimum)
+
+Final rounded lot size → 0.05 lots (see below)</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div>Wait — the formula gave us 5.55 lots, but the bot trades 0.05 lots?! This is because the formula above is in raw units where SL distance = $18. But in the actual MT5 API, lot sizing uses the <strong>tick value</strong> system. The formula effectively becomes: <code>lot = risk_amount ÷ (sl_pips × tick_value / tick_size)</code> where tick_value = 0.01 and tick_size = 0.01 for Gold. This gives 100× smaller number — so 5.55 ÷ 100 = 0.0555 → rounds to <strong>0.05 lots</strong>. See the code equivalent below.</div></div>
+      <div class="card">
+        <h4>🐍 The Actual Bot Code Logic (simplified)</h4>
+        <pre style="color:#9CDCFE">equity     = mt5.account_info().equity          # e.g. $10,000
+risk_pct   = get_mode("risk_pct")               # 0.01 (1%)
+risk_amt   = equity * risk_pct                  # $100
+
+sl_dist    = abs(entry_price - sl_price)        # $18.00
+tick_val   = mt5.symbol_info("XAUUSD").trade_tick_value   # 0.01
+tick_sz    = mt5.symbol_info("XAUUSD").trade_tick_size    # 0.01
+
+# pip_value_per_lot = tick_val / tick_sz = 0.01 / 0.01 = 1.0  ← $1/pip/lot
+pip_value  = tick_val / tick_sz
+
+raw_lots   = risk_amt / (sl_dist * pip_value)  # 100 / (18 * 1.0) = 5.555
+# But sl_dist is in price units ($18), not in ticks
+# So for Gold where 1 tick = $0.01:
+# sl_dist in ticks = 18 / 0.01 = 1800 ticks
+# raw_lots = 100 / (1800 * 0.01) = 100 / 18 = 5.55  ← same answer
+
+# Round to nearest 0.01
+final_lots = round(raw_lots / vol_step) * vol_step    # → 0.05</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- EQUITY vs BALANCE -->
+  <div class="step">
+    <div class="sh"><div class="sn b">E</div><div><div class="stitle">Why the Bot Uses EQUITY, Not BALANCE</div><div class="ssub">A critical distinction that protects you during losing streaks</div></div></div>
+    <div class="sb">
+      <div class="grid2">
+        <div class="card">
+          <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:var(--gold)">Balance</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.7">Your starting cash in the account. Does NOT update while trades are open. If you started with $10,000 and have 2 open trades losing $150 total, your balance still shows <strong>$10,000</strong>.</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:var(--blue)">Equity</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.7">Balance + floating P&L. Updates in real time. If you started with $10,000 and have −$150 floating, equity = <strong>$9,850</strong>. This is your true current wealth.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>🔢 Why This Matters During a Losing Streak</h4>
+        <pre>Starting balance:   $10,000
+
+Trade 1: LOSS −$100. Balance=$10,000. Equity=$9,900.
+Trade 2 sizing (using EQUITY):
+  Risk = $9,900 × 1% = $99 (slightly less than $100)
+
+Trade 2: LOSS −$99. Balance=$10,000. Equity=$9,801.
+Trade 3 sizing (using EQUITY):
+  Risk = $9,801 × 1% = $98.01 (keeps shrinking)
+
+→ Your losses SHRINK automatically during a bad run
+→ You would need 69 consecutive 1% losses to lose half your account
+→ Using BALANCE instead would keep risking $100 regardless</pre>
+      </div>
+      <div class="box bo"><span class="bi">✅</span><div>This is called <strong>"fixed fractional position sizing"</strong> — one of the most important concepts in professional trading. The bot does this automatically. During winning streaks, lot sizes grow. During losing streaks, they shrink. This creates a natural protection against blowing your account.</div></div>
+    </div>
+  </div>
+
+  <!-- MODES -->
+  <div class="step">
+    <div class="sh"><div class="sn">⚙️</div><div><div class="stitle">How Trading Mode Changes Lot Size</div><div class="ssub">CONSERVATIVE / NORMAL / AGGRESSIVE — what they actually mean for position size</div></div></div>
+    <div class="sb">
+      <div class="grid3">
+        <div class="card card-blue">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:8px">CONSERVATIVE</div>
+          <div style="font-size:24px;font-weight:700;margin-bottom:8px;color:var(--blue)">0.5%</div>
+          <ul class="il">
+            <li>Risk: 0.5% per trade</li>
+            <li>ML threshold: 0.72 (stricter)</li>
+            <li>Max 3 trades/day</li>
+            <li>Max 2% daily loss</li>
+          </ul>
+          <div style="margin-top:10px;font-size:12px;color:var(--dim)">Best for: New accounts, testing periods, low confidence in market conditions</div>
+        </div>
+        <div class="card card-gold">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:8px">NORMAL ← DEFAULT</div>
+          <div style="font-size:24px;font-weight:700;margin-bottom:8px;color:var(--gold)">1.0%</div>
+          <ul class="il">
+            <li>Risk: 1.0% per trade</li>
+            <li>ML threshold: 0.65 (standard)</li>
+            <li>Max 5 trades/day</li>
+            <li>Max 3% daily loss</li>
+          </ul>
+          <div style="margin-top:10px;font-size:12px;color:var(--dim)">Best for: Standard live trading, consistent conditions, established track record</div>
+        </div>
+        <div class="card card-red">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);letter-spacing:2px;margin-bottom:8px">AGGRESSIVE</div>
+          <div style="font-size:24px;font-weight:700;margin-bottom:8px;color:var(--red)">1.5%</div>
+          <ul class="il">
+            <li>Risk: 1.5% per trade</li>
+            <li>ML threshold: 0.58 (more lenient)</li>
+            <li>Max 8 trades/day</li>
+            <li>Max 4% daily loss</li>
+          </ul>
+          <div style="margin-top:10px;font-size:12px;color:var(--dim)">Best for: High-confidence conditions only. High reward potential but higher drawdown risk.</div>
+        </div>
+      </div>
+
+      <h3>Lot Size Lookup Table</h3>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:10px">NORMAL mode (1% risk). SL distance = ATR × 1.5.</p>
+      <table>
+        <tr><th>Account Equity</th><th>1% Risk</th><th>ATR=8 (SL=12pts)</th><th>ATR=12 (SL=18pts)</th><th>ATR=18 (SL=27pts)</th><th>ATR=25 (SL=37.5pts)</th></tr>
+        <tr><td>$1,000</td><td>$10</td><td>0.08 lots</td><td>0.05 lots</td><td>0.03 lots</td><td>0.02 lots</td></tr>
+        <tr><td>$2,500</td><td>$25</td><td>0.20 lots</td><td>0.13 lots</td><td>0.09 lots</td><td>0.06 lots</td></tr>
+        <tr><td>$5,000</td><td>$50</td><td>0.41 lots</td><td>0.27 lots</td><td>0.18 lots</td><td>0.13 lots</td></tr>
+        <tr><td>$10,000</td><td>$100</td><td>0.83 lots</td><td>0.55 lots</td><td>0.37 lots</td><td>0.26 lots</td></tr>
+        <tr><td>$25,000</td><td>$250</td><td>2.08 lots</td><td>1.38 lots</td><td>0.92 lots</td><td>0.66 lots</td></tr>
+      </table>
+      <div class="box bg"><span class="bi">💡</span><div>The lot sizes above are theoretical. In practice, brokers enforce minimum volume (usually 0.01) and maximum volume limits. Also note: higher ATR = wider SL = smaller lot size (because each pip costs more to risk). The bot adapts automatically — volatile markets get smaller positions.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 6 — HOW THE BOT TRADES                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t6">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 06</div>
+    <div>
+      <div class="ptitle">🤖 How the Bot Trades — Complete Flow</div>
+      <div class="psub">From startup to trade exit. Every decision the bot makes — explained step by step.</div>
+    </div>
+  </div>
+
+  <!-- SECTION A: STARTUP -->
+  <h2>Section A — Bot Startup Sequence</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">🚀</div><div><div class="stitle">What Happens When You Run bot_v7.py</div><div class="ssub">The first 10 seconds of bot life</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Python script starts</strong> — <code>python bot_v7.py</code> is executed on your computer or VPS</li>
+        <li><strong>Logging initialised</strong> — Creates/opens <code>goldbot.log</code>. All decisions from this moment are recorded with timestamps.</li>
+        <li><strong>Connect to MetaTrader 5</strong> — The bot calls <code>mt5.initialize()</code> and <code>mt5.login()</code> using your credentials (login number, password, server name). If this fails, the bot exits immediately with an error.</li>
+        <li><strong>Load regime_stats.json</strong> — Reads the bot's "memory" file. This contains win rates for each market regime from all previous trades. If file doesn't exist yet, starts fresh with empty stats.</li>
+        <li><strong>Load open_trade_state.json</strong> — Checks if there was an open trade when the bot last shut down. If yes, it reconnects to manage that trade. This handles crashes and restarts gracefully.</li>
+        <li><strong>Load ML model files</strong> — Attempts to load <code>ml_xgb.pkl</code>, <code>ml_rf.pkl</code>, <code>ml_lr.pkl</code>. If they don't exist (you have fewer than 200 trades), models are set to None and the bot runs in "placeholder mode" (all signals pass through).</li>
+        <li><strong>Start Signal Thread</strong> — Background thread that runs every 900 seconds (15 minutes). This is the main signal engine.</li>
+        <li><strong>Start CSV Updater Thread</strong> — Background thread that runs every 300 seconds (5 minutes). Checks MT5 trade history and fills in results on closed trades.</li>
+        <li><strong>Start ML Retrain Scheduler</strong> — Checks every hour if it's Sunday at 2:00am UTC. If yes, triggers ML model retraining using all historical data.</li>
+        <li><strong>Start Flask web server</strong> — Starts a simple HTTP server that can receive Telegram webhook commands (manual trade commands, mode changes).</li>
+        <li><strong>Send Telegram message</strong> — "🤖 Gold Bot v7 started. Mode: NORMAL. Equity: $10,000. ML: Placeholder mode."</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION B: SIGNAL CYCLE -->
+  <h2>Section B — Every 15 Minutes: The Signal Cycle</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">⏱️</div><div><div class="stitle">The Signal Cycle — Runs Every 900 Seconds</div><div class="ssub">10 checks before a single trade is placed</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Fetch market data (3 timeframes)</strong>
+          <br><span style="color:var(--dim);font-size:12px">Gets the last 200 candles each of: 15-minute (entry chart), 1-hour (trend chart), 4-hour (bias chart). Each candle has OHLC + volume data.</span></li>
+        <li><strong>Detect market regime from 1H chart</strong>
+          <br><span style="color:var(--dim);font-size:12px">Calculates ADX (trend strength), EMA50, EMA200, ATR, Bollinger Bands on the 1-hour chart. Classifies current market as one of 6 regimes (see Section C below).</span></li>
+        <li><strong>Check for open position</strong>
+          <br><span style="color:var(--dim);font-size:12px">If there's already an open trade, skip signal generation and go to trade management instead. The bot manages ONE position at a time per symbol.</span></li>
+        <li><strong>Check 30-minute signal cooldown</strong>
+          <br><span style="color:var(--dim);font-size:12px">If a signal was generated within the last 30 minutes, skip this cycle. Prevents "overtrading" when the bot sees similar conditions repeatedly.</span></li>
+        <li><strong>Check current spread</strong>
+          <br><span style="color:var(--dim);font-size:12px">Gets current bid/ask from MT5. Calculates spread in pips. If spread exceeds the regime's limit (20–30 pips), skip cycle. High spread = expensive entry + slippage risk.</span></li>
+        <li><strong>Check news calendar</strong>
+          <br><span style="color:var(--dim);font-size:12px">Queries Finnhub API for upcoming high-impact economic news (e.g. US CPI, Fed decisions, NFP). If an event is within 30 minutes, skip cycle. Post-news module handles the aftermath separately.</span></li>
+        <li><strong>Check daily trade and loss limits</strong>
+          <br><span style="color:var(--dim);font-size:12px">NORMAL mode: max 5 trades/day, max 3% daily loss. If either limit is hit, no more trades today. Reset at midnight UTC.</span></li>
+        <li><strong>Route to correct module</strong>
+          <br><span style="color:var(--dim);font-size:12px">Based on detected regime: TREND_BULL/TREND_BEAR → Module 01, RANGE → Module 02, VOLATILE_SQUEEZE → Module 03, VOLATILE_NEWS → Module 04, UNKNOWN → skip.</span></li>
+        <li><strong>Run ML filter</strong>
+          <br><span style="color:var(--dim);font-size:12px">If models are loaded (200+ trades), collect 12 features from this trade setup, run through all 3 models, compute weighted vote. If score &lt; 0.65, trade is rejected.</span></li>
+        <li><strong>If approved: calculate lot size, place trade, log everything</strong>
+          <br><span style="color:var(--dim);font-size:12px">Calculate equity-based lot size, send order to MT5, save state, write to CSV, send Telegram notification.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION C: REGIME DETECTION -->
+  <h2>Section C — The 6 Market Regimes</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">📡</div><div><div class="stitle">How the Bot Classifies Gold's Current Market Condition</div><div class="ssub">Before every signal, the bot asks: "What kind of market is this right now?"</div></div></div>
+    <div class="sb">
+      <div class="box bg"><span class="bi">💡</span><div>Different market conditions require completely different strategies. A trend-following strategy in a choppy ranging market loses money. A range-trading strategy in a strong trend loses money. Regime detection is what allows the bot to switch approaches automatically.</div></div>
+      <div class="step">
+        <div class="sh"><div class="sn g">01</div><div><div class="stitle">TREND_BULL</div><div class="ssub">Strong uptrend — bot can go LONG only</div></div></div>
+        <div class="sb">
+          <div class="card card-green">
+            <pre style="color:#2ECC71">Conditions (ALL must be true):
+  ✅ ADX (1H) > 28          ← Strong trend exists
+  ✅ EMA50 (1H) > EMA200 (1H) ← Bullish trend direction
+  ✅ Current close > EMA50  ← Price above trend line
+
+Action: Module 01 (TREND) runs with BUY bias only.
+The 4H chart must also confirm bullish direction.</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sh"><div class="sn r">02</div><div><div class="stitle">TREND_BEAR</div><div class="ssub">Strong downtrend — bot can go SHORT only</div></div></div>
+        <div class="sb">
+          <div class="card card-red">
+            <pre style="color:#E74C3C">Conditions (ALL must be true):
+  ✅ ADX (1H) > 28          ← Strong trend exists
+  ✅ EMA50 (1H) &lt; EMA200 (1H) ← Bearish trend direction
+  ✅ Current close &lt; EMA50  ← Price below trend line
+
+Action: Module 01 (TREND) runs with SELL bias only.</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sh"><div class="sn b">03</div><div><div class="stitle">RANGE</div><div class="ssub">Gold is consolidating between two levels</div></div></div>
+        <div class="sb">
+          <div class="card card-blue">
+            <pre style="color:#3498DB">Conditions (ALL must be true):
+  ✅ ADX (1H) &lt; 20           ← Weak/no trend — sideways market
+  ✅ Range confirmed (8+ candles oscillating)
+  ✅ Range width: 60–200 pips (band not too tight, not too wide)
+
+Action: Module 02 (RANGE) runs.
+Looks for rejection signals at range top (SELL) or range bottom (BUY).</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sh"><div class="sn p">04</div><div><div class="stitle">VOLATILE_SQUEEZE</div><div class="ssub">Volatility has compressed — a big move is coming</div></div></div>
+        <div class="sb">
+          <div class="card" style="border-color:rgba(155,89,182,.4)">
+            <pre style="color:#9B59B6">Conditions (ALL must be true):
+  ✅ ATR at 20-period LOW (volatility compressed)
+  ✅ Bollinger Band width at 252-bar minimum
+  ✅ No high-impact news in next 2 hours
+
+Action: Module 03 (SQUEEZE) runs.
+Waits for a breakout candle to confirm direction, then trades the expansion.</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sh"><div class="sn" style="background:#E67E22">05</div><div><div class="stitle">VOLATILE_NEWS</div><div class="ssub">Post-news spike detected — special ICT entry</div></div></div>
+        <div class="sb">
+          <div class="card" style="border-color:rgba(230,126,34,.4)">
+            <pre style="color:#E67E22">Conditions:
+  ✅ ATR spike in last 6 candles > 1.5× average ATR
+  ✅ At least 60 minutes have passed since spike
+  ✅ Consolidation is less than 35% of the spike range
+
+Action: Module 04 (POST-NEWS) runs.
+Enters after the dust settles in the direction of the original move.
+Uses 1.5R reward target (not 3R) — post-news moves tend to be sharper but shorter.</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sh"><div class="sn" style="background:var(--dim)">06</div><div><div class="stitle">UNKNOWN</div><div class="ssub">Market doesn't fit any pattern — no trades</div></div></div>
+        <div class="sb">
+          <div class="card">
+            <pre style="color:var(--dim)">Conditions: None of the above match.
+  Examples: ADX between 20–28 (transition zone), news event ongoing,
+  weekend gaps, extreme spread
+
+Action: Skip this cycle entirely. 
+"No edge" is a valid answer — it's better than forcing a bad trade.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION D: THE 4 MODULES -->
+  <h2>Section D — The 4 Strategy Modules</h2>
+  <div class="step">
+    <div class="sh"><div class="sn g">M1</div><div><div class="stitle">MODULE 01 — TREND (SMC + Order Block + OTE Entry)</div><div class="ssub">Used in TREND_BULL and TREND_BEAR regimes — aims for 3R target</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">The TREND module uses Smart Money Concepts (SMC) to find high-probability entries in the direction of the trend. It requires multiple confirmations before entering — each one filters out false signals.</p>
+      <ul class="ol-steps">
+        <li><strong>4H Bias Check</strong> — The 4-hour chart must agree with the 1H trend direction. If 1H says BULL but 4H is bearish, skip. Multi-timeframe alignment required.</li>
+        <li><strong>Session Check</strong> — Must be within the 06:00–16:00 UTC trading window. Optionally enforces Silver Bullet windows (10–11 AM and 2–3 PM London time) for highest-quality entries.</li>
+        <li><strong>Sweep Candle Detection</strong> — Looks for a candle that "swept" liquidity. A bullish sweep: candle wick goes below a recent low (hunting stop-losses), then closes above it. Body must be ≥38% of total candle range. This signals institutional buying after trapping retail shorts.</li>
+        <li><strong>MSS (Market Structure Shift) Candle</strong> — After the sweep, waits for a candle that breaks the previous structure. For BUY: close must break above the 10-bar high. Body ≥40% of range. This confirms the reversal is real.</li>
+        <li><strong>FVG / Order Block / OTE Entry</strong> — Enters at a Fair Value Gap (imbalance) or Order Block (last opposing candle before the move) or Fibonacci 61.8% OTE retracement zone. These are price levels where smart money is likely to buy more.</li>
+        <li><strong>RSI Guard</strong> — For BUY: RSI must be below 75 (not overbought). For SELL: RSI must be above 25 (not oversold). Prevents entering at price extremes.</li>
+        <li><strong>Signal Generated!</strong> — All checks passed. Proceeds to ML filter and lot sizing.</li>
+      </ul>
+      <div class="box bg"><span class="bi">💡</span><div><strong>SMC (Smart Money Concepts)</strong> is a trading framework based on understanding how large institutional traders (banks, hedge funds) move price. Instead of following retail indicators, SMC focuses on: liquidity hunts (stop-loss sweeps), fair value gaps (imbalances), and order blocks (supply/demand zones). Your bot uses these concepts to trade WITH the institutions, not against them.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn b">M2</div><div><div class="stitle">MODULE 02 — RANGE (Range Boundary SMC)</div><div class="ssub">Used in RANGE regime — buys at bottom, sells at top</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Range Confirmed</strong> — Verifies Gold has been trading within a 60–200 pip band for at least 8 candles. The boundaries are identified as the range high (resistance) and range low (support).</li>
+        <li><strong>Boundary Touch</strong> — Price must currently be at (within 10% of) the range high or range low. Not in the middle.</li>
+        <li><strong>Rejection Candle</strong> — The candle at the boundary must show rejection: a long wick into the boundary zone and a close back away from it. Candle body ≥40% of range. This shows price is being pushed back from the boundary.</li>
+        <li><strong>RSI Divergence</strong> — Optional confirmation: price makes new low at range bottom but RSI makes higher low = hidden bullish divergence. Increases signal quality but not always required.</li>
+        <li><strong>Bollinger Band Touch</strong> — Price touching the outer Bollinger Band (2.5 standard deviations) at the range boundary provides additional confirmation of mean-reversion potential.</li>
+      </ul>
+      <div class="box bi2"><span class="bi">ℹ️</span><div>Range trades use a tighter target than trend trades — typically 1.5R–2R rather than 3R — because range-bound Gold often reverses before reaching extended targets. The SL is still ATR×1.5, but the bot expects to exit at the opposite boundary of the range.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn p">M3</div><div><div class="stitle">MODULE 03 — VOLATILE SQUEEZE (Bollinger Squeeze Breakout)</div><div class="ssub">Used in VOLATILE_SQUEEZE regime — trades the expansion after compression</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>ATR Compression Confirmed</strong> — Current ATR must be at its lowest level in the last 20 periods. Gold has been unusually quiet.</li>
+        <li><strong>Bollinger Band Squeeze</strong> — BB width must be at a 252-bar minimum (1 year of daily data = approximately at all-time narrow). This extreme compression precedes large moves.</li>
+        <li><strong>No Nearby News</strong> — No high-impact news within the next 2 hours. A squeeze broken by news is unpredictable — the bot avoids these.</li>
+        <li><strong>Breakout Candle</strong> — A candle closes outside the Bollinger Bands with a body ≥45% of its range. This is the signal that volatility expansion has begun.</li>
+        <li><strong>4H Alignment</strong> — The breakout direction must align with the 4H bias. A downside breakout in an uptrending 4H chart would be filtered out.</li>
+        <li><strong>Entry</strong> — Enters immediately in the breakout direction. SL is ATR×1.5 (remember: ATR is at a low right now, so the SL is actually quite tight — which means the lot size is larger than usual!).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn" style="background:#E67E22">M4</div><div><div class="stitle">MODULE 04 — POST-NEWS (ICT News Entry)</div><div class="ssub">Used in VOLATILE_NEWS regime — enters after news spike settles</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Spike Detection</strong> — An ATR spike must exist in the last 6 candles: spike ATR > 1.5× the average ATR. A big candle appeared after a news event.</li>
+        <li><strong>60-Minute Wait</strong> — At least 60 minutes must have passed since the spike. This allows the initial chaos to settle and a more structured move to form.</li>
+        <li><strong>Consolidation Tight</strong> — In the 60 minutes since the spike, price must NOT have retraced more than 35% of the spike's range. If it did, the spike has reversed — no trade.</li>
+        <li><strong>Sweep in Spike Direction</strong> — A small liquidity sweep in the direction of the spike (a micro stop-hunt before continuation). This is the classic ICT "judas swing" concept.</li>
+        <li><strong>FVG Confirmation</strong> — A Fair Value Gap must be present from the spike candle. Price re-entering this gap is the entry signal.</li>
+        <li><strong>Entry at 1.5R Target</strong> — Post-news trades use TP = ATR×1.5×1.5 instead of ×3.0. The target is smaller but the probability is higher in this scenario.</li>
+      </ul>
+      <div class="box bg"><span class="bi">💡</span><div>The post-news module is triggered when events like US CPI, Federal Reserve decisions, or Non-Farm Payrolls create a sudden $15–30 spike in Gold. Rather than chasing the move blindly, the bot waits for a specific setup that shows the market has "decided" direction. This is far safer than trading during the initial volatility.</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION E: EXECUTION -->
+  <h2>Section E — Trade Execution Flow</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">⚡</div><div><div class="stitle">What Happens When a Signal is Approved</div><div class="ssub">From signal to live order in 5 steps</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Get current price</strong> — Fetch latest ask (for BUY) or bid (for SELL) from MT5. This is the entry price.</li>
+        <li><strong>Calculate SL and TP</strong> — SL = entry ± (ATR × 1.5), TP reference = entry ± (ATR × 3.0). Check that R:R ≥ 2.0. If TP/SL distance ratio is less than 2:1, the trade is skipped (the risk-reward isn't worth it).</li>
+        <li><strong>Calculate lot size</strong> — <code>equity × risk_pct ÷ (sl_distance × pip_value)</code>. Round to broker's volume step.</li>
+        <li><strong>Send order to MT5</strong> — Uses <code>mt5.order_send()</code> with market execution type. The order includes: symbol, action (BUY/SELL), volume (lots), price, SL, TP, comment string (which module triggered it).</li>
+        <li><strong>Handle result</strong> — If order accepted: save to open_trade_state.json, write row to trades_log.csv (with "result" column empty), send Telegram success message. If order rejected (broker error): log the error code, send Telegram alert, retry up to 3 times.</li>
+      </ul>
+      <div class="card">
+        <h4>📱 Example Telegram Message When Trade Opens</h4>
+        <pre style="color:#2ECC71">🟢 TRADE OPENED
+Symbol: XAUUSD
+Direction: BUY
+Module: TREND_BULL (MODULE 01)
+Entry: $2,400.40
+SL: $2,382.00 (−18.40 pts)
+TP Ref: $2,455.20 (+54.80 pts)
+Lots: 0.05
+Risk: $92.00 (1.0% of $9,200 equity)
+Session: LDN_NY_Overlap
+ML Score: 0.71 | Approved ✅</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION F: MANAGEMENT -->
+  <h2>Section F — Trade Management (Every 15 Min Cycle)</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">🔄</div><div><div class="stitle">How the Bot Manages Open Trades</div><div class="ssub">Checks every 15 minutes for tiered exit conditions</div></div></div>
+    <div class="sb">
+      <div class="card">
+        <pre>MANAGEMENT CYCLE (runs every 15 min if position is open):
+
+1. Get current price and all open positions from MT5
+2. Calculate current distance from entry (in pips)
+3. Check tier conditions:
+
+   IF tier_1_done = False AND current_profit_pips >= sl_distance:
+     → Close 30% of original volume
+     → Move SL to breakeven (entry price)
+     → Set tier_1_done = True
+     → Telegram: "🔒 Tier 1 closed. +X pips. SL at breakeven."
+
+   IF tier_1_done AND tier_2_done = False AND profit_pips >= sl_distance * 2:
+     → Close another 30% of original volume  
+     → Set tier_2_done = True
+     → Telegram: "🔒 Tier 2 closed. +X pips."
+
+   IF tier_1_done AND tier_2_done:
+     → Calculate trailing stop: current_price - (atr * 1.5) for BUY
+     → If trailing stop > current SL: update SL to trailing stop level
+     → (MT5 modified via mt5.order_send() with MODIFY action)
+
+4. Check if trade was closed by MT5 (SL hit / TP hit):
+   → If position no longer exists: log final result
+   → Update trades_log.csv with result and pnl_usd
+   → Clear open_trade_state.json
+   → Update regime_stats.json with outcome</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION G: CLOSE -->
+  <h2>Section G — How Trade Results Are Recorded</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">📝</div><div><div class="stitle">The Auto CSV Updater (Every 5 Minutes)</div><div class="ssub">How "result" and "pnl_usd" columns get filled in</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Fetch MT5 trade history</strong> — Checks all deals in the last 7 days using <code>mt5.history_deals_get()</code></li>
+        <li><strong>Match by ticket number</strong> — Compares the ticket numbers in trades_log.csv against closed deals. Finds any recently closed position.</li>
+        <li><strong>Fill result column</strong> — Calculates profit: <code>(fill_price - entry_price) × lots × 100</code> for BUY. If positive → "WIN", if negative → "LOSS". Writes to the "result" column.</li>
+        <li><strong>Fill pnl_usd</strong> — The actual dollar profit or loss from the MT5 record (includes swap/commission if applicable).</li>
+        <li><strong>Update regime_stats.json</strong> — Increments win/loss counter for the regime that triggered the trade. After 30+ trades, if win rate &lt; 35%, that regime is flagged as underperforming.</li>
+        <li><strong>Self-learning check</strong> — If any regime's win rate drops below 35% after 30+ trades: that regime is auto-blocked for 14 days. No new trades from that module. Telegram alert sent.</li>
+      </ul>
+      <div class="box bo"><span class="bi">✅</span><div><strong>This is why the bot improves over time.</strong> If the RANGE module has been losing 70% of trades over the last 30 setups, the bot stops using it automatically. When the bot resumes after 14 days, it only does 10 trial trades before evaluating again. The strategy adapts to YOUR specific broker, account, and market conditions.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 7 — TRADES LOG & ML                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t7">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 07</div>
+    <div>
+      <div class="ptitle">📋 Trades Log &amp; ML System</div>
+      <div class="psub">What every column in trades_log.csv means, how to calculate your stats, and how the machine learning system works.</div>
+    </div>
+  </div>
+
+  <!-- SECTION A: CSV COLUMNS -->
+  <h2>Section A — trades_log.csv: Every Column Explained</h2>
+  <div class="box bi2"><span class="bi">ℹ️</span><div>Every trade your bot places creates a row in this file. Some columns are filled immediately when the trade opens (entry data). Others — marked with ⏳ — are filled later when the trade closes (result data). You can open this file in Excel, Google Sheets, or any spreadsheet app.</div></div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">📋</div><div><div class="stitle">All 21 Columns — Full Reference</div><div class="ssub">One column at a time, with examples</div></div></div>
+    <div class="sb">
+      <table>
+        <tr><th>Column</th><th>Example Value</th><th>What It Means</th><th>Type</th></tr>
+        <tr><td>date</td><td>2024-11-15</td><td>Date the trade was opened (YYYY-MM-DD format, UTC timezone)</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>time</td><td>09:32:14</td><td>Exact time the trade was placed, UTC. 09:32 = London session (6am–noon UTC)</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>signal</td><td>BUY</td><td>"BUY" (long — betting price goes up) or "SELL" (short — betting price goes down)</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>symbol</td><td>XAUUSD</td><td>Always XAUUSD. The bot only trades Gold.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>price</td><td>2400.00</td><td>The price the bot REQUESTED to enter at. The theoretical entry price.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>fill_price</td><td>2400.40</td><td>The price the bot ACTUALLY got filled at. May differ from "price" due to slippage. This is the real entry price used for P&amp;L calculations.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>slippage_pts</td><td>0.40</td><td>fill_price minus price (for BUY). In price points. 0.40 pts = 40 pips of slippage. Watch this column — consistently high slippage = broker problem.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>sl</td><td>2382.00</td><td>Stop Loss price level. If Gold hits this price, the trade closes automatically with a loss.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>tp_ref</td><td>2454.80</td><td>Take Profit reference. The theoretical 3R target. The bot may exit before this using tiered exits + trailing stop.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>lot</td><td>0.05</td><td>Position size in lots. 0.05 = 5 oz of gold = ~$12,000 face value (but you only used ~$24 in margin).</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>risk_pct</td><td>1.0</td><td>What % of account equity was risked. 1.0 = NORMAL mode. 0.5 = CONSERVATIVE. 1.5 = AGGRESSIVE.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>sl_distance</td><td>18.40</td><td>Distance from fill_price to sl in price points. 18.40 pts = $18.40 per lot = $0.92 per 0.05 lot pip move. This is "1R" in price terms.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>rr_ref</td><td>2.98</td><td>Theoretical R:R if the full TP reference is hit. tp_distance / sl_distance. A value &lt;2.0 means the trade would have been rejected.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>atr_used</td><td>12.27</td><td>The ATR value at time of entry. sl_distance = atr_used × 1.5. High ATR = volatile market = wider SL = smaller lot size.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>account_balance</td><td>10000.00</td><td>Your MT5 account balance at time of entry (not equity — this is the settled balance number).</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>regime</td><td>TREND_BULL</td><td>Which market regime triggered this trade. One of: TREND_BULL, TREND_BEAR, RANGE, VOLATILE_SQUEEZE, VOLATILE_NEWS.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>mode</td><td>NORMAL</td><td>Trading mode at time of entry: CONSERVATIVE, NORMAL, or AGGRESSIVE.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>result</td><td>WIN</td><td>⏳ Filled after trade closes. "WIN" if pnl_usd &gt; 0, "LOSS" if pnl_usd &lt; 0. Blank = trade still open.</td><td><span class="pill pill-green">Result</span></td></tr>
+        <tr><td>pnl_usd</td><td>142.50</td><td>⏳ Actual dollar P&amp;L from this trade, including all partial closes. Positive = profit, negative = loss. This is what actually hits your account balance.</td><td><span class="pill pill-green">Result</span></td></tr>
+        <tr><td>session</td><td>LDN_NY_Overlap</td><td>Which trading session was active: Asian (00-06 UTC), London (06-12 UTC), LDN_NY_Overlap (12-16 UTC), NY (16-20 UTC).</td><td><span class="pill pill-gold">Entry</span></td></tr>
+        <tr><td>ticket</td><td>1234567890</td><td>MT5's unique ID for this trade. Used to match trades_log.csv rows to MT5 history when filling results. If you ever need to dispute a trade, this is your reference number.</td><td><span class="pill pill-gold">Entry</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sample CSV -->
+  <div class="step">
+    <div class="sh"><div class="sn">📄</div><div><div class="stitle">Sample trades_log.csv Rows</div><div class="ssub">What real data looks like — and how to read it</div></div></div>
+    <div class="sb">
+      <div class="card">
+        <pre style="font-size:10.5px;line-height:1.8">date,time,signal,symbol,price,fill_price,slippage_pts,sl,tp_ref,lot,risk_pct,sl_distance,rr_ref,atr_used,account_balance,regime,mode,result,pnl_usd,session,ticket
+
+<span style="color:#2ECC71">2024-11-15,09:32:14,BUY,XAUUSD,2400.00,2400.40,0.40,2382.00,2454.80,0.05,1.0,18.40,2.98,12.27,10000.00,TREND_BULL,NORMAL,WIN,142.50,LDN_NY_Overlap,1234567890</span>
+<span style="color:#E74C3C">2024-11-16,07:15:42,SELL,XAUUSD,2388.00,2387.60,-0.40,2405.00,2352.00,0.04,1.0,17.40,3.10,11.60,10142.50,TREND_BEAR,NORMAL,LOSS,-69.60,London,1234567891</span>
+<span style="color:#2ECC71">2024-11-18,13:44:08,BUY,XAUUSD,2395.00,2395.20,0.20,2378.50,2447.40,0.05,1.0,16.70,3.12,11.13,10072.90,RANGE,NORMAL,WIN,58.20,LDN_NY_Overlap,1234567892</span>
+<span style="color:#888">2024-11-19,10:22:30,BUY,XAUUSD,2410.00,2410.30,0.30,2392.00,2463.60,0.05,1.0,18.30,2.91,12.20,10131.10,TREND_BULL,NORMAL,,  ,London,1234567893</span></pre>
+      </div>
+      <div class="box bi2"><span class="bi">ℹ️</span><div>The last row has empty "result" and "pnl_usd" columns — this trade is still open. The CSV updater will fill these in once the trade closes (within 5 minutes of closing).</div></div>
+    </div>
+  </div>
+
+  <!-- How to calculate stats -->
+  <div class="step">
+    <div class="sh"><div class="sn">📊</div><div><div class="stitle">How to Calculate Your Key Statistics</div><div class="ssub">Using the trades_log.csv to measure bot performance</div></div></div>
+    <div class="sb">
+      <div class="grid2">
+        <div class="card card-gold">
+          <h4>Win Rate</h4>
+          <div class="formula" style="margin:8px 0">
+            <div class="fr" style="font-size:13px">Win Rate = COUNT(result="WIN") ÷ COUNT(result not blank)</div>
+          </div>
+          <pre style="font-size:11px">Example: 15 WINs out of 22 completed trades
+Win Rate = 15 ÷ 22 = 0.682 = 68.2%
+
+In Excel/Sheets:
+=COUNTIF(S2:S100,"WIN")/COUNTA(S2:S100)</pre>
+        </div>
+        <div class="card card-green">
+          <h4>Total P&amp;L</h4>
+          <div class="formula" style="margin:8px 0">
+            <div class="fr" style="font-size:13px">Total P&amp;L = SUM(pnl_usd) for all completed trades</div>
+          </div>
+          <pre style="font-size:11px">Example: 15 wins averaging $85 each
+         7 losses averaging $68 each
+Total = (15 × $85) − (7 × $68) = $1,275 − $476 = $799
+
+In Excel/Sheets:
+=SUMIF(S2:S100,"&lt;&gt;",T2:T100)</pre>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card card-blue">
+          <h4>Average R:R Achieved</h4>
+          <div class="formula" style="margin:8px 0">
+            <div class="fr" style="font-size:13px">Avg R = pnl_usd ÷ (sl_distance × lot × 100)</div>
+          </div>
+          <pre style="font-size:11px">For each trade:
+  1R_value = sl_distance × lot × 100
+  R_achieved = pnl_usd / 1R_value
+  
+Example: pnl=$142.50, sl_dist=18.40, lot=0.05
+  1R = 18.40 × 0.05 × 100 = $92.00
+  R = 142.50 / 92.00 = 1.55R</pre>
+        </div>
+        <div class="card">
+          <h4>Session Performance</h4>
+          <div class="formula" style="margin:8px 0">
+            <div class="fr" style="font-size:13px">Group by "session" column → compare win rates</div>
+          </div>
+          <pre style="font-size:11px">Group trades by session:
+  London:         68% win rate
+  LDN_NY_Overlap: 74% win rate ← BEST
+  NY:             52% win rate
+  Asian:          45% win rate ← AVOID
+  
+This tells you which session your bot performs best in.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B: ML -->
+  <h2>Section B — What is the Machine Learning System?</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">🧠</div><div><div class="stitle">ML Phase 1: Why 200 Trades First?</div><div class="ssub">The bot needs data before it can learn</div></div></div>
+    <div class="sb">
+      <p style="font-size:13px;color:#ccc;margin-bottom:14px;line-height:1.7">The ML system is a <strong>personal AI that learns from your specific trading history</strong>. It is NOT a generic trading algorithm. It learns: "given these exact market conditions, does MY bot, at MY broker, on MY account, tend to win or lose?"</p>
+      <div class="box bw"><span class="bi">⚠️</span><div><strong>Before 200 closed trades: ML is completely inactive.</strong> The bot runs in "placeholder mode" — every signal that passes the module checks is automatically approved. The ML filter is disabled. You will see "ML: Placeholder mode (X/200 trades)" in the Telegram messages.</div></div>
+      <div class="card">
+        <h4>💡 Why 200 Trades?</h4>
+        <pre>Imagine trying to learn if a coin is fair by flipping it 10 times.
+You might get 8 heads — but that doesn't mean it's biased.
+You need at least 100–200 flips to be confident.
+
+Trading signals are similar. With 30 trades, you can't distinguish:
+  "this setup genuinely has edge" from "got lucky for 3 weeks"
+
+The ML models need to see enough examples of BOTH wins AND losses
+in MULTIPLE market regimes, sessions, and conditions to learn
+reliable patterns. 200 trades is the minimum for statistical significance.
+
+An ML model trained on less than this is like a weather forecast
+based on 3 days of observations. The noise overwhelms the signal.</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">🤖</div><div><div class="stitle">The 3 ML Models — What They Are and How They Vote</div><div class="ssub">Ensemble voting: 3 models, 1 decision</div></div></div>
+    <div class="sb">
+      <div class="grid3">
+        <div class="card card-gold">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">MODEL 1 — 40% WEIGHT</div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:8px">XGBoost</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.7">Gradient Boosting Decision Tree. The strongest model in practice. Builds hundreds of small decision trees, each one learning from the mistakes of the previous. Excellent at finding non-linear patterns in structured data.</div>
+          <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold)">Weight: 40%</div>
+        </div>
+        <div class="card card-blue">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:1px;margin-bottom:8px">MODEL 2 — 30% WEIGHT</div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:8px">Random Forest</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.7">An ensemble of decision trees, each trained on a random subset of your data. Less prone to overfitting than XGBoost alone. Acts as a "second opinion" that catches patterns the XGBoost model might overfit.</div>
+          <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue)">Weight: 30%</div>
+        </div>
+        <div class="card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:1px;margin-bottom:8px">MODEL 3 — 30% WEIGHT</div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:8px">Logistic Regression</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.7">Simple statistical model. Finds linear relationships between features and win/loss outcomes. The "sanity check" — if LR strongly disagrees with XGBoost and RF, something unusual is happening.</div>
+          <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim)">Weight: 30%</div>
+        </div>
+      </div>
+
+      <div class="formula" style="margin-top:20px">
+        <div class="fl">📐 Ensemble Vote Formula</div>
+        <div class="fr">Score = (XGB × 0.40) + (RF × 0.30) + (LR × 0.30)</div>
+        <div class="fd">Each model outputs a probability from 0.0 to 1.0 (probability that this trade will be a WIN). The weighted average must exceed the mode threshold to allow the trade.</div>
+      </div>
+
+      <div class="card">
+        <h4>🔢 Worked Example: ML Filtering a Signal</h4>
+        <pre>Signal fires: BUY XAUUSD, TREND_BULL regime, London session
+
+ML Models evaluate 12 features of this setup:
+
+  XGBoost prediction:       0.71  (71% probability of WIN)
+  RandomForest prediction:  0.62  (62% probability of WIN)
+  LogisticRegression:       0.59  (59% probability of WIN)
+
+Ensemble Score:
+  = (0.71 × 0.40) + (0.62 × 0.30) + (0.59 × 0.30)
+  = 0.284 + 0.186 + 0.177
+  = 0.647
+
+NORMAL mode threshold: 0.65
+Score 0.647 &lt; 0.650 → TRADE BLOCKED ❌
+Telegram: "⛔ ML rejected | TREND_BULL | Score: 64.7% | Threshold: 65.0%"</pre>
+      </div>
+      <div class="card card-green" style="margin-top:14px">
+        <h4 style="color:var(--green)">✅ Same Setup — Score Above Threshold</h4>
+        <pre style="color:#2ECC71">If XGBoost: 0.75, RF: 0.68, LR: 0.64:
+  Score = (0.75×0.40) + (0.68×0.30) + (0.64×0.30)
+        = 0.300 + 0.204 + 0.192 = 0.696
+
+0.696 &gt; 0.65 threshold → TRADE APPROVED ✅
+Telegram: "🧠 ML approved | Score: 69.6% | Threshold: 65.0%"</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">🔍</div><div><div class="stitle">The 12 Features the ML Uses</div><div class="ssub">What information the bot feeds into its AI for each signal</div></div></div>
+    <div class="sb">
+      <table>
+        <tr><th>#</th><th>Feature Name</th><th>What It Is</th><th>Example Value</th></tr>
+        <tr><td>1</td><td>sl_distance</td><td>Distance from entry to SL in price points. Larger = wider SL = more volatile setup.</td><td>18.40</td></tr>
+        <tr><td>2</td><td>rr_quality</td><td>Actual R:R ratio (tp_distance / sl_distance). Higher = better potential reward.</td><td>2.98</td></tr>
+        <tr><td>3</td><td>atr_used</td><td>ATR value at time of entry. Higher = more volatile market.</td><td>12.27</td></tr>
+        <tr><td>4</td><td>sl_atr_ratio</td><td>sl_distance / atr_used. How wide the SL is relative to current volatility. Should be ~1.5.</td><td>1.50</td></tr>
+        <tr><td>5</td><td>lot</td><td>Position size in lots. Derived from risk calculation.</td><td>0.05</td></tr>
+        <tr><td>6</td><td>hour</td><td>Hour of day (UTC) when signal fired. Certain hours have different win rates.</td><td>9</td></tr>
+        <tr><td>7</td><td>day_of_week</td><td>0=Monday through 4=Friday. Mondays and Fridays often behave differently.</td><td>4 (Friday)</td></tr>
+        <tr><td>8</td><td>session_enc</td><td>Session encoded as number: 0=Asian, 1=London, 2=LDN_NY_Overlap, 3=NY.</td><td>2</td></tr>
+        <tr><td>9</td><td>signal_enc</td><td>Direction encoded: 0=SELL, 1=BUY.</td><td>1</td></tr>
+        <tr><td>10</td><td>atr_tier</td><td>ATR bucketed into 0/1/2 (low/medium/high volatility). Discretises the continuous ATR.</td><td>1</td></tr>
+        <tr><td>11</td><td>regime_enc</td><td>Regime encoded as number: 0=RANGE, 1=TREND_BULL, 2=TREND_BEAR, 3=VOLATILE_SQUEEZE, 4=VOLATILE_NEWS.</td><td>1</td></tr>
+        <tr><td>12</td><td>rsi_at_entry</td><td>RSI value on 15M chart at time of entry. Momentum measure.</td><td>52.4</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION C: regime_stats.json -->
+  <h2>Section C — regime_stats.json: The Bot's Long-Term Memory</h2>
+  <div class="step">
+    <div class="sh"><div class="sn">🧩</div><div><div class="stitle">How the Self-Learning Regime System Works</div><div class="ssub">The bot tracks win rates by market condition and adapts over weeks and months</div></div></div>
+    <div class="sb">
+      <div class="card">
+        <h4>📄 Example regime_stats.json content</h4>
+        <pre style="color:#9CDCFE">{
+  "TREND_BULL": {"wins": 18, "total": 24, "win_rate": 0.750, "blocked": false, "blocked_until": null},
+  "TREND_BEAR": {"wins": 11, "total": 16, "win_rate": 0.688, "blocked": false, "blocked_until": null},
+  "RANGE":      {"wins": 7,  "total": 22, "win_rate": 0.318, "blocked": true,  "blocked_until": "2024-12-01"},
+  "VOLATILE_SQUEEZE": {"wins": 5, "total": 8, "win_rate": 0.625, "blocked": false, "blocked_until": null},
+  "VOLATILE_NEWS":    {"wins": 3, "total": 5, "win_rate": 0.600, "blocked": false, "blocked_until": null}
+}</pre>
+      </div>
+      <div class="box bw"><span class="bi">⚠️</span><div>In this example, <strong>RANGE is blocked</strong> (win_rate 31.8% over 22 trades, below the 35% minimum). The bot will not take any RANGE trades until December 1st. After that, it will try 10 trial trades before evaluating again. If still below 35%, it blocks for another 14 days.</div></div>
+      <div class="grid2">
+        <div class="card">
+          <h4>📈 When a Regime is Performing Well</h4>
+          <ul class="il">
+            <li>Win rate stays above 35% threshold</li>
+            <li>Regime remains active, bot continues trading it</li>
+            <li>The ML models use this regime's history as training data</li>
+            <li>No action needed — let it run</li>
+          </ul>
+        </div>
+        <div class="card card-red">
+          <h4>📉 When a Regime Underperforms</h4>
+          <ul class="il">
+            <li>After 30+ trades, win rate drops below 35%</li>
+            <li>Regime auto-blocked for 14 days</li>
+            <li>Telegram alert: "⚠️ RANGE blocked — 31.8% win rate after 22 trades"</li>
+            <li>After 14 days: 10 trial trades. Still bad? Blocked again.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box bg"><span class="bi">💡</span><div><strong>Why is this valuable?</strong> Markets change. What worked last quarter may not work now. By tracking regime performance continuously, the bot automatically stops trading strategies that are no longer profitable in current market conditions — without you having to manually monitor or intervene.</div></div>
+    </div>
+  </div>
+
+  <!-- RETRAINING -->
+  <div class="step">
+    <div class="sh"><div class="sn">🔄</div><div><div class="stitle">Weekly ML Retraining — Every Sunday 2:00 AM UTC</div><div class="ssub">How the models keep improving over time</div></div></div>
+    <div class="sb">
+      <ul class="ol-steps">
+        <li><strong>Collect all completed trades</strong> — Reads every row in trades_log.csv where "result" is not blank.</li>
+        <li><strong>Build feature matrix</strong> — Converts each row into the 12 numeric features. Removes rows with missing data. Labels each row WIN=1 or LOSS=0.</li>
+        <li><strong>Split data</strong> — 80% training data, 20% validation data (walk-forward — validation data is always the most recent trades, not random).</li>
+        <li><strong>Retrain all 3 models</strong> — XGBoost, RandomForest, and LogisticRegression are all retrained from scratch on the new data.</li>
+        <li><strong>Evaluate on validation set</strong> — Checks: accuracy, precision, recall, F1 score. If validation accuracy &lt; 55%, the models are discarded (not worth using — worse than chance with threshold effect).</li>
+        <li><strong>Save if improved</strong> — If new models outperform old models on validation data, they replace the old .pkl files. Otherwise old models are kept.</li>
+        <li><strong>Telegram update</strong> — "🧠 ML retrained. XGB: 67.2% val acc. RF: 64.8% val acc. LR: 61.1% val acc. Models updated."</li>
+      </ul>
+      <div class="box bo"><span class="bi">✅</span><div>Walk-forward validation is important. If you randomly shuffled the data and tested on random 20%, you'd be testing the model on data that happened BEFORE some of the training data — which is data leakage and gives falsely optimistic results. Walk-forward validation always tests on the FUTURE relative to training data, mimicking real-world conditions.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 8 — LEARNING PATH                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page" id="t8">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 08</div>
+    <div>
+      <div class="ptitle">📚 Your Complete Learning Roadmap</div>
+      <div class="psub">A step-by-step, week-by-week guide from absolute beginner to fully understanding your bot and its strategy.</div>
+    </div>
+  </div>
+
+  <div class="box bg"><span class="bi">💡</span><div>You don't need to rush through this. The bot is running and learning regardless. Your job is to understand it well enough to monitor it intelligently, know when something is wrong, and eventually improve it. Take each level at your own pace — but don't skip levels.</div></div>
+
+  <!-- LEVEL 0 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 0</span>
+    <span class="level-title">Before You Touch the Bot</span>
+    <span class="level-time">Week 1–2</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>Before looking at a single trade, make sure you understand the basics. You cannot make good decisions about a trading bot if you don't understand what a pip, lot, or SL actually is. These are 1-2 hour concepts each — not complicated, just unfamiliar.</div></div>
+    <ul class="ck" id="l0">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Understand what a <strong>candle chart</strong> is. Each candle = one time period. OHLC = Open, High, Low, Close. Green candle = price went up. Red candle = price went down.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Understand what a <strong>trend</strong> is. Uptrend = series of Higher Highs and Higher Lows. Downtrend = series of Lower Highs and Lower Lows. Sideways = neither.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Understand <strong>bid, ask, and spread</strong> for Gold. Bid = sell price, Ask = buy price, Spread = ask minus bid = your entry cost.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Master the <strong>pip calculation for Gold</strong>: 1 pip = $0.01. Practice: if price moves from $2,395.50 to $2,402.80, how many pips? Answer: 730 pips.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Open a <strong>demo account</strong> with your broker. Watch Gold (XAUUSD) move for 2–3 days without placing any trades. Just observe price movement patterns.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Learn to view the <strong>15-minute, 1-hour, and 4-hour charts</strong> simultaneously in MT5. This is called multi-timeframe analysis — your bot uses all three.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Read <strong>Tab 2 and Tab 3</strong> of this guide thoroughly. Work through every example with a calculator to confirm you get the same numbers.</span></li>
+    </ul>
+  </div>
+
+  <!-- LEVEL 1 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 1</span>
+    <span class="level-title">Trade Mechanics</span>
+    <span class="level-time">Week 2–3</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>Before trusting a bot to place real trades, you must understand EXACTLY what SL, TP, lot size, and risk mean. Place a few demo trades yourself so you feel what it's like when price moves against you.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Understand <strong>Stop Loss and Take Profit</strong> conceptually. Draw them on a chart. Place a horizontal line at your SL level and TP level before ever placing a trade.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Practice <strong>calculating lot size manually</strong> using the formula: <code>lots = risk_amount ÷ (sl_distance × $1)</code>. Do this for 5 different scenarios (different accounts, different ATRs).</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Place one <strong>manual BUY trade on demo</strong> with a proper SL and TP. Watch it. Don't close it manually — let the SL or TP hit.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Place one <strong>manual SELL trade on demo</strong>. Experience what it feels like when you profit as price falls.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Let a <strong>Stop Loss get hit on demo</strong> — feel what that is like before real money is involved. Notice how calm it feels when you knew the loss limit going in.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>Calculate the <strong>R:R ratio on paper</strong> before placing any demo trade. Write it down: "I am risking 18 pips to make 54 pips = 1:3 R:R." After the trade, compare predicted vs actual R.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span>After 5+ demo trades, <strong>compare fill_price to requested price</strong> in MT5 history. Calculate the slippage. Is your broker filling close to your requested price?</span></li>
+    </ul>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 2</span>
+    <span class="level-title">Understanding the Indicators</span>
+    <span class="level-time">Week 3–4</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>Your bot uses 5 key indicators to understand market conditions. You don't need to be a technical analysis expert — you just need to understand what each indicator is measuring and why the bot uses it.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>EMA (Exponential Moving Average)</strong> — An average of recent prices that gives more weight to recent candles. EMA50 is the "near-term trend". EMA200 is the "long-term trend". When EMA50 crosses above EMA200 = bullish. Add these to your MT5 chart and watch them for a few days.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>ADX (Average Directional Index)</strong> — Measures the STRENGTH of a trend, NOT its direction. ADX &gt; 28 = strong trend. ADX &lt; 20 = no trend (ranging market). Important: ADX can be 40 in both an uptrend AND a downtrend. It tells you HOW trending, not WHICH direction.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>RSI (Relative Strength Index)</strong> — Measures momentum on a 0–100 scale. Above 70 = overbought (may reverse down). Below 30 = oversold (may reverse up). Your bot uses RSI as a guard — refuses to buy when RSI &gt; 75 or sell when RSI &lt; 25.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>ATR (Average True Range)</strong> — The average size of candles over 14 periods. If ATR = $15 on the 15M chart, that means Gold moves an average of $15 per 15-minute candle. High ATR = volatile = wider SL needed = smaller lot size. Add ATR to your chart and watch it spike during news events.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Bollinger Bands</strong> — A moving average surrounded by 2 standard deviation bands. When bands are wide = high volatility. When bands are narrow (squeeze) = low volatility about to break out. The squeeze module specifically watches for the narrowest Bollinger Bands in a year.</span></li>
+    </ul>
+  </div>
+
+  <!-- LEVEL 3 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 3</span>
+    <span class="level-title">SMC Concepts (Your Bot's Entry Logic)</span>
+    <span class="level-time">Week 4–5</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>Smart Money Concepts (SMC) are the foundational ideas behind how your bot finds entry signals. Understanding these will help you read the goldbot.log and understand WHY the bot entered a specific trade at a specific price.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Liquidity Sweep</strong> — Big banks/institutions know where retail traders place their stop-losses (just below obvious lows, just above obvious highs). Before reversing, price often "sweeps" through these stop-loss clusters to collect liquidity. After the sweep, the real move begins. Your bot looks for sweep candles as the first signal in Module 01.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>MSS (Market Structure Shift)</strong> — The first candle to close above the previous swing high (in a bullish reversal) after a sweep. This is the confirmation that the short-term trend has changed. Body must be ≥40% of candle range — showing conviction, not just a wick.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>FVG (Fair Value Gap)</strong> — When price moves so fast that it creates a 3-candle imbalance: candle 1 high &lt; candle 3 low (for bullish FVG). The gap in the middle was skipped — institutions often return to fill this "gap" before continuing. Your bot uses FVG levels as entry triggers.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Order Block (OB)</strong> — The last bearish candle before a strong bullish move (or last bullish candle before a strong bearish move). Institutions placed large orders here. When price returns to this zone, they often add more. Your bot enters at or near Order Blocks.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>OTE (Optimal Trade Entry) — Fibonacci 61.8%</strong> — After a sweep and structure shift, waiting for price to retrace to the 61.8% Fibonacci level before entering. This is the "optimal" entry point — you're buying after a dip, not chasing the initial move. The bot uses 61.8–78.6% as the OTE zone.</span></li>
+    </ul>
+    <div class="box bg"><span class="bi">💡</span><div><strong>YouTube search tip:</strong> Search "ICT liquidity sweep explained" and "ICT fair value gap tutorial". Inner Circle Trader (ICT) is the originator of these concepts. Many free breakdowns exist at the beginner level. Watch 2–3 videos on each concept until you can spot them on a live chart.</div></div>
+  </div>
+
+  <!-- LEVEL 4 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 4</span>
+    <span class="level-title">Reading Your Bot's Decisions</span>
+    <span class="level-time">Month 2</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>By now you understand the concepts. Start applying that knowledge to your actual bot data. Read every trade, understand every decision, notice patterns.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Read goldbot.log daily.</strong> Every decision is logged: "Regime: TREND_BULL", "Sweep candle detected", "MSS confirmed", "ML score: 0.68 — approved", "Trade opened". You should be able to follow the logic step by step.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Review trades_log.csv weekly.</strong> After every week, open it in a spreadsheet. Calculate: how many trades? What win rate? What was the average pnl_usd? Which regime performed best this week?</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Check the regime column</strong> for each trade. Are most winning trades from TREND_BULL? Are most losing trades from RANGE? This tells you where the bot has edge right now and where it doesn't.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Analyse sessions:</strong> Group trades_log.csv by "session" column. Calculate win rate per session. Many bots perform best in LDN_NY_Overlap (12–16 UTC) and worst in Asian session. Verify this for YOUR bot.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Monitor slippage_pts column.</strong> Calculate the average. If consistently above 5 pips, your broker execution is poor. This costs real money over hundreds of trades.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Check regime_stats.json</strong> every week. Is any regime getting close to the 35% threshold? Has any been blocked? Read the log entries around blocked regime dates to understand what market conditions caused the losses.</span></li>
+    </ul>
+  </div>
+
+  <!-- LEVEL 5 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 5</span>
+    <span class="level-title">Strategy Understanding</span>
+    <span class="level-time">Month 3+</span>
+  </div>
+  <div class="level-body">
+    <div class="box bi2"><span class="bi">ℹ️</span><div>Now you're developing a real strategic understanding of the bot. You can start asking deeper questions and making intelligent judgements about what to change — or what to leave alone.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Understand why the bot uses 3 timeframes:</strong> 4H = the "big picture" direction (don't fight this). 1H = the regime and trend confirmation (which module to use). 15M = the precise entry signal (sweep, MSS, FVG). Each timeframe filters noise from the smaller one below it.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Understand regime detection:</strong> Why does the bot refuse to trade in UNKNOWN regime? Because there's no identifiable pattern to exploit. Trading without a pattern is gambling. The bot only trades when it has a specific, historically-backtested edge.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Understand the tiered exit logic:</strong> Why not just close 100% at the TP? Because TP gets hit less often than intermediate targets. Closing 30% at 1R ensures profitability even when 2R and 3R targets aren't reached. The statistics: if you achieve 1R 60% of the time but full 3R only 20% of the time, tiered exits capture more expected value.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Read the backtest report</strong> (goldbot_v7_backtest.html). Understand: total trades, win rate, average R, maximum drawdown, Sharpe ratio. Compare your LIVE performance month-by-month to these backtest benchmarks. Significant underperformance may indicate market regime change or broker issues.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Learn when NOT to trade:</strong> During major news events (FOMC, NFP, CPI), spreads widen, slippage increases, and price behaviour becomes chaotic. The bot already avoids these — but understanding WHY helps you make good manual decisions too.</span></li>
+    </ul>
+  </div>
+
+  <!-- LEVEL 6 -->
+  <div class="level-header">
+    <span class="level-badge">LEVEL 6</span>
+    <span class="level-title">Advanced: Understanding and Improving the System</span>
+    <span class="level-time">Month 4+</span>
+  </div>
+  <div class="level-body">
+    <div class="box bw"><span class="bi">⚠️</span><div>Only attempt this level after you have at least 100 completed trades and a solid understanding of Levels 0–5. Making changes to a running bot without understanding its full mechanics can be harmful to performance.</div></div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Run prepare_data.py</strong> and inspect the features.csv output. This is the training data for the ML models. Look at the feature distributions: are all sessions represented? Is there a mix of WIN/LOSS? Imbalanced data (e.g. 90% WIN) makes for a useless model.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Check ML feature importance</strong> — after retraining, XGBoost provides feature importance scores. High-importance features are what the model is actually using to filter trades. Low-importance features might be noise. Understanding this helps you tune the system.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Compare live vs backtest performance per module.</strong> Is TREND_BULL performing close to backtest? If Module 04 (POST-NEWS) is significantly underperforming, perhaps the post-news window should be longer than 60 minutes, or the consolidation filter should be stricter.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Identify underperforming modules</strong> by grouping trades_log.csv by "regime". If VOLATILE_SQUEEZE shows consistent losses, research whether current Gold market conditions support squeeze breakout strategies. Perhaps the ATR lookback (20 periods) needs tuning.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Manually edit regime_stats.json if needed.</strong> If you know for certain that RANGE trading has been poor because Gold was trending strongly for the last 2 months (not because the strategy is broken), you can manually unblock a regime or adjust win rate counts. Always do this with caution and documentation.</span></li>
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Test parameter changes on demo first.</strong> If you want to change ATR multiplier from 1.5× to 1.2× for the SL, run 4–6 weeks on demo while keeping real account on current settings. Compare the outcomes. Never change parameters on a live account without demo validation first.</span></li>
+    </ul>
+  </div>
+
+  <!-- RESOURCES -->
+  <h2 style="margin-top:40px">📖 Recommended Learning Resources</h2>
+  <div class="grid2">
+    <div class="card card-gold">
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px">🌐 Free Online Resources</div>
+      <ul class="il">
+        <li><strong>Babypips.com</strong> — Free forex school from zero to advanced. The "School of Pipsology" covers everything in Levels 0–2 thoroughly. Start here if you know nothing about trading.</li>
+        <li><strong>YouTube: "ICT liquidity sweep"</strong> — Watch Inner Circle Trader's free content on liquidity, FVGs, and market structure. Several beginner-friendly summaries exist.</li>
+        <li><strong>YouTube: "what is ADX indicator explained"</strong> — Many clear visual explanations of why ADX ≥28 is the trend threshold used by your bot.</li>
+        <li><strong>YouTube: "SMC trading explained beginner"</strong> — Smart Money Concepts overviews. Look for videos that cover sweep → MSS → FVG in one sequence.</li>
+      </ul>
+    </div>
+    <div class="card card-blue">
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px">📊 Your Own Data (Best Teacher)</div>
+      <ul class="il">
+        <li><strong>trades_log.csv</strong> — Review every single trade. For each loss, go back to your MT5 chart at that time and ask: "What happened? Did price sweep first? Was the spread high? Was there news?"</li>
+        <li><strong>goldbot.log</strong> — Read it like a diary. Your bot explains every decision it makes. When a trade was skipped, it says why. When ML blocked a trade, it logs the score.</li>
+        <li><strong>regime_stats.json</strong> — Your bot's performance report card. Check it weekly. The win rates tell the real story of what's working in current market conditions.</li>
+        <li><strong>MT5 Charts</strong> — After every trade closes, go to your MT5 chart at the exact date/time and look at what the chart looked like when the bot entered. Did the setup make sense visually?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box bo" style="margin-top:20px"><span class="bi">✅</span><div><strong>The most important thing:</strong> Consistency beats speed. Reading 5 lines of your trades_log.csv every morning and thinking about them carefully will teach you more than trying to digest all 8 tabs in one sitting. Small, daily engagement with your data will compound into deep understanding over months.</div></div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="footer">
+  <div>Gold Bot v7 — Beginner's Complete Education Guide</div>
+  <div style="display:flex;gap:20px">
+    <span>XAUUSD · MetaTrader 5 · Python</span>
+    <span style="color:var(--gold)">8 Chapters · Beginner → Advanced</span>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const page = document.getElementById(id);
+  if (page) page.classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const tabMap = {
+    't1': 0, 't2': 1, 't3': 2, 't4': 3,
+    't5': 4, 't6': 5, 't7': 6, 't8': 7
+  };
+  if (tabMap[id] !== undefined) {
+    tabs[tabMap[id]].classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('dn');
+  const li = el.closest('li');
+  if (li) {
+    li.classList.toggle('st');
+    const span = li.querySelector('span:not(.chk)');
+    if (span) {
+      if (li.classList.contains('st')) {
+        span.style.textDecoration = 'line-through';
+        span.style.color = 'var(--dim)';
+      } else {
+        span.style.textDecoration = '';
+        span.style.color = '';
+      }
+    }
+  }
+  // Save state to localStorage
+  saveChecks();
+}
+
+function saveChecks() {
+  const checks = [];
+  document.querySelectorAll('.chk').forEach((el, i) => {
+    checks.push(el.classList.contains('dn') ? '1' : '0');
+  });
+  localStorage.setItem('gbv7_guide_checks', checks.join(''));
+}
+
+function loadChecks() {
+  const saved = localStorage.getItem('gbv7_guide_checks');
+  if (!saved) return;
+  document.querySelectorAll('.chk').forEach((el, i) => {
+    if (saved[i] === '1') {
+      el.classList.add('dn');
+      const li = el.closest('li');
+      if (li) {
+        li.classList.add('st');
+        const span = li.querySelector('span:not(.chk)');
+        if (span) {
+          span.style.textDecoration = 'line-through';
+          span.style.color = 'var(--dim)';
+        }
+      }
+    }
+  });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  loadChecks();
+});
+
+// Also run immediately in case DOM is already ready
+if (document.readyState !== 'loading') {
+  loadChecks();
+}
+</script>
+</body>
+</html>
