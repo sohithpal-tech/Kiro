@@ -157,6 +157,7 @@ ul.ol-steps li::before{content:counter(steps);min-width:22px;height:22px;backgro
   <div class="tab" onclick="show('t6')">🤖 How Bot Trades</div>
   <div class="tab" onclick="show('t7')">📋 Trades Log &amp; ML</div>
   <div class="tab" onclick="show('t8')">📚 Learning Path</div>
+  <div class="tab" onclick="show('t9')">🎓 Full Curriculum</div>
 </div>
 
 
@@ -1744,6 +1745,775 @@ Telegram: "🧠 ML approved | Score: 69.6% | Threshold: 65.0%"</pre>
 <!-- ══════════════════════════════════════════════════════ -->
 <!-- FOOTER                                                 -->
 <!-- ══════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TAB 9 — FULL LEARNING CURRICULUM: BASIC TO ADVANCED       -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page" id="t9">
+<div class="wrap">
+  <div class="ph">
+    <div class="pnum">TAB 09</div>
+    <div>
+      <div class="ptitle">🎓 Full Learning Curriculum — Basic to Advanced</div>
+      <div class="psub">Every concept you need, in the exact order you should learn it, with the best free and paid sources for each topic. Tied directly to your bot — every topic has a clear "why this matters for my bot" connection. 32 concepts across 7 stages.</div>
+    </div>
+  </div>
+  <div class="box bg"><span class="bi">💡</span><div><strong>How to use this tab:</strong> Work through each stage in sequence. Do not skip. Each stage assumes you finished the one before it. Estimated total time to complete all 7 stages: 4–6 months at 1–2 hours per day. The checkboxes save your progress automatically in your browser.</div></div>
+
+  <!-- STAGE 0 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#1a1a0a);border-left:4px solid var(--gold)">
+    <span class="level-badge" style="background:var(--gold)">STAGE 0</span>
+    <span class="level-title">Mindset &amp; Foundations — Before Everything Else</span>
+    <span class="level-time">Week 1 · ~6 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">Before learning any strategy or indicator, understand WHY most traders fail and what the correct mental model is. This stage saves you from the most common and expensive mistakes.</p>
+
+    <h3 style="color:var(--gold);font-size:14px;margin-bottom:10px">📌 Concept 1 — What Trading Actually Is (and Is Not)</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> Trading is probabilistic edge management. You find a setup that wins more than it loses (or wins bigger), then repeat it hundreds of times.</li>
+      <li><strong>What it is NOT:</strong> Predicting the future. Even the best traders are wrong 40–50% of the time. Edge comes from how much you make when right vs how much you lose when wrong.</li>
+      <li><strong>Bot connection:</strong> Your bot wins 47% of trades and is profitable because the average win (1.70R) is larger than the average loss (1.0R). <em>Understand this before watching one more chart video.</em></li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 1</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Book: <em>Trading in the Zone</em> — Mark Douglas</td><td>The definitive book on trading psychology. Explains probabilistic thinking better than anything else. Start with chapters 1, 3, 7, 11.</td><td>~₹400</td><td>4–6 hrs</td></tr>
+      <tr><td>YouTube: Warrior Trading</td><td>Search "trading psychology beginners" — free 20-min intro on expectancy vs win rate</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>Babypips.com</td><td>School of Pipsology → "Trading is a Business" section</td><td>Free</td><td>45 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:14px;margin:18px 0 10px">📌 Concept 2 — Why Most Retail Traders Lose Money</h3>
+    <ul class="il">
+      <li><strong>Overtrading:</strong> Taking trades from boredom or FOMO. Your bot has a 30-minute cooldown and 5-trade daily max to prevent this.</li>
+      <li><strong>Moving Stop Losses:</strong> The most dangerous habit. "Just a little more room" turns −$50 into −$500. Your bot never moves SL against the position.</li>
+      <li><strong>No Risk Management:</strong> Trading 10% of account per trade. Your bot risks exactly 1%. Even 10 consecutive losses = only 10% drawdown.</li>
+      <li><strong>Revenge Trading:</strong> Doubling up after a loss to "get it back." Mathematically self-destructive. Your bot resets daily and has loss limits.</li>
+      <li><strong>Recency Bias:</strong> After 3 wins thinking you're on a streak. After 3 losses thinking the system is broken. Your bot uses 30+ trade samples before decisions.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 2</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: Adam Khoo</td><td>"Why 90% of traders lose money" — factual breakdown of psychology mistakes</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>Book: <em>Reminiscences of a Stock Operator</em> — Edwin Lefèvre</td><td>Fiction based on Jesse Livermore. Every mistake listed above is shown with consequences.</td><td>~₹250</td><td>6–8 hrs</td></tr>
+      <tr><td>Babypips.com</td><td>School of Pipsology → "Emotions and Trading" chapter</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold);font-size:14px;margin:18px 0 10px">📌 Concept 3 — Expectancy: The Number That Determines If You Profit</h3>
+    <div class="formula">
+      <div class="fl">📐 EXPECTANCY FORMULA</div>
+      <div class="fr">Expectancy = (Win Rate × Avg Win R) − (Loss Rate × Avg Loss R)</div>
+      <div class="fd">Your bot: (0.47 × 1.70R) − (0.53 × 1.0R) = 0.799 − 0.530 = +0.269R per trade<br>Over 298 annual trades: +0.269 × 298 = +80.2R expected per year</div>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 3</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>vantharp.com</td><td>Free article: "Understanding Expectancy" — the definitive explanation of why R multiples matter more than win rate</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>YouTube: SMB Capital</td><td>"Trading expectancy explained" — detailed statistical breakdown</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>Book: <em>Trade Your Way to Financial Freedom</em> — Van Tharp</td><td>Chapters 5–8. Entire book is about expectancy and position sizing. One of the 3 most important trading books ever written.</td><td>~₹700</td><td>6 hrs</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 0 Milestone:</strong> I understand that a 47% win rate bot with 1.70R wins beats a 70% win rate system with 0.50R wins. I can calculate expectancy for any trading system. I can name all 5 psychological mistakes from memory.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 1 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0a0a1a);border-left:4px solid var(--blue)">
+    <span class="level-badge" style="background:var(--blue)">STAGE 1</span>
+    <span class="level-title">Market Structure — How Price Actually Moves</span>
+    <span class="level-time">Week 1–2 · ~10 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">Everything your bot does is based on reading market structure. Before any indicator or strategy makes sense, you must understand how price moves in trends and ranges.</p>
+
+    <h3 style="color:var(--blue);font-size:14px;margin-bottom:10px">📌 Concept 4 — Candles: The Language of Price</h3>
+    <ul class="il">
+      <li><strong>Green candle:</strong> Close &gt; Open. Buyers won this period. Body = conviction. Small body + large wick = indecision or rejection.</li>
+      <li><strong>Large body (≥38% of range):</strong> Conviction candle. Price moved decisively. Your bot's sweep body filter specifically requires ≥38% body.</li>
+      <li><strong>Doji (tiny body):</strong> Indecision. Neither side won. Your bot's filters reject these — they fail the body requirement.</li>
+      <li><strong>Long wick with small body:</strong> Rejection. Price tried one direction, got pushed back hard. Your bot's sweep filter looks specifically for this pattern.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 4</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Babypips.com</td><td>School of Pipsology → "Japanese Candlesticks" — full chapter with every candle pattern. Takes 2 hours and teaches you to read any candle formation.</td><td>Free</td><td>2 hrs</td></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"Candlestick patterns explained" — visual, clear, beginner friendly. Full 30-min video.</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Open XAUUSD 15M chart. Identify 10 large-body candles and 10 doji candles. Note what happened in the next 3 candles after each type.</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--blue);font-size:14px;margin:18px 0 10px">📌 Concept 5 — Trends: Higher Highs / Higher Lows</h3>
+    <ul class="il">
+      <li><strong>Uptrend:</strong> Each swing HIGH is higher than the last AND each swing LOW is higher. Gold is in an uptrend on 1H when EMA50 &gt; EMA200 with positive slope.</li>
+      <li><strong>Downtrend:</strong> Each swing HIGH is lower AND each swing LOW is lower. EMA50 &lt; EMA200 with negative slope.</li>
+      <li><strong>Range:</strong> Price bouncing between a high and low without making new extremes. ADX &lt; 20. Your RANGE module (Module 02) activates here.</li>
+      <li><strong>Bot connection:</strong> Module 01 ONLY trades in the direction of BOTH the 1H trend AND the 4H trend. Never one timeframe alone.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 5</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Babypips.com</td><td>School of Pipsology → "Market Trends" with interactive quizzes</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: No Nonsense Forex (VP)</td><td>"Identifying trends the right way" — multiple-timeframe trend identification specifically</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>MT5 Practice</td><td>Every morning: open XAUUSD, record trend direction on 4H, 1H, 15M in a notebook. After 2 weeks you instantly see alignment vs conflict.</td><td>Free</td><td>10 min/day</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--blue);font-size:14px;margin:18px 0 10px">📌 Concept 6 — Support and Resistance</h3>
+    <ul class="il">
+      <li><strong>Support:</strong> Price level where buying historically beats selling. Price bounces UP. Formed at previous swing lows.</li>
+      <li><strong>Resistance:</strong> Price level where selling beats buying. Price bounces DOWN. At previous swing highs.</li>
+      <li><strong>They are ZONES not lines:</strong> A $5–$15 zone around the level is more realistic than a single price point.</li>
+      <li><strong>Bot connection:</strong> RANGE module identifies range top as resistance and range bottom as support. Sells at resistance, buys at support — with multiple filters confirming.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 6</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Babypips.com</td><td>School of Pipsology → "Support and Resistance" — with visual diagrams</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"Support and Resistance trading strategy" — clear visual tutorial with Gold examples</td><td>Free</td><td>35 min</td></tr>
+      <tr><td>Book: <em>Technical Analysis of the Financial Markets</em> — John Murphy</td><td>Chapters 4–5. Industry reference. Own a copy for life.</td><td>~₹1,500</td><td>4 hrs for those 2 chapters</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--blue);font-size:14px;margin:18px 0 10px">📌 Concept 7 — Multi-Timeframe Analysis (MTF)</h3>
+    <div class="box bi2"><span class="bi">ℹ️</span><div>This is the most important structural concept for your bot. Every signal MUST align across THREE timeframes: 4H (big picture), 1H (regime and trend), 15M (entry signal). If any timeframe disagrees, the trade is skipped. This single rule eliminates the majority of false signals.</div></div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — CONCEPT 7</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT (Inner Circle Trader)</td><td>"Multi-timeframe analysis gold" — ICT created the exact framework your bot uses. His free YouTube tutorials are the primary source for your strategy.</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"The complete guide to multi-timeframe analysis" — cleaner production, same concepts</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>Daily Practice</td><td>Every morning record the 4H, 1H, 15M trend directions for XAUUSD. After 2 weeks you will instantly see alignment vs divergence without thinking.</td><td>Free</td><td>10 min/day</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 1 Milestone:</strong> I can look at any Gold chart and instantly identify: (a) is price trending up, down, or sideways? (b) where is support/resistance? (c) do the 4H, 1H, and 15M charts all agree on direction? I practise this every morning.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0a0f0a);border-left:4px solid var(--green)">
+    <span class="level-badge" style="background:var(--green);color:#000">STAGE 2</span>
+    <span class="level-title">Technical Indicators — Exactly the 5 Your Bot Uses</span>
+    <span class="level-time">Week 2–3 · ~12 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">Your bot uses exactly 5 indicators. Not 20. Learn these 5 deeply before learning any others. Most traders learn 20 indicators shallowly and understand none. Learn 5 completely instead.</p>
+
+    <h3 style="color:var(--green);font-size:14px;margin-bottom:10px">📌 Concept 8 — EMA (Exponential Moving Average)</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> Average of closing prices giving more weight to recent candles. Faster to react than Simple MA. Your bot uses EMA50 (medium trend) and EMA200 (long trend) on 1H and 4H.</li>
+      <li><strong>Rule:</strong> EMA50 &gt; EMA200 = BULL. EMA50 &lt; EMA200 = BEAR. Slope of EMA50 must also confirm direction.</li>
+      <li><strong>Bot uses:</strong> 4H EMA50 vs EMA200 = big picture. 1H EMA50 vs EMA200 = intermediate confirmation. Both must agree before Module 01 fires.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — EMA</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Investopedia.com</td><td>Search "EMA vs SMA" — explains why EMA reacts faster and why your bot prefers it</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>YouTube: The Chart Guys</td><td>"EMA 50 and 200 explained" — golden cross and death cross on Gold</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Add EMA(50) and EMA(200) to XAUUSD 1H. Mark every crossover in the last 2 years. Note how Gold behaved after each.</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--green);font-size:14px;margin:18px 0 10px">📌 Concept 9 — ADX (Average Directional Index)</h3>
+    <div class="box bg"><span class="bi">💡</span><div><strong>Most misunderstood indicator in trading.</strong> ADX does NOT tell you direction. It measures STRENGTH of the trend — how powerful the move is regardless of direction. ADX = 35 in both a strong uptrend AND a strong downtrend. Your bot uses ADX ≥ 28 as the gateway to TREND regime.</div></div>
+    <table style="margin:12px 0">
+      <tr><th>ADX Reading</th><th>What It Means</th><th>Bot's Action</th></tr>
+      <tr><td>0–20</td><td>No trend — ranging / directionless</td><td>RANGE module activates (if range confirmed)</td></tr>
+      <tr><td>20–28</td><td>Transitional — weak trend forming</td><td>UNKNOWN — bot waits (unless SQUEEZE or POST-NEWS)</td></tr>
+      <tr><td>28–40</td><td>Strong trend — ideal conditions</td><td>TREND_BULL or TREND_BEAR — Module 01 activates</td></tr>
+      <tr><td>40+</td><td>Very strong / may be overextended</td><td>Module 01 active — but MSS entries harder to find</td></tr>
+    </table>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — ADX</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Investopedia.com</td><td>"Average Directional Index" — Wilder's original formula and all three lines (+DI, −DI, ADX)</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>YouTube: Trading Rush</td><td>"ADX indicator explained" — visual examples on Gold showing when ADX ≥28 predicts good trends</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Add ADX(14) to XAUUSD 1H. Mark periods when ADX was above 28. Were those trending periods? Compare to when it was below 20.</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--green);font-size:14px;margin:18px 0 10px">📌 Concept 10 — RSI (Relative Strength Index)</h3>
+    <ul class="il">
+      <li><strong>What it measures:</strong> Momentum — how fast price is moving. Scale 0–100. Above 70 = overbought (may pull back). Below 30 = oversold (may bounce).</li>
+      <li><strong>RSI Divergence:</strong> Price makes new low BUT RSI makes higher low = bullish divergence = momentum improving. Your RANGE module uses this as confirmation.</li>
+      <li><strong>Bot's guard:</strong> Module 01 refuses BUY when RSI &gt; 75 and refuses SELL when RSI &lt; 25. Prevents chasing extreme moves.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — RSI</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Babypips.com</td><td>"Relative Strength Index" — full chapter with overbought/oversold AND divergence examples</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"RSI trading strategy that actually works" — specifically shows RSI divergence on Gold</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Add RSI(14) to XAUUSD 15M. Find 5 examples of RSI divergence. What happened after each?</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--green);font-size:14px;margin:18px 0 10px">📌 Concept 11 — ATR (Average True Range)</h3>
+    <div class="formula">
+      <div class="fl">📐 WHAT ATR MEASURES</div>
+      <div class="fr">ATR = Average candle size over the last 14 periods</div>
+      <div class="fd">If ATR(14) on 15M Gold = $12: average Gold candle moves $12. High ATR = volatile = wider SL = smaller lot size. Your bot calculates: SL = entry ± (ATR × 1.5)</div>
+    </div>
+    <ul class="il">
+      <li><strong>SQUEEZE module watches ATR:</strong> When ATR is at its 20-period minimum, a big move is coming. Compression precedes explosion.</li>
+      <li><strong>CSV column:</strong> <code>atr_used</code> records ATR at entry time. High atr_used trades naturally have wider stops and smaller lots.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — ATR</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Investopedia.com</td><td>"Average True Range (ATR)" — the Wilder definition and practical examples</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>YouTube: Trader Dale</td><td>"ATR indicator and position sizing" — shows exactly how your bot uses ATR for lot sizing</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Add ATR(14) to XAUUSD 15M. Watch it spike during NFP/FOMC. Notice how it drops before big breakouts — this is your SQUEEZE trigger.</td><td>Free</td><td>30 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--green);font-size:14px;margin:18px 0 10px">📌 Concept 12 — Bollinger Bands</h3>
+    <ul class="il">
+      <li><strong>What they are:</strong> A moving average with bands at ±2.5 standard deviations. ~99% of price action occurs inside the bands.</li>
+      <li><strong>BB Squeeze:</strong> When bands narrow to their tightest in months, volatility has compressed. The next move outside the bands will be large and fast.</li>
+      <li><strong>Bot's entry (Module 03):</strong> SQUEEZE module enters when a candle CLOSES outside the BB with body ≥45% — confirming expansion has begun.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — BOLLINGER BANDS</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>bollingerbands.com</td><td>John Bollinger's official site — free articles on BB Squeeze from the inventor</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>YouTube: Warrior Trading</td><td>"Bollinger Band squeeze breakout strategy" — shows pre-breakout compressions on real charts</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>Book: <em>Bollinger on Bollinger Bands</em> — John Bollinger</td><td>Chapter 8 (The Squeeze) is directly relevant to your bot's Module 03.</td><td>~₹1,200</td><td>3 hrs for Ch.8</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 2 Milestone:</strong> I have added all 5 indicators (EMA50, EMA200, ADX, RSI, ATR, Bollinger Bands) to my XAUUSD chart. I can explain what each one measures and how my bot uses it — without looking at notes.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0d0a1a);border-left:4px solid #9B59B6">
+    <span class="level-badge" style="background:#9B59B6">STAGE 3</span>
+    <span class="level-title">Smart Money Concepts (SMC) — Your Bot's Core Entry Logic</span>
+    <span class="level-time">Week 3–5 · ~20 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">SMC is the framework that drives every entry in Module 01. It was developed by ICT (Inner Circle Trader) and is based on understanding how institutional banks enter the market. Your bot looks for the same footprints they leave behind. Spend extra time here — this is the most important stage.</p>
+
+    <h3 style="color:#9B59B6;font-size:14px;margin-bottom:10px">📌 Concept 13 — Liquidity Sweeps and Stop Hunts</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>The Problem Retail Traders Create</h4>
+        <p style="font-size:12.5px;color:#ccc;line-height:1.7">Most retail traders place stop-losses just below obvious swing lows (for longs) or above swing highs (for shorts). This creates <strong>clusters of stop-loss orders</strong> — called "liquidity pools" — at predictable price levels.</p>
+      </div>
+      <div class="card">
+        <h4>What Smart Money Does</h4>
+        <p style="font-size:12.5px;color:#ccc;line-height:1.7">Institutional traders need massive order fills. They push price INTO these stop-loss clusters, triggering thousands of orders at once. This provides them liquidity to fill their own positions. The spike through + close back inside = a <strong>liquidity sweep</strong>.</p>
+      </div>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <h4>🔗 How Your Bot Detects This</h4>
+      <pre style="font-size:11.5px">detect_liquidity_sweep() looks for on 15M Gold:
+  1. Previous swing low identified (where retail stops cluster)
+  2. Candle LOW dips BELOW that previous swing low  ← the sweep / "stop hunt"
+  3. Candle CLOSE returns ABOVE that previous swing low ← smart money reversed
+  4. Candle body >= 38% of range  ← genuine conviction, not random wick
+All 4 = sweep confirmed → proceed to MSS check</pre>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9B59B6;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — LIQUIDITY SWEEPS</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT (Inner Circle Trader)</td><td>"ICT liquidity pools explained" and "ICT liquidity sweep" — the original creator. His free 2022–2023 mentorship series on YouTube.</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Smart Risk</td><td>"Liquidity sweep strategy — step by step" — modern clean explanation with Gold examples</td><td>Free</td><td>35 min</td></tr>
+      <tr><td>YouTube: The Trading Channel</td><td>"Stop hunting explained for beginners" — why banks do this and how to spot it</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>TradingView Practice</td><td>Find 5 candles on XAUUSD 15M that dipped below a swing low AND closed above it. What happened in the next 3–5 candles after each?</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#9B59B6;font-size:14px;margin:18px 0 10px">📌 Concept 14 — MSS: Market Structure Shift</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> After a liquidity sweep, the first candle that closes decisively above the 10-bar high (BUY) or below the 10-bar low (SELL). Short-term structure has changed — smart money reversed.</li>
+      <li><strong>Why body ≥ 40% matters:</strong> A candle barely closing above the high with a tiny body could be noise. A large body shows strong decisive buying. No ambiguity allowed.</li>
+      <li><strong>Sequence:</strong> SWEEP always comes first. MSS always comes after. Never enter on MSS alone — it must follow a sweep.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9B59B6;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — MSS</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT</td><td>"Market structure shift ICT" — the original explanation</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Lexy Trades</td><td>"Market structure shift explained simply" — beginner-friendly modern version with clear diagrams</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>Practice</td><td>After finding a sweep (Concept 13), find the next candle that breaks structure. Mark sweep THEN MSS as a pair. Find 10 examples.</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#9B59B6;font-size:14px;margin:18px 0 10px">📌 Concept 15 — FVG: Fair Value Gap</h3>
+    <div class="card">
+      <pre style="font-size:11.5px;line-height:1.8">BULLISH FVG PATTERN (3 candles):
+  Candle 1:  ┌───┐  (relatively small move)
+             └───┘
+                     ← GAP: candle 1 HIGH is BELOW candle 3 LOW
+  Candle 2:  ████   (large bullish candle)
+  Candle 3:  ┌───┐  (candle 3 LOW is above candle 1 HIGH)
+             └───┘
+Price moved so fast a "gap" was left. Institutions often return
+to buy more here before continuing. Bot enters at FVG midpoint.</pre>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9B59B6;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — FVG</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT</td><td>"ICT fair value gap" — the original concept from his 2022 mentorship series</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Cue Banks</td><td>"Fair value gap strategy for beginners" — modern clean breakdown with Gold entry examples</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>TradingView Practice</td><td>After MSS candle (Concept 14), look back 3 candles. Is candle 1 high below candle 3 low? That's the FVG zone. Mark 5 examples.</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#9B59B6;font-size:14px;margin:18px 0 10px">📌 Concept 16 — Order Blocks (OB)</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> The last BEARISH (red) candle before a strong bullish move. Where smart money placed their buy orders — and they often come back to add more at the same level.</li>
+      <li><strong>Bot's rule:</strong> After sweep and MSS, if no FVG is found, bot checks for Order Block: last opposing candle before MSS, body ≥25%, current price still inside OB zone. Entry at OB midpoint.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9B59B6;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — ORDER BLOCKS</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT</td><td>"ICT order blocks" — the original definition</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Smart Risk</td><td>"Order block trading strategy gold" — XAUUSD-specific examples</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>YouTube: Mack Gray</td><td>"Order block vs demand zone" — clarifies common confusion</td><td>Free</td><td>20 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#9B59B6;font-size:14px;margin:18px 0 10px">📌 Concept 17 — Fibonacci OTE (Optimal Trade Entry at 61.8%)</h3>
+    <ul class="il">
+      <li><strong>Fibonacci levels:</strong> Natural mathematical ratios (23.6%, 38.2%, 50%, 61.8%, 78.6%). Price frequently retraces to these levels before continuing.</li>
+      <li><strong>OTE (ICT concept):</strong> After a strong move, price often pulls back to 61.8%–78.6% before continuing. This is your "optimal" entry — buying after a dip, not chasing.</li>
+      <li><strong>Bot implementation:</strong> <code>detect_fib_ote()</code> checks if current price is within ±0.3 pts of 61.8% retracement of the MSS candle's range. If yes → entry at that level.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9B59B6;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — FIBONACCI &amp; OTE</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Babypips.com</td><td>"Fibonacci retracement levels" — full chapter with interactive diagrams. Start here before OTE.</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: ICT</td><td>"ICT optimal trade entry" — the OTE concept directly. Shows 62–78% as the entry zone on Gold.</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"Fibonacci trading strategy that actually works" — backtested results of 61.8% entries on Gold</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>TradingView Practice</td><td>After sweep + MSS, draw Fibonacci from sweep low to MSS high. Mark the 61.8% level. Did price touch it before continuing? Analyse 10 examples.</td><td>Free</td><td>2 hrs</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 3 Milestone:</strong> I can identify the full Module 01 chain on a real XAUUSD 15M chart: (1) sweep candle, (2) MSS confirmation, (3) FVG / OB / OTE entry zone. I have found and marked 10 complete examples on historical Gold charts.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 4 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#1a0a0a);border-left:4px solid var(--red)">
+    <span class="level-badge" style="background:var(--red)">STAGE 4</span>
+    <span class="level-title">Risk Management — The Only Thing That Keeps You In The Game</span>
+    <span class="level-time">Week 4–5 · ~8 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">You can have the best strategy and still blow your account with poor risk management. Your bot has 7 built-in risk controls. Understanding each one helps you verify they're working and know when to intervene.</p>
+
+    <h3 style="color:var(--red);font-size:14px;margin-bottom:10px">📌 Concept 18 — Position Sizing: Fixed Fractional Method</h3>
+    <div class="box bw"><span class="bi">⚠️</span><div>The most important concept in this entire guide. Wrong position sizing kills more trading accounts than wrong strategy. Your bot implements this automatically — but you must understand it to verify it's correct.</div></div>
+    <table style="margin:12px 0">
+      <tr><th>Method</th><th>Rule</th><th>After 10 Consecutive Losses (1% risk)</th><th>Safe?</th></tr>
+      <tr><td>Fixed Fractional (your bot)</td><td>Risk 1% of EQUITY per trade</td><td>$10,000 → $9,044 (−9.56%)</td><td class="td-win">YES</td></tr>
+      <tr><td>Fixed Dollar</td><td>Risk $100 always</td><td>$10,000 → $9,000 (−10%)</td><td style="color:#E67E22">OK</td></tr>
+      <tr><td>Martingale (NEVER use)</td><td>Double after each loss</td><td>$10,000 → $0 (blown by trade 14)</td><td class="td-loss">NEVER</td></tr>
+      <tr><td>No sizing (random)</td><td>"Looks about right"</td><td>Unpredictable — often −50% or worse</td><td class="td-loss">NEVER</td></tr>
+    </table>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — POSITION SIZING</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Book: <em>Trade Your Way to Financial Freedom</em> — Van Tharp</td><td>Chapters 10–14 entirely cover position sizing. The best explanation of fixed fractional vs other methods.</td><td>~₹700</td><td>3 hrs</td></tr>
+      <tr><td>YouTube: SMB Capital</td><td>"Position sizing — how much to risk per trade"</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>Babypips.com</td><td>"Position Sizing" chapter — includes a position size calculator</td><td>Free</td><td>45 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--red);font-size:14px;margin:18px 0 10px">📌 Concept 19 — Maximum Drawdown and Account Recovery Math</h3>
+    <div class="formula">
+      <div class="fl">📐 THE RECOVERY PROBLEM</div>
+      <div class="fr">After −20% loss: need +25% to recover. After −50%: need +100% to recover.</div>
+      <div class="fd">This is why max drawdown matters more than win rate. Your bot's 13.6% max drawdown (in backtest) is the most important risk metric — not its 47% win rate.</div>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — DRAWDOWN</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Investopedia.com</td><td>"Maximum Drawdown (MDD)" — definition, formula, why it's the most important risk metric</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>YouTube: Quantitative Trading</td><td>"Max drawdown explained — why it matters more than returns"</td><td>Free</td><td>20 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:var(--red);font-size:14px;margin:18px 0 10px">📌 Concept 20 — Your Bot's 7 Risk Controls</h3>
+    <table style="margin:12px 0">
+      <tr><th>#</th><th>Risk Control</th><th>Setting (NORMAL mode)</th><th>What It Prevents</th></tr>
+      <tr><td>1</td><td>Risk per trade</td><td>1.0% of equity</td><td>Single trade destroying account</td></tr>
+      <tr><td>2</td><td>Max trades per day</td><td>5 trades</td><td>Overtrading in volatile conditions</td></tr>
+      <tr><td>3</td><td>Max daily loss</td><td>3.0% of balance</td><td>Revenge trading after bad day</td></tr>
+      <tr><td>4</td><td>Signal cooldown</td><td>30 min minimum between signals</td><td>Double-entering the same move</td></tr>
+      <tr><td>5</td><td>Spread filter</td><td>30 pts max for TREND, 20 for RANGE</td><td>Entering during thin liquidity</td></tr>
+      <tr><td>6</td><td>News filter</td><td>Block 30 min before/after high-impact event</td><td>Trading into unpredictable spikes</td></tr>
+      <tr><td>7</td><td>Regime self-learning</td><td>Auto-block if win rate &lt;35% after 30+ trades</td><td>Continuing a broken regime</td></tr>
+    </table>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — RISK CONTROLS</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: Anton Kreil (ITPM)</td><td>"Professional risk management" — institutional-grade risk controls in practical terms</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>Babypips.com</td><td>"Money Management" section — beginner-friendly explanation of all major risk controls</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>Book: <em>The New Market Wizards</em> — Jack Schwager</td><td>Every trader interviewed lists risk management as their primary edge. Read chapters on Paul Tudor Jones and Bruce Kovner.</td><td>~₹600</td><td>2 hrs (those 2 chapters)</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 4 Milestone:</strong> I can explain all 7 bot risk controls from memory and explain why each one exists. I have used the position sizing formula manually for 10 different setups. I understand that a 47% win rate bot is profitable because of R:R — not win rate.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 5 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0a0f15);border-left:4px solid #1ABC9C">
+    <span class="level-badge" style="background:#1ABC9C;color:#000">STAGE 5</span>
+    <span class="level-title">Advanced Strategy Concepts — All 4 Modules Deeply</span>
+    <span class="level-time">Month 2 · ~20 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">By Stage 5 you've built the foundation. Now deepen your understanding of the more complex modules — range trading, volatility analysis, post-news ICT concepts, and the Silver Bullet windows.</p>
+
+    <h3 style="color:#1ABC9C;font-size:14px;margin-bottom:10px">📌 Concept 21 — Range Trading Mastery (Module 02)</h3>
+    <ul class="il">
+      <li><strong>Real vs fake range:</strong> A real range has 3+ clear touches of both boundaries, is 60–200 pts wide, and exists for at least 8 candles. A "fake range" is just a temporary pause in a trend — the most common Module 02 loss source.</li>
+      <li><strong>Confluence at boundaries:</strong> Best range reversal setups have 3+ factors: price at boundary + RSI divergence + Bollinger Band extreme + rejection candle body ≥40%. Bot requires all four simultaneously.</li>
+      <li><strong>Target management:</strong> In ranges, target the midpoint first (TP1). If that's hit and price continues to the opposite boundary, TP2. Never chase past the opposite boundary — that's where range breaks occur.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#1ABC9C;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — RANGE TRADING</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: Trading with Rayner</td><td>"Range trading strategy" — his most popular video on range setups with Gold examples</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>YouTube: Trader Dante</td><td>"How to trade ranges on Gold — complete guide"</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>Babypips.com</td><td>"Trading Ranges" chapter — covers false breakouts specifically</td><td>Free</td><td>1 hr</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#1ABC9C;font-size:14px;margin:18px 0 10px">📌 Concept 22 — Volatility Cycles and Squeeze Trading (Module 03)</h3>
+    <ul class="il">
+      <li><strong>The volatility cycle:</strong> Markets alternate between low volatility (compression) and high volatility (expansion). BB squeeze = compression. Breakout from squeeze = expansion. Module 03 catches the start of expansions.</li>
+      <li><strong>Why ATR compression matters:</strong> When ATR(14) is at its 20-period minimum, the average candle has been shrinking for 20 periods. That tension releases in one direction.</li>
+      <li><strong>Timing squeezes:</strong> Pre-breakout squeezes most often occur 1–3 days before major macro events (FOMC, CPI) as market participants wait. Bot avoids trading when events are within 2 hours.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#1ABC9C;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — VOLATILITY SQUEEZE</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>bollingerbands.com</td><td>"The Squeeze" section — John Bollinger's own explanation of squeeze trading mechanics</td><td>Free</td><td>30 min</td></tr>
+      <tr><td>YouTube: Simpler Trading</td><td>"TTM Squeeze explained" — same volatility compression principle used in Module 03</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>YouTube: Chat With Traders</td><td>"Volatility trading strategies" podcast — how professional traders think about volatility</td><td>Free</td><td>45 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#1ABC9C;font-size:14px;margin:18px 0 10px">📌 Concept 23 — Post-News ICT Entries (Module 04)</h3>
+    <ul class="il">
+      <li><strong>News spike anatomy:</strong> News → immediate spike → stop-hunt / Judas swing → consolidation → continuation in spike direction. Bot enters in the continuation phase after consolidation.</li>
+      <li><strong>Why 60-minute wait:</strong> First 30–60 minutes after news is chaotic institutional repositioning. After 60 minutes, directional commitment becomes clearer.</li>
+      <li><strong>Important Gold events:</strong> NFP (1st Friday of month 13:30 UTC), CPI (~10th of month 13:30 UTC), FOMC (8 times/year ~18:00 UTC), Fed Chair speeches, Dollar Index major moves.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#1ABC9C;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — POST-NEWS TRADING</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT</td><td>"ICT news trading" and "Judas swing ICT" — the two concepts Module 04 is built on</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>ForexFactory.com</td><td>Economic calendar — bookmark this. Check every morning. Know which days have NFP/FOMC/CPI.</td><td>Free</td><td>10 min/day habit</td></tr>
+      <tr><td>YouTube: Quantitative Trading</td><td>"Trading news events — a quantitative approach"</td><td>Free</td><td>30 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#1ABC9C;font-size:14px;margin:18px 0 10px">📌 Concept 24 — Silver Bullet Windows (ICT Killzones)</h3>
+    <ul class="il">
+      <li><strong>What they are:</strong> Specific 1-hour windows of elevated institutional participation: 10:00–11:00 UTC (mid-London drive) and 14:00–15:00 UTC (NY open drive). Institutional order flow is concentrated here.</li>
+      <li><strong>Bot implementation:</strong> During Silver Bullet windows, ADX threshold relaxes from 28 to 24 — capturing ~22 additional high-quality trades per year that would otherwise be blocked.</li>
+      <li><strong>What to watch manually:</strong> During 10:00–11:00 UTC, London institutions make decisive moves. During 14:00–15:00 UTC, large US bank orders hit the market.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#1ABC9C;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — SILVER BULLET / KILLZONES</div>
+      <table><tr><th>Source</th><th>What to Watch/Read</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: ICT</td><td>"ICT Silver Bullet strategy" — the original tutorial. Free on his YouTube channel. Direct origin of your bot's Silver Bullet windows.</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>YouTube: Cue Banks</td><td>"ICT killzones explained for beginners" — London and NY killzones that align with bot's windows</td><td>Free</td><td>30 min</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 5 Milestone:</strong> I understand the reasoning behind all 4 modules. I can explain WHY the bot waits 60 minutes before post-news entries. I can identify a BB squeeze before it breaks. I know what an ICT killzone is and why the bot relaxes ADX during those windows.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 6 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0a100a);border-left:4px solid #F39C12">
+    <span class="level-badge" style="background:#F39C12;color:#000">STAGE 6</span>
+    <span class="level-title">Algorithmic Trading &amp; Python — Understanding Your Bot's Code</span>
+    <span class="level-time">Month 2–3 · ~30 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">You don't need to be a programmer to run the bot — but understanding the code helps you catch bugs, tune parameters, and make intelligent modifications.</p>
+
+    <h3 style="color:#F39C12;font-size:14px;margin-bottom:10px">📌 Concept 25 — Python Basics for Traders</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>Priority Topics (Learn These First)</h4>
+        <ul class="il">
+          <li><strong>Variables &amp; types:</strong> <code>TRADING_MODE = "NORMAL"</code> is a string. <code>MT5_LOGIN = 12345678</code> is an integer. Knowing types helps you change config values correctly.</li>
+          <li><strong>Functions:</strong> <code>def calculate_lot(sl_dist):</code> — a reusable block. When you see <code>def</code> in bot code, that's a function.</li>
+          <li><strong>If/else logic:</strong> <code>if adx >= 28: return "TREND_BULL"</code> — the entire regime detector is a chain of if/elif statements.</li>
+          <li><strong>Global variables:</strong> <code>global trades_today</code> — shared across functions. Explains the daily reset logic.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Less Priority (but useful)</h4>
+        <ul class="il">
+          <li>Lists and dictionaries (MODE_SETTINGS is a dict)</li>
+          <li>For loops (used in regime stats iteration)</li>
+          <li>Try/except error handling (every MT5 call is wrapped in this)</li>
+          <li>Import statements (all library imports at top of file)</li>
+          <li>Class objects (Pandas DataFrames — <code>df['close']</code> etc.)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#F39C12;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — PYTHON BASICS</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: freeCodeCamp.org</td><td>"Python for Beginners" full course (4 hours). Best free Python intro. Focus on: variables, functions, if/else, loops.</td><td>Free</td><td>4 hrs</td></tr>
+      <tr><td>Python.org official tutorial</td><td>docs.python.org/3/tutorial — chapters 1–5 cover all basics needed for reading bot code</td><td>Free</td><td>3 hrs</td></tr>
+      <tr><td>Book: <em>Python Crash Course</em> — Eric Matthes</td><td>Chapters 1–7 only. Clean, practical, zero fluff. Best beginner Python book.</td><td>~₹800</td><td>5 hrs</td></tr>
+      <tr><td>Replit.com</td><td>Free online Python environment. Copy small sections of bot code and run them. Experiment safely without touching the live bot.</td><td>Free</td><td>Practice</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#F39C12;font-size:14px;margin:18px 0 10px">📌 Concept 26 — Pandas &amp; NumPy for Trading Data</h3>
+    <ul class="il">
+      <li><strong>Pandas DataFrame:</strong> <code>df['close']</code> = column of closing prices. <code>df.iloc[-1]</code> = last row (most recent candle). These two unlock 80% of the indicator code.</li>
+      <li><strong>For trades_log.csv:</strong> <code>pd.read_csv()</code> loads your data. <code>df.groupby('regime')</code> analyses by regime. <code>df['pnl_usd'].sum()</code> = total P&amp;L.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#F39C12;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — PANDAS &amp; NUMPY</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: Keith Galli</td><td>"Complete Pandas Tutorial" — 1.5 hour video specifically on data analysis with Pandas</td><td>Free</td><td>1.5 hrs</td></tr>
+      <tr><td>Kaggle.com</td><td>Free "Pandas" micro-course — 4 hours of hands-on exercises. Most practical pandas learning available.</td><td>Free</td><td>4 hrs</td></tr>
+      <tr><td>YouTube: Quantitative Trading with Python</td><td>"Pandas for trading data" — shows how to analyse trades_log.csv style data specifically</td><td>Free</td><td>45 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#F39C12;font-size:14px;margin:18px 0 10px">📌 Concept 27 — MetaTrader 5 Python API</h3>
+    <ul class="il">
+      <li><strong>mt5.initialize():</strong> Connects Python to the running MT5 app. MT5 must be open first.</li>
+      <li><strong>mt5.copy_rates_from_pos():</strong> Fetches N candles of OHLCV data. This is how your bot gets price data every 15 minutes.</li>
+      <li><strong>mt5.order_send():</strong> Places a live trade. Returns result with retcode — must be <code>TRADE_RETCODE_DONE</code> to confirm success.</li>
+      <li><strong>mt5.positions_get():</strong> Returns all open positions. Bot checks this before opening new ones.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#F39C12;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — MT5 PYTHON API</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>mql5.com/en/docs/integration/python_metatrader5</td><td>Official Python MT5 documentation. Reference for every function the bot uses.</td><td>Free</td><td>Reference</td></tr>
+      <tr><td>YouTube: Algovibes</td><td>"MetaTrader 5 Python tutorial" — connecting Python to MT5, fetching data, placing orders</td><td>Free</td><td>1 hr</td></tr>
+      <tr><td>YouTube: Part Time Larry</td><td>"Algorithmic trading with MetaTrader 5 and Python" — free full series, very practical</td><td>Free</td><td>4 hrs (series)</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#F39C12;font-size:14px;margin:18px 0 10px">📌 Concept 28 — Backtesting: Validating Before Live Trading</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> Testing a strategy on historical price data. Your bot has a full backtest engine in <code>backtest.py</code> using exact live logic.</li>
+      <li><strong>Curve fitting warning:</strong> If you adjust parameters until backtest looks perfect, you've optimised for the past not the future. Always test on OUT-OF-SAMPLE data.</li>
+      <li><strong>Walk-forward validation:</strong> Your bot's <code>train_model.py</code> uses TimeSeriesSplit — always testing on future data relative to training. Prevents data leakage.</li>
+      <li><strong>Key metrics:</strong> Win rate, Profit Factor (&gt;1.5 = good), Max Drawdown (&lt;20% = acceptable), Sharpe Ratio (&gt;1.0 = good), Calmar Ratio (CAGR ÷ Max DD, &gt;1.0 = good).</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#F39C12;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — BACKTESTING</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: QuantInsti</td><td>"How to backtest a trading strategy" — methodology and avoiding curve fitting</td><td>Free</td><td>45 min</td></tr>
+      <tr><td>Book: <em>Advances in Financial Machine Learning</em> — Marcos Lopez de Prado</td><td>Chapter 7 (Cross-Validation in Finance) — explains exactly why standard backtesting lies and how walk-forward fixes it.</td><td>~₹2,000</td><td>2 hrs for Ch.7</td></tr>
+      <tr><td>YouTube: Sentdex</td><td>"Python for Finance" series — free, shows how to build backtests from scratch</td><td>Free</td><td>4 hrs (series)</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 6 Milestone:</strong> I can read through bot_v7.py and explain what every major function does. I can change a config value safely and run the bot. I understand what overfitting means and why walk-forward validation matters for my ML models.</span></li>
+    </ul>
+  </div>
+
+  <!-- STAGE 7 -->
+  <div class="level-header" style="background:linear-gradient(135deg,#0f0f0f,#0d0f1a);border-left:4px solid #8E44AD">
+    <span class="level-badge" style="background:#8E44AD">STAGE 7</span>
+    <span class="level-title">Machine Learning for Trading — Advanced (After 200+ Trades)</span>
+    <span class="level-time">Month 3–4 · ~25 hours total</span>
+  </div>
+  <div class="level-body">
+    <p style="font-size:13px;color:#bbb;margin-bottom:18px;line-height:1.8">This stage becomes relevant only after 200+ completed trades with WIN/LOSS results. Before that the ML system runs in placeholder mode. Don't rush — a poorly trained ML model is worse than no ML at all.</p>
+    <div class="box bw"><span class="bi">⚠️</span><div><strong>Complete Stages 0–6 first.</strong> ML for trading makes no sense without understanding the underlying strategy and what the features in your training data represent.</div></div>
+
+    <h3 style="color:#8E44AD;font-size:14px;margin:14px 0 10px">📌 Concept 29 — Classification vs Price Prediction for Trading</h3>
+    <ul class="il">
+      <li><strong>Your bot uses classification:</strong> Predict WIN (1) or LOSS (0) for each trade setup. Binary. Simpler and more reliable than predicting exact P&amp;L amounts.</li>
+      <li><strong>Why NOT predict price direction:</strong> Many tutorials do <code>target = np.where(close.shift(-5) > close, 1, 0)</code> — this predicts if price goes up in 5 candles. Completely disconnected from whether YOUR specific trade setup wins. Your bot uses actual WIN/LOSS from real trades. This is the correct approach.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8E44AD;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — ML CLASSIFICATION</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>fast.ai</td><td>"Practical Machine Learning for Coders" — Lessons 1–3. Free course, code-first approach to classification.</td><td>Free</td><td>6 hrs</td></tr>
+      <tr><td>Kaggle.com</td><td>"Intro to Machine Learning" micro-course — 3 hours, hands-on, decision trees and random forests</td><td>Free</td><td>3 hrs</td></tr>
+      <tr><td>YouTube: StatQuest with Josh Starmer</td><td>"Random Forests explained" and "XGBoost Part 1" — the clearest explanations of your two main models</td><td>Free</td><td>1 hr total</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#8E44AD;font-size:14px;margin:18px 0 10px">📌 Concept 30 — XGBoost: How Your Strongest Model Works</h3>
+    <ul class="il">
+      <li><strong>What XGBoost is:</strong> Gradient Boosting — builds hundreds of shallow decision trees sequentially, each learning from the mistakes of the previous. Very effective on tabular data like your trade features.</li>
+      <li><strong>Why 40% weight:</strong> XGBoost consistently outperforms Random Forest and Logistic Regression on financial tabular data empirically.</li>
+      <li><strong>Key parameters:</strong> n_estimators=300 (number of trees), max_depth=4 (controls overfitting), learning_rate=0.03 (slower = better generalisation), reg_alpha &amp; reg_lambda (regularisation against overfitting).</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8E44AD;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — XGBOOST</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: StatQuest</td><td>"XGBoost Part 1: Regression Trees" then "XGBoost Part 2: Classification" — the best free explanation anywhere</td><td>Free</td><td>1.5 hrs</td></tr>
+      <tr><td>xgboost.readthedocs.io</td><td>Official documentation — parameter reference for when tuning your model</td><td>Free</td><td>Reference</td></tr>
+      <tr><td>Kaggle.com</td><td>Search "XGBoost binary classification" notebooks — thousands of real examples</td><td>Free</td><td>2 hrs browsing</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#8E44AD;font-size:14px;margin:18px 0 10px">📌 Concept 31 — Feature Engineering: Making Better Training Data</h3>
+    <ul class="il">
+      <li><strong>What it is:</strong> Converting raw trade data into numbers the ML models can learn from. Your bot uses 12 features. Understanding them helps evaluate if models are learning real patterns.</li>
+      <li><strong>Check feature importance:</strong> After training, <code>xgb.feature_importances_</code> gives a score per feature. Low score = model ignores it. High score = model relies on it heavily.</li>
+      <li><strong>Most important features (from trading ML research):</strong> session_enc, regime_enc, atr_used, sl_distance, rsi_at_entry.</li>
+    </ul>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8E44AD;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — FEATURE ENGINEERING</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>Kaggle.com</td><td>"Feature Engineering" micro-course — 5 hours, hands-on</td><td>Free</td><td>5 hrs</td></tr>
+      <tr><td>Book: <em>Advances in Financial Machine Learning</em> — Marcos Lopez de Prado</td><td>Chapter 4 (Financial Labels) and Chapter 5 (Features) — gold-standard for financial ML</td><td>~₹2,000</td><td>3 hrs</td></tr>
+      <tr><td>YouTube: Alejandro Bacilieri</td><td>"Feature engineering for trading signals" — which types of features work in trading ML</td><td>Free</td><td>35 min</td></tr>
+      </table>
+    </div>
+
+    <h3 style="color:#8E44AD;font-size:14px;margin:18px 0 10px">📌 Concept 32 — Preventing Overfitting: 5 Protections in Your Bot</h3>
+    <div class="box bw"><span class="bi">⚠️</span><div>Overfitting is the #1 ML failure mode in trading. A model that memorises historical data but fails on new data is worse than no model — it will confidently approve bad trades and reject good ones.</div></div>
+    <table style="margin:12px 0">
+      <tr><th>#</th><th>Protection</th><th>Where in Bot</th><th>What It Prevents</th></tr>
+      <tr><td>1</td><td>Minimum 200 trades before training</td><td>prepare_data.py check</td><td>Training on too-small sample</td></tr>
+      <tr><td>2</td><td>TimeSeriesSplit (5-fold walk-forward)</td><td>train_model.py</td><td>Data leakage from future data</td></tr>
+      <tr><td>3</td><td>Regularisation (reg_alpha, reg_lambda)</td><td>XGBoost parameters</td><td>Model memorising noise</td></tr>
+      <tr><td>4</td><td>Shallow trees (max_depth=4)</td><td>XGBoost parameters</td><td>Over-complex decision boundaries</td></tr>
+      <tr><td>5</td><td>Ensemble of 3 models</td><td>ml_filter() in bot</td><td>Single-model overfitting bias</td></tr>
+    </table>
+    <div class="card" style="margin:12px 0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8E44AD;letter-spacing:1.5px;margin-bottom:10px">📚 SOURCES — PREVENTING OVERFITTING</div>
+      <table><tr><th>Source</th><th>What to Read/Watch</th><th>Cost</th><th>Time</th></tr>
+      <tr><td>YouTube: StatQuest</td><td>"Bias and Variance" — the clearest explanation of overfitting anywhere. Watch this before any other overfitting content.</td><td>Free</td><td>20 min</td></tr>
+      <tr><td>YouTube: Sentdex</td><td>"Preventing overfitting — regularisation explained" — practical with code</td><td>Free</td><td>25 min</td></tr>
+      <tr><td>scikit-learn.org</td><td>"Cross-validation user guide" — official docs on TimeSeriesSplit. Shows exactly what your bot uses.</td><td>Free</td><td>30 min</td></tr>
+      </table>
+    </div>
+    <ul class="ck">
+      <li><span class="chk" onclick="toggleCheck(this)"></span><span><strong>Stage 7 Milestone:</strong> I have 200+ closed trades. I ran prepare_data.py and opened features.csv. I ran train_model.py and received accuracy scores for all 3 models. I checked XGBoost feature importances and identified the top 3 features. My Telegram logs now show ML ensemble scores instead of "placeholder mode".</span></li>
+    </ul>
+  </div>
+
+  <!-- MASTER RESOURCE LIST -->
+  <div class="divider"></div>
+  <h2 style="color:var(--gold)">📖 Master Resource List — All Sources in One Place</h2>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:18px">Every source referenced across all 7 stages, grouped by type. Bookmark this section and refer back as you progress.</p>
+
+  <h3 style="color:var(--gold);font-size:14px;margin-bottom:10px">📚 Books — Highest ROI Per Hour of Reading</h3>
+  <table>
+    <tr><th>Book</th><th>Author</th><th>Stage</th><th>Why Read It</th><th>Priority</th></tr>
+    <tr><td><em>Trading in the Zone</em></td><td>Mark Douglas</td><td>0</td><td>The definitive book on trading psychology. Explains probabilistic thinking — removes fear/greed from decisions.</td><td><span class="pill pill-gold">MUST READ</span></td></tr>
+    <tr><td><em>Trade Your Way to Financial Freedom</em></td><td>Van Tharp</td><td>0 + 4</td><td>Expectancy, position sizing, system development. Changes how you think about trading forever.</td><td><span class="pill pill-gold">MUST READ</span></td></tr>
+    <tr><td><em>The New Market Wizards</em></td><td>Jack Schwager</td><td>4</td><td>Interviews with top traders — every one emphasises risk management over strategy.</td><td><span class="pill pill-green">HIGH VALUE</span></td></tr>
+    <tr><td><em>Reminiscences of a Stock Operator</em></td><td>Edwin Lefèvre</td><td>0</td><td>Classic fiction based on Jesse Livermore. Every psychological trap traders face is shown with consequences.</td><td><span class="pill pill-green">HIGH VALUE</span></td></tr>
+    <tr><td><em>Technical Analysis of the Financial Markets</em></td><td>John Murphy</td><td>1</td><td>Complete reference. Chapters 4–5 on S/R and chart patterns directly applicable.</td><td><span class="pill pill-blue">REFERENCE</span></td></tr>
+    <tr><td><em>Bollinger on Bollinger Bands</em></td><td>John Bollinger</td><td>2</td><td>The inventor's book. Chapter 8 (The Squeeze) is directly used by your Module 03.</td><td><span class="pill pill-blue">REFERENCE</span></td></tr>
+    <tr><td><em>Python Crash Course</em></td><td>Eric Matthes</td><td>6</td><td>Best beginner Python book. Chapters 1–7 = everything needed to read bot code.</td><td><span class="pill pill-green">HIGH VALUE</span></td></tr>
+    <tr><td><em>Advances in Financial Machine Learning</em></td><td>Marcos Lopez de Prado</td><td>6 + 7</td><td>Gold-standard ML for trading. Chapter 7 (Cross-Validation) explains why your bot uses TimeSeriesSplit.</td><td><span class="pill pill-blue">ADVANCED</span></td></tr>
+  </table>
+
+  <h3 style="color:var(--gold);font-size:14px;margin:22px 0 10px">🎥 YouTube Channels — Subscribe to All of These</h3>
+  <table>
+    <tr><th>Channel</th><th>Best For</th><th>Stage</th><th>Search Name</th></tr>
+    <tr><td>ICT (Inner Circle Trader)</td><td>Liquidity sweeps, MSS, FVG, OTE, Silver Bullet, Order Blocks — the concepts your bot is built on</td><td>3 + 5</td><td>"Inner Circle Trader"</td></tr>
+    <tr><td>Trading with Rayner (Rayner Teo)</td><td>All foundational concepts — clear diagrams, practical examples, beginner to advanced</td><td>1–4</td><td>"Trading with Rayner"</td></tr>
+    <tr><td>StatQuest with Josh Starmer</td><td>Machine learning — XGBoost, Random Forest, bias/variance. Clearest ML explanations anywhere.</td><td>7</td><td>"StatQuest"</td></tr>
+    <tr><td>No Nonsense Forex (VP)</td><td>Trend identification, avoiding indicator overload, multi-timeframe thinking</td><td>1</td><td>"No Nonsense Forex"</td></tr>
+    <tr><td>Part Time Larry</td><td>MetaTrader 5 Python API — algorithmic trading tutorials</td><td>6</td><td>"Part Time Larry"</td></tr>
+    <tr><td>Smart Risk</td><td>Modern SMC concepts, clean explanations, Gold-specific examples</td><td>3</td><td>"Smart Risk"</td></tr>
+    <tr><td>Algovibes</td><td>Python for trading, MT5 API, automated trading setup</td><td>6</td><td>"Algovibes"</td></tr>
+    <tr><td>Adam Khoo</td><td>Trading psychology, why retail traders lose, mindset frameworks</td><td>0</td><td>"Adam Khoo trading"</td></tr>
+    <tr><td>SMB Capital</td><td>Professional trading process, expectancy, position sizing from Wall Street perspective</td><td>0 + 4</td><td>"SMB Capital"</td></tr>
+    <tr><td>Sentdex</td><td>Python for finance, backtesting from scratch, ML for trading</td><td>6 + 7</td><td>"Sentdex"</td></tr>
+  </table>
+
+  <h3 style="color:var(--gold);font-size:14px;margin:22px 0 10px">🌐 Websites — Free Learning Platforms</h3>
+  <table>
+    <tr><th>Website</th><th>Best For</th><th>Stage</th><th>URL</th></tr>
+    <tr><td>Babypips.com</td><td>Complete free forex/trading school — the best beginner resource in existence</td><td>0–4</td><td>babypips.com/learn</td></tr>
+    <tr><td>Investopedia.com</td><td>Definition and explanation of every trading term — your trading dictionary</td><td>All</td><td>investopedia.com</td></tr>
+    <tr><td>TradingView.com</td><td>Free charting for practice. Better than MT5 for learning chart patterns.</td><td>1–5</td><td>tradingview.com → search XAUUSD</td></tr>
+    <tr><td>ForexFactory.com</td><td>Economic calendar — know before every high-impact event that affects Gold</td><td>4 + 5</td><td>forexfactory.com/calendar</td></tr>
+    <tr><td>mql5.com/en/docs/integration/python_metatrader5</td><td>Official MetaTrader 5 Python API documentation</td><td>6</td><td>mql5.com</td></tr>
+    <tr><td>Kaggle.com</td><td>Free ML courses, datasets, and notebooks for learning Python ML</td><td>6 + 7</td><td>kaggle.com/learn</td></tr>
+    <tr><td>fast.ai</td><td>Free practical ML course — best free ML education for coders</td><td>7</td><td>course.fast.ai</td></tr>
+    <tr><td>vantharp.com</td><td>Van Tharp Institute — free articles on expectancy and position sizing</td><td>0 + 4</td><td>vantharp.com</td></tr>
+    <tr><td>scikit-learn.org</td><td>Official docs for Random Forest and Logistic Regression models in your bot</td><td>7</td><td>scikit-learn.org/stable</td></tr>
+  </table>
+
+  <h3 style="color:var(--gold);font-size:14px;margin:22px 0 10px">📱 Tools to Use Daily</h3>
+  <table>
+    <tr><th>Tool</th><th>What to Do With It</th><th>Cost</th></tr>
+    <tr><td>MetaTrader 5 (desktop)</td><td>Run your bot. Watch price action. Check open trades and trade history. Use charts for candle pattern practice.</td><td>Free</td></tr>
+    <tr><td>TradingView (browser)</td><td>Better charting than MT5. Add all 5 indicators. Mark sweep→MSS→FVG setups daily. Build pattern recognition.</td><td>Free (basic)</td></tr>
+    <tr><td>ForexFactory.com (bookmark)</td><td>Check the economic calendar every morning before the bot runs. Know which days have NFP/FOMC/CPI events.</td><td>Free</td></tr>
+    <tr><td>Jupyter Notebook / VS Code</td><td>Run prepare_data.py and train_model.py. Inspect features.csv. Check model accuracy and feature importances.</td><td>Free</td></tr>
+    <tr><td>Google Sheets / Excel</td><td>Open trades_log.csv weekly. Calculate win rate by session, P&amp;L by regime, average slippage per module.</td><td>Free</td></tr>
+    <tr><td>Trading Journal (Notion/Obsidian)</td><td>After every bot trade closes, write 2 sentences: was the setup valid? What happened? Review weekly.</td><td>Free</td></tr>
+  </table>
+
+  <!-- COMPLETE CHECKLIST -->
+  <div class="divider"></div>
+  <h2 style="color:var(--gold)">✅ Complete Learning Checklist — All 32 Concepts</h2>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:18px">Tick each concept once you can explain it to someone else without notes. Not just "watched a video" — genuinely understood.</p>
+  <div class="grid2">
+    <div>
+      <h4 style="margin-bottom:12px;color:var(--gold)">Stage 0–3: Foundations + SMC</h4>
+      <ul class="ck">
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 1 — Trading = probabilistic edge management</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 2 — 5 reasons most retail traders lose</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 3 — Expectancy formula and how to calculate it</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 4 — Candles: OHLC, green/red, body vs wick</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 5 — Trends: Higher Highs / Higher Lows / Ranges</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 6 — Support and Resistance as zones</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 7 — Multi-timeframe analysis (4H + 1H + 15M)</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 8 — EMA50 and EMA200 crossovers and slope</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 9 — ADX measures STRENGTH not direction</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 10 — RSI: momentum and divergence</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 11 — ATR: volatility measure for SL sizing</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 12 — Bollinger Bands and BB Squeeze</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 13 — Liquidity sweeps and why banks do them</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 14 — Market Structure Shift (MSS)</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 15 — Fair Value Gap (FVG) 3-candle pattern</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 16 — Order Blocks: last opposing candle before move</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 17 — Fibonacci OTE at 61.8% retracement</span></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="margin-bottom:12px;color:var(--gold)">Stage 4–7: Risk + Advanced + ML</h4>
+      <ul class="ck">
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 18 — Fixed fractional position sizing</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 19 — Max drawdown and the recovery math</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 20 — All 7 bot risk controls and why each exists</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 21 — Range trading: real vs fake ranges</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 22 — Volatility cycles and BB squeeze breakouts</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 23 — Post-news ICT entries and the 60-min wait</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 24 — Silver Bullet / ICT killzones</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 25 — Python basics for reading bot code</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 26 — Pandas for analysing trades_log.csv</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 27 — MetaTrader 5 Python API main functions</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 28 — Backtesting, walk-forward, curve fitting</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 29 — ML classification vs price prediction</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 30 — XGBoost: gradient boosting explained</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 31 — Feature engineering for ML models</span></li>
+        <li><span class="chk" onclick="toggleCheck(this)"></span><span>Concept 32 — 5 overfitting protections built into the bot</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box bo" style="margin-top:24px"><span class="bi">✅</span><div><strong>Final milestone — you are now a co-pilot, not a passenger:</strong> All 32 concepts checked. All 7 stage milestones completed. You can read your bot's goldbot.log and understand every decision. You can modify parameters safely. You can evaluate performance against backtest benchmarks. You know exactly when and why to intervene manually. <em>The bot handles execution — you handle strategy understanding and oversight.</em></div></div>
+
+</div>
+</div>
+
+
 <div class="footer">
   <div>Gold Bot v7 — Beginner's Complete Education Guide</div>
   <div style="display:flex;gap:20px">
@@ -1761,7 +2531,7 @@ function show(id) {
   const tabs = document.querySelectorAll('.tab');
   const tabMap = {
     't1': 0, 't2': 1, 't3': 2, 't4': 3,
-    't5': 4, 't6': 5, 't7': 6, 't8': 7
+    't5': 4, 't6': 5, 't7': 6, 't8': 7, 't9': 8
   };
   if (tabMap[id] !== undefined) {
     tabs[tabMap[id]].classList.add('active');
